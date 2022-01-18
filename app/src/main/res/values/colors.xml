@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="backgroundColor">#ffd149</color>
+    <color name="statusBarColor">#c8a008</color>
 </resources>

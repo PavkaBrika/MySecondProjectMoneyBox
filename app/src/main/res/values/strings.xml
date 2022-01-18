@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MySecondProjectMoneyBox</string>
+    <string name="saving">I`m saving money for:</string>
+    <string name="itemHint">Enter here</string>
+    <string name="amountHint">Enter amount</string>
+    <string name="toastAdd">You must enter the amount!</string>
 </resources>
