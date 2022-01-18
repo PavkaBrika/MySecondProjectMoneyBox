@@ -2,7 +2,10 @@ package com.example.mysecondprojectmoneybox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -39,12 +42,13 @@ public class MainActivity extends AppCompatActivity {
         moneyQuantity.setText(Float.toString(money));
 
         Button addButton = (Button) findViewById(R.id.buttonPlus);
+        Button settingsButton = (Button) findViewById(R.id.buttonSettings);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (moneyAddition.getText().toString().length() != 0) {
-                    money += Float.parseFloat(moneyAddition.getText().toString()); //TODO: добавить запоминание информации
+                    money += Float.parseFloat(moneyAddition.getText().toString());
                     moneyQuantity.setText(Float.toString(money)); //TODO: добавить выскавиващее окошко ввода при нажатии на кнопку добавить или убавить вместо поля ввода
                 } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();  //TODO: добавить музыку после добавления денег
             }
@@ -82,7 +86,38 @@ public class MainActivity extends AppCompatActivity {
                 itemDesire.setText(item);
             }
         });
+
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setMessage("Choose the action you want to take ")
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (moneyAddition.getText().toString().length() != 0) {
+                                    money += Float.parseFloat(moneyAddition.getText().toString());
+                                    moneyQuantity.setText(Float.toString(money));
+                                } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+
     }
+
+
+
+
+
+
 
     protected void onPause() {
         super.onPause();

@@ -60,7 +60,6 @@
         app:layout_constraintVertical_bias="0.02" />
 
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="228dp"
@@ -74,8 +73,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="265dp"
-        android:layout_height="243dp"
+        android:layout_width="283dp"
+        android:layout_height="261dp"
         android:layout_marginStart="84dp"
         android:layout_marginBottom="156dp"
         android:src="@drawable/jarcharacter"
@@ -95,10 +94,19 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/buttonColor"
+            android:text="setgs"/>
+
+        <Button
             android:id="@+id/buttonReset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/buttonColor"
             android:text="Reset" />
 
         <Button
@@ -106,6 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/buttonColor"
             android:text="minus" />
 
         <Button
@@ -113,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/buttonColor"
             android:text="Add" />
 
 
