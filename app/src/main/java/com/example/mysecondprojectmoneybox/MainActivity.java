@@ -87,29 +87,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                builder.setMessage("Choose the action you want to take ")
-                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (moneyAddition.getText().toString().length() != 0) {
-                                    money += Float.parseFloat(moneyAddition.getText().toString());
-                                    moneyQuantity.setText(Float.toString(money));
-                                } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                AlertDialog alert = builder.create();
-                alert.show();
             }
         });
-
 
     }
 
