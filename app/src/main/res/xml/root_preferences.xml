@@ -1,12 +1,18 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <ListPreference
-            app:defaultValue="@string/griff"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="character"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+        <PreferenceCategory app:title="@string/lookSettings">
+
+                <ListPreference
+                    app:defaultValue="@string/griff"
+                    app:entries="@array/reply_entries"
+                    app:entryValues="@array/reply_values"
+                    app:key="character"
+                    app:title="@string/reply_title"
+                    app:useSimpleSummaryProvider="true" />
+
+        </PreferenceCategory>
+
+
 
 
 </PreferenceScreen>

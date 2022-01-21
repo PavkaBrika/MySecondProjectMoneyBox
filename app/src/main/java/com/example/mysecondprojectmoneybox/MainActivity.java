@@ -1,6 +1,7 @@
 package com.example.mysecondprojectmoneybox;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -72,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         resButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 money = 0;
                 item = "";
 
@@ -93,16 +99,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
-
             }
         });
 
     }
-
-
-
-
-
 
 
     protected void onPause() {
@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+
     protected void onResume() {
         super.onResume();
 
@@ -129,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
             itemDesire = (EditText) findViewById(R.id.item);
             itemDesire.setText(item);
         }
+
+
 
     }
 }

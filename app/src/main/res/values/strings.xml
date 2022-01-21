@@ -5,9 +5,10 @@
     <string name="amountHint">Enter amount</string>
     <string name="toastAdd">You must enter the amount!</string>
     <string name="dialogAlertCashAccount">Choose the action you want to take:</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="reply_title">Character</string>
     <string name="griff">Griff</string>
     <string name="mrcrabs">Mister krabs</string>
+    <string name="lookSettings">Appearance settings</string>
 
 </resources>
