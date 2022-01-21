@@ -8,35 +8,54 @@
     tools:context=".MainActivity">
 
 
+    <ImageView
+        android:id="@+id/buttonReset"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_baseline_refresh_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/buttonSettings"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_baseline_settings_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_margin="8dp"
         android:text="@string/saving"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSettings"
+        app:layout_constraintStart_toEndOf="@+id/buttonReset"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:hint="@string/itemHint"
         android:background="@null"
+        android:hint="@string/itemHint"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/money"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSettings"
+        app:layout_constraintStart_toEndOf="@+id/buttonReset"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.322" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <TextView
         android:id="@+id/money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="money"
+        android:text="0"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
@@ -46,20 +65,6 @@
         app:layout_constraintVertical_bias="0.956" />
 
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="206dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="24dp"
-        android:hint="@string/amountHint"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.448" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="228dp"
@@ -67,68 +72,84 @@
         android:src="@drawable/moneyjar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.743" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="283dp"
-        android:layout_height="261dp"
+        android:layout_width="216dp"
+        android:layout_height="203dp"
         android:layout_marginStart="84dp"
-        android:layout_marginBottom="156dp"
-        android:src="@drawable/jarcharacter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="152dp"
+        android:src="@drawable/griff"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.939" />
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/buttonSettings"
+        <EditText
+            android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/buttonColor"
-            android:text="setgs"/>
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="10"
+            android:hint="@string/amountHint"
+            android:inputType="numberDecimal" />
 
-        <Button
-            android:id="@+id/buttonReset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/buttonColor"
-            android:text="Reset" />
-
-        <Button
+        <ImageView
             android:id="@+id/buttonMinus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/buttonColor"
+            android:src="@drawable/ic_baseline_remove_circle_24"
             android:text="minus" />
 
-        <Button
+        <ImageView
             android:id="@+id/buttonPlus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/buttonColor"
-            android:text="Add" />
-
-
+            android:src="@drawable/ic_baseline_add_circle_24" />
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/cost"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonReset" />
+
+    <EditText
+        android:id="@+id/costTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@null"
+        android:hint="@string/itemHint"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

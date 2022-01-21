@@ -11,15 +11,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences AppSettings;
 
     float money;
+    int moneyInt;
     String item;
+
+    NumberFormat nf = new DecimalFormat("#.##");
 
     TextView moneyQuantity;
     EditText itemDesire;
@@ -41,20 +48,23 @@ public class MainActivity extends AppCompatActivity {
 
         moneyQuantity.setText(Float.toString(money));
 
-        Button addButton = (Button) findViewById(R.id.buttonPlus);
-        Button settingsButton = (Button) findViewById(R.id.buttonSettings);
+        ImageView addButton = (ImageView) findViewById(R.id.buttonPlus);
+
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (moneyAddition.getText().toString().length() != 0) {
                     money += Float.parseFloat(moneyAddition.getText().toString());
-                    moneyQuantity.setText(Float.toString(money)); //TODO: добавить выскавиващее окошко ввода при нажатии на кнопку добавить или убавить вместо поля ввода
+                    if (money % 1 == 0)
+                        moneyQuantity.setText(Float.toString(Math.round(money)));
+                    else
+                        moneyQuantity.setText(Float.toString(money)); //TODO: добавить выскавиващее окошко ввода при нажатии на кнопку добавить или убавить вместо поля ввода
                 } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();  //TODO: добавить музыку после добавления денег
             }
         });
 
-        Button subButton = (Button) findViewById(R.id.buttonMinus);
+        ImageView subButton = (ImageView) findViewById(R.id.buttonMinus);
         subButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button resButton = (Button) findViewById(R.id.buttonReset);
+        ImageView resButton = (ImageView) findViewById(R.id.buttonReset);
         resButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
