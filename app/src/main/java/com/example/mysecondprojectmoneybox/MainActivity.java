@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     TextView moneyQuantity;
     EditText itemDesire;
     EditText addItemCost;
+    TextView leftToSaving;
 
     public static final String APP_PREFERENCES = "settings";
     public static final String APP_PREFERENCES_ITEM = "item";
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         moneyQuantity = (TextView) findViewById(R.id.money);
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         moneyQuantity.setText(Float.toString(money));
         addItemCost.setText(Float.toString(cost));
-
 
         ImageView addButton = (ImageView) findViewById(R.id.buttonPlus);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +105,10 @@ public class MainActivity extends AppCompatActivity {
                 itemDesire.setText(item);
 
                 addItemCost = (EditText) findViewById(R.id.costEditText);
-                addItemCost.setText("");
+                addItemCost.setText(R.string.itemHint);
+
+                leftToSaving = (TextView) findViewById(R.id.leftTextView);
+                leftToSaving.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -115,6 +119,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+//        addItemCost.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if (isNumeric(charSequence) == true) {
+//
+//                }
+//                cost = Float.parseFloat(addItemCost.getText().toString());
+//                calcLeftSum();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+////                if(!editable.equals("") ) {
+////
+////                }
+//
+//            }
+//        });
 
     }
 
@@ -163,7 +192,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void calcLeftSum() {
         left = cost - money;
-        TextView leftToSaving = (TextView) findViewById(R.id.leftTextView);
-        leftToSaving.setText(Float.toString(left) + " Left");
+        leftToSaving = (TextView) findViewById(R.id.leftTextView);
+        if (left > 0) {
+            leftToSaving.setText(Float.toString(left) + " Left");
+            leftToSaving.setVisibility(View.VISIBLE);
+        }
+        else if (left < 0) {
+            leftToSaving.setText(R.string.congratulations);
+            leftToSaving.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

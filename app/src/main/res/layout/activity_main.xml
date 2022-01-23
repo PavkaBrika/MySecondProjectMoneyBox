@@ -145,15 +145,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="96dp"
         android:background="@null"
         android:hint="@string/itemHint"
-        android:textSize="30sp"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="@+id/leftTextView"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2" />
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/leftTextView"
@@ -162,6 +162,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Left"
+        android:visibility="invisible"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
