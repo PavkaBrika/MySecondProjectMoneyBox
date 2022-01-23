@@ -23,34 +23,37 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences AppSettings;
 
     float money;
-    int moneyInt;
+    float cost;
     String item;
-
-    NumberFormat nf = new DecimalFormat("#.##");
+    float left;
 
     TextView moneyQuantity;
     EditText itemDesire;
+    EditText addItemCost;
 
     public static final String APP_PREFERENCES = "settings";
     public static final String APP_PREFERENCES_ITEM = "item";
     public static final String APP_PREFERENCES_MONEY = "money";
+    public static final String APP_PREFERENCES_COST = "cost";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         moneyQuantity = (TextView) findViewById(R.id.money);
 
         EditText moneyAddition = (EditText) findViewById(R.id.editText);
+        addItemCost = (EditText) findViewById(R.id.costEditText);
 
         moneyQuantity.setText(Float.toString(money));
+        addItemCost.setText(Float.toString(cost));
+
 
         ImageView addButton = (ImageView) findViewById(R.id.buttonPlus);
-
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     else
                         moneyQuantity.setText(Float.toString(money)); //TODO: добавить выскавиващее окошко ввода при нажатии на кнопку добавить или убавить вместо поля ввода
                 } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();  //TODO: добавить музыку после добавления денег
+                calcLeftSum();
             }
         });
 
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                             money = 0;
                         moneyQuantity.setText(Float.toString(money));
                     } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();
+                    calcLeftSum();
             }
         });
 
@@ -82,11 +87,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 money = 0;
+                cost = 0;
                 item = "";
+                calcLeftSum();
 
                 SharedPreferences.Editor editor = AppSettings.edit();
                 editor.putFloat(APP_PREFERENCES_MONEY, money);
                 editor.putString(APP_PREFERENCES_ITEM, item);
+                editor.putFloat(APP_PREFERENCES_COST, cost);
                 editor.apply();
 
                 moneyQuantity = (TextView) findViewById(R.id.money);
@@ -94,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
 
                 itemDesire = (EditText) findViewById(R.id.item);
                 itemDesire.setText(item);
+
+                addItemCost = (EditText) findViewById(R.id.costEditText);
+                addItemCost.setText("");
             }
         });
 
@@ -116,19 +127,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        itemDesire = findViewById(R.id.item);
+        itemDesire = (EditText) findViewById(R.id.item);
         item = itemDesire.getText().toString();
+
+        addItemCost = (EditText) findViewById(R.id.costEditText);
+        cost = Float.parseFloat(addItemCost.getText().toString());
 
         SharedPreferences.Editor editor = AppSettings.edit();
         editor.putFloat(APP_PREFERENCES_MONEY, money);
         editor.putString(APP_PREFERENCES_ITEM, item);
+        editor.putFloat(APP_PREFERENCES_COST, cost);
         editor.apply();
     }
 
     protected void onResume() {
         super.onResume();
 
-        if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM))) {
+        if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM)) && (AppSettings.contains(APP_PREFERENCES_COST))) {
             money = AppSettings.getFloat(APP_PREFERENCES_MONEY, 0);
             moneyQuantity = (TextView) findViewById(R.id.money);
             moneyQuantity.setText(Float.toString(money));
@@ -136,7 +151,19 @@ public class MainActivity extends AppCompatActivity {
             item = AppSettings.getString(APP_PREFERENCES_ITEM, "");
             itemDesire = (EditText) findViewById(R.id.item);
             itemDesire.setText(item);
+
+            cost = AppSettings.getFloat(APP_PREFERENCES_COST, 0);
+            addItemCost = (EditText) findViewById(R.id.costEditText);
+            addItemCost.setText(Float.toString(cost));
+
+            calcLeftSum();
         }
 
+    }
+
+    private void calcLeftSum() {
+        left = cost - money;
+        TextView leftToSaving = (TextView) findViewById(R.id.leftTextView);
+        leftToSaving.setText(Float.toString(left) + " Left");
     }
 }

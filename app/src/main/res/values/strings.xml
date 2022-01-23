@@ -6,4 +6,5 @@
     <string name="toastAdd">You must enter the amount!</string>
     <string name="dialogAlertCashAccount">Choose the action you want to take:</string>
     <string name="cost">It costs:</string>
+    <string name="left"> Left</string>
 </resources>
