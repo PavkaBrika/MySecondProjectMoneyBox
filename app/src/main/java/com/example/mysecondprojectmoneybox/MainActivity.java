@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         addItemCost = (EditText) findViewById(R.id.costEditText);
 
         moneyQuantity.setText(Float.toString(money));
-        addItemCost.setText(Float.toString(cost));
+        addItemCost.setText("");
 
         ImageView addButton = (ImageView) findViewById(R.id.buttonPlus);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 itemDesire.setText(item);
 
                 addItemCost = (EditText) findViewById(R.id.costEditText);
-                addItemCost.setText(R.string.itemHint);
+                addItemCost.setText("");
 
                 leftToSaving = (TextView) findViewById(R.id.leftTextView);
                 leftToSaving.setVisibility(View.INVISIBLE);
@@ -121,29 +121,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-//        addItemCost.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (isNumeric(charSequence) == true) {
-//
-//                }
-//                cost = Float.parseFloat(addItemCost.getText().toString());
-//                calcLeftSum();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-////                if(!editable.equals("") ) {
-////
-////                }
-//
-//            }
-//        });
+        addItemCost.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.equals("")) {
+                    cost = Float.parseFloat(addItemCost.getText().toString());
+                    calcLeftSum();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
@@ -183,7 +180,10 @@ public class MainActivity extends AppCompatActivity {
 
             cost = AppSettings.getFloat(APP_PREFERENCES_COST, 0);
             addItemCost = (EditText) findViewById(R.id.costEditText);
-            addItemCost.setText(Float.toString(cost));
+            if (cost != 0) {
+                addItemCost.setText(Float.toString(cost));
+            }
+            else addItemCost.setText("");
 
             calcLeftSum();
         }
@@ -200,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
         else if (left < 0) {
             leftToSaving.setText(R.string.congratulations);
             leftToSaving.setVisibility(View.VISIBLE);
-
         }
     }
 
