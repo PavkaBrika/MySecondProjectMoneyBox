@@ -8,4 +8,8 @@
     <string name="cost">It costs:</string>
     <string name="left"> Left</string>
     <string name="congratulations">Congratulations! You have reached your goal! </string>
+    <string name="alertDialogTitle">Reset</string>
+    <string name="alertDialogMessage">Reset your MoneyBox?</string>
+    <string name="alertDialogPositiveButton">Yes</string>
+    <string name="alertDialogNegativeButton">No</string>
 </resources>

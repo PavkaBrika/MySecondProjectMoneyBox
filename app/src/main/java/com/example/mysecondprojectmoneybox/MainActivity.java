@@ -87,28 +87,39 @@ public class MainActivity extends AppCompatActivity {
         resButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                money = 0;
-                cost = 0;
-                item = "";
-                calcLeftSum();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.alertDialogTitle);
+                builder.setMessage(R.string.alertDialogMessage);
+                builder.setPositiveButton(R.string.alertDialogPositiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        money = 0;
+                        cost = 0;
+                        item = "";
+                        calcLeftSum();
 
-                SharedPreferences.Editor editor = AppSettings.edit();
-                editor.putFloat(APP_PREFERENCES_MONEY, money);
-                editor.putString(APP_PREFERENCES_ITEM, item);
-                editor.putFloat(APP_PREFERENCES_COST, cost);
-                editor.apply();
+                        SharedPreferences.Editor editor = AppSettings.edit();
+                        editor.putFloat(APP_PREFERENCES_MONEY, money);
+                        editor.putString(APP_PREFERENCES_ITEM, item);
+                        editor.putFloat(APP_PREFERENCES_COST, cost);
+                        editor.apply();
 
-                moneyQuantity = (TextView) findViewById(R.id.money);
-                moneyQuantity.setText(Float.toString(money));
+                        moneyQuantity = (TextView) findViewById(R.id.money);
+                        moneyQuantity.setText(Float.toString(money));
 
-                itemDesire = (EditText) findViewById(R.id.item);
-                itemDesire.setText(item);
+                        itemDesire = (EditText) findViewById(R.id.item);
+                        itemDesire.setText(item);
 
-                addItemCost = (EditText) findViewById(R.id.costEditText);
-                addItemCost.setText("");
+                        addItemCost = (EditText) findViewById(R.id.costEditText);
+                        addItemCost.setText("");
 
-                leftToSaving = (TextView) findViewById(R.id.leftTextView);
-                leftToSaving.setVisibility(View.INVISIBLE);
+                        leftToSaving = (TextView) findViewById(R.id.leftTextView);
+                        leftToSaving.setVisibility(View.INVISIBLE);
+                        dialogInterface.cancel();
+                    }
+                });
+                builder.setNegativeButton(R.string.alertDialogNegativeButton, null);
+                builder.show();
             }
         });
 
@@ -121,26 +132,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        addItemCost.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.equals("")) {
-                    cost = Float.parseFloat(addItemCost.getText().toString());
-                    calcLeftSum();
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+//        addItemCost.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if(!charSequence.equals("")) {
+//                    cost = Float.parseFloat(addItemCost.getText().toString());
+//                    calcLeftSum();
+//                    if (cost == 0) {
+//                        addItemCost.setText("");
+//                    }
+//                }
+//                else {
+//                    cost = 0;
+//                    addItemCost.setText("");
+//                }
+//                calcLeftSum();
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
 
     }
 
