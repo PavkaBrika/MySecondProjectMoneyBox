@@ -1,11 +1,17 @@
 package com.example.mysecondprojectmoneybox;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -38,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_ITEM = "item";
     public static final String APP_PREFERENCES_MONEY = "money";
     public static final String APP_PREFERENCES_COST = "cost";
+
+    public static final String ITEM_KEY = "ITEM";
+    public static final String COST_KEY = "COST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +137,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                itemDesire = (EditText) findViewById(R.id.item);
+                addItemCost = (EditText) findViewById(R.id.costEditText);
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent intent = result.getData();
+                    item = intent.getStringExtra(ITEM_KEY);
+//                    cost = intent.getFloatExtra(COST_KEY);
+                    itemDesire.setText(item);
+//                    addItemCost.setText(Float.toString(cost));
+                }
+                else {
+                    itemDesire.setText("Error");
+//                    addItemCost.setText("Error");
+                }
+            }
+        });
+
+
+        ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
+        moneyJar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class);
+
+                startForResult.launch(intent);
             }
         });
 
