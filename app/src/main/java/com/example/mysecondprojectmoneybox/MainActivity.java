@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_MONEY = "money";
     public static final String APP_PREFERENCES_COST = "cost";
 
-    public static final String AGE_KEY = "AGE";
-    public static final String ACCESS_MESSAGE = "ACCESS_MESSAGE";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,25 +130,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
             }
         });
+
 
         ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-                leftToSaving = (TextView) findViewById(R.id.leftTextView);
-                if (result.getResultCode() == RESULT_OK) {
+                itemDesire = (TextView) findViewById(R.id.item);
+                addItemCost = (TextView) findViewById(R.id.costEditText);
+                if(result.getResultCode() == RESULT_OK){
                     Intent intent = result.getData();
-                    String accessmessage = intent.getStringExtra(ACCESS_MESSAGE);
-                    leftToSaving.setText(accessmessage);
+                    item = intent.getStringExtra(APP_PREFERENCES_ITEM);
+                    cost = intent.getFloatExtra(APP_PREFERENCES_COST, 0);
+                    SharedPreferences.Editor editor = AppSettings.edit();
+                    editor.putString(APP_PREFERENCES_ITEM, item);
+                    editor.putFloat(APP_PREFERENCES_COST, cost);
+                    editor.apply();
+                    itemDesire.setText(item);
+                    addItemCost.setText(Float.toString(cost));
                 }
-                else {
-                    leftToSaving.setText("Error");
+                else{
+                    itemDesire.setText("Error");
+                    addItemCost.setText("Error");
                 }
             }
         });
@@ -161,45 +169,20 @@ public class MainActivity extends AppCompatActivity {
         moneyJar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemDesire = (TextView) findViewById(R.id.item);
-                String age = itemDesire.getText().toString();
-
-                Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class);
-                intent.putExtra(AGE_KEY, age);
-
-                startForResult.launch(intent);
+                if ((item.equals("")) && (cost == 0)) {
+                    Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class);
+                    startForResult.launch(intent);
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(R.string.alertDialogTitleNewGoal);
+                    builder.setMessage(R.string.alertDialogMessageNewGoal);
+                    builder.setPositiveButton("Ok", null);
+                    builder.show();
+                }
             }
         });
 
-
-//        addItemCost.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if(!charSequence.equals("")) {
-//                    cost = Float.parseFloat(addItemCost.getText().toString());
-//                    calcLeftSum();
-//                    if (cost == 0) {
-//                        addItemCost.setText("");
-//                    }
-//                }
-//                else {
-//                    cost = 0;
-//                    addItemCost.setText("");
-//                }
-//                calcLeftSum();
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
 
     }
 

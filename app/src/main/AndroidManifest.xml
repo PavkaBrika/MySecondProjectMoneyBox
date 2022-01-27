@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name=".AddNewGoalActivity"
-            android:label="AddNewGoal" />
+            android:label="Add new goal"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
     </application>
 
 </manifest>

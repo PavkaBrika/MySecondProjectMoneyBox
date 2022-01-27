@@ -1,15 +1,17 @@
 <resources>
     <string name="app_name">MySecondProjectMoneyBox</string>
     <string name="saving">I`m saving money for:</string>
-    <string name="itemHint">Enter here</string>
-    <string name="amountHint">Enter amount</string>
+    <string name="itemHint">Enter your target here</string>
+    <string name="amountHint">Enter cost of your target here</string>
     <string name="toastAdd">You must enter the amount!</string>
     <string name="dialogAlertCashAccount">Choose the action you want to take:</string>
     <string name="cost">It costs:</string>
     <string name="left"> Left</string>
-    <string name="congratulations">Congratulations! You have reached your goal! </string>
+    <string name="congratulations">Congratulations! You have reached your target! </string>
     <string name="alertDialogTitle">Reset</string>
     <string name="alertDialogMessage">Reset your MoneyBox?</string>
     <string name="alertDialogPositiveButton">Yes</string>
     <string name="alertDialogNegativeButton">No</string>
+    <string name="alertDialogTitleNewGoal">Create new target</string>
+    <string name="alertDialogMessageNewGoal">Finish or reset the previous target first </string>
 </resources>
