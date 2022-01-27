@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_MONEY = "money";
     public static final String APP_PREFERENCES_COST = "cost";
 
-    public static final String ITEM_KEY = "ITEM";
-    public static final String COST_KEY = "COST";
+    public static final String AGE_KEY = "AGE";
+    public static final String ACCESS_MESSAGE = "ACCESS_MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,18 +143,14 @@ public class MainActivity extends AppCompatActivity {
         ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-                itemDesire = (EditText) findViewById(R.id.item);
-                addItemCost = (EditText) findViewById(R.id.costEditText);
-                if (result.getResultCode() == Activity.RESULT_OK) {
+                leftToSaving = (TextView) findViewById(R.id.leftTextView);
+                if (result.getResultCode() == RESULT_OK) {
                     Intent intent = result.getData();
-                    item = intent.getStringExtra(ITEM_KEY);
-//                    cost = intent.getFloatExtra(COST_KEY);
-                    itemDesire.setText(item);
-//                    addItemCost.setText(Float.toString(cost));
+                    String accessmessage = intent.getStringExtra(ACCESS_MESSAGE);
+                    leftToSaving.setText(accessmessage);
                 }
                 else {
-                    itemDesire.setText("Error");
-//                    addItemCost.setText("Error");
+                    leftToSaving.setText("Error");
                 }
             }
         });
@@ -164,7 +160,11 @@ public class MainActivity extends AppCompatActivity {
         moneyJar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                itemDesire = (EditText) findViewById(R.id.item);
+                String age = itemDesire.getText().toString();
+
                 Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class);
+                intent.putExtra(AGE_KEY, age);
 
                 startForResult.launch(intent);
             }
