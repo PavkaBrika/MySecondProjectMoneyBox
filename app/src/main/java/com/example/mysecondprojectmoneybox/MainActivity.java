@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     float left;
 
     TextView moneyQuantity;
-    EditText itemDesire;
-    EditText addItemCost;
+    TextView itemDesire;
+    TextView addItemCost;
     TextView leftToSaving;
 
     public static final String APP_PREFERENCES = "settings";
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         moneyQuantity = (TextView) findViewById(R.id.money);
 
         EditText moneyAddition = (EditText) findViewById(R.id.editText);
-        addItemCost = (EditText) findViewById(R.id.costEditText);
+        addItemCost = (TextView) findViewById(R.id.costEditText);
 
         moneyQuantity.setText(Float.toString(money));
         addItemCost.setText("");
@@ -111,15 +111,16 @@ public class MainActivity extends AppCompatActivity {
                         editor.putFloat(APP_PREFERENCES_MONEY, money);
                         editor.putString(APP_PREFERENCES_ITEM, item);
                         editor.putFloat(APP_PREFERENCES_COST, cost);
+                        editor.commit();
                         editor.apply();
 
                         moneyQuantity = (TextView) findViewById(R.id.money);
                         moneyQuantity.setText(Float.toString(money));
 
-                        itemDesire = (EditText) findViewById(R.id.item);
+                        itemDesire = (TextView) findViewById(R.id.item);
                         itemDesire.setText(item);
 
-                        addItemCost = (EditText) findViewById(R.id.costEditText);
+                        addItemCost = (TextView) findViewById(R.id.costEditText);
                         addItemCost.setText("");
 
                         leftToSaving = (TextView) findViewById(R.id.leftTextView);
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         moneyJar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemDesire = (EditText) findViewById(R.id.item);
+                itemDesire = (TextView) findViewById(R.id.item);
                 String age = itemDesire.getText().toString();
 
                 Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class);
@@ -211,11 +212,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        itemDesire = (EditText) findViewById(R.id.item);
+        itemDesire = (TextView) findViewById(R.id.item);
         item = itemDesire.getText().toString();
 
-        addItemCost = (EditText) findViewById(R.id.costEditText);
-        cost = Float.parseFloat(addItemCost.getText().toString());
+        addItemCost = (TextView) findViewById(R.id.costEditText);
+        if (addItemCost.getText().toString().equals(""))
+            cost = 0;
+        else
+            cost = Float.parseFloat(addItemCost.getText().toString());
 
         SharedPreferences.Editor editor = AppSettings.edit();
         editor.putFloat(APP_PREFERENCES_MONEY, money);
@@ -233,11 +237,11 @@ public class MainActivity extends AppCompatActivity {
             moneyQuantity.setText(Float.toString(money));
 
             item = AppSettings.getString(APP_PREFERENCES_ITEM, "");
-            itemDesire = (EditText) findViewById(R.id.item);
+            itemDesire = (TextView) findViewById(R.id.item);
             itemDesire.setText(item);
 
             cost = AppSettings.getFloat(APP_PREFERENCES_COST, 0);
-            addItemCost = (EditText) findViewById(R.id.costEditText);
+            addItemCost = (TextView) findViewById(R.id.costEditText);
             if (cost != 0) {
                 addItemCost.setText(Float.toString(cost));
             }

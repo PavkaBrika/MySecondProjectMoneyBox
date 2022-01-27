@@ -39,12 +39,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:hint="@string/itemHint"
+        android:text="@string/itemHint"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/money"
         app:layout_constraintEnd_toStartOf="@+id/buttonSettings"
@@ -140,14 +139,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonReset" />
 
-    <EditText
+    <TextView
         android:id="@+id/costEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="96dp"
-        android:background="@null"
-        android:hint="@string/itemHint"
+        android:text="@string/itemHint"
         android:inputType="numberDecimal"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
