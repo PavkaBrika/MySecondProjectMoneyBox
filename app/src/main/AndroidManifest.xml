@@ -23,6 +23,10 @@
             android:name=".AddNewGoalActivity"
             android:label="Add new goal"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+        <activity
+            android:name=".AddMoneyActivity"
+            android:label="Add/Minus amount"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
     </application>
 
 </manifest>

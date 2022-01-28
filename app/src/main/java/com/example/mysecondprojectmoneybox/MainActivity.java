@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_ITEM = "item";
     public static final String APP_PREFERENCES_MONEY = "money";
     public static final String APP_PREFERENCES_COST = "cost";
+    public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,16 +133,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
-
         ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -164,6 +156,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ActivityResultLauncher<Intent> startForResultAddMoney = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                float addmoney = 0;
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    addmoney = intent.getFloatExtra(ACTIVITY_FOR_RESULT_ADD_MONEY, 0);
+                    money += addmoney;
+                    SharedPreferences.Editor editor = AppSettings.edit();
+                    editor.putFloat(APP_PREFERENCES_MONEY, money);
+                    editor.apply();
+                    moneyQuantity.setText(Float.toString(money));
+                }
+                else {
+                    moneyQuantity.setText("Error");
+                }
+            }
+        });
+
+        ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddMoneyActivity.class);
+
+                startForResultAddMoney.launch(intent);
+            }
+        });
 
         ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
         moneyJar.setOnClickListener(new View.OnClickListener() {
@@ -185,12 +205,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
 
     protected void onPause() {
         super.onPause();
