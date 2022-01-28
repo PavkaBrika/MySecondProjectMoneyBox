@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +23,12 @@ public class AddMoneyActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shareMoney(Float.parseFloat(addMoneyView.getText().toString()));
+                if (!addMoneyView.getText().toString().equals("")) {
+                    shareMoney(Float.parseFloat(addMoneyView.getText().toString()));
+                }
+                else  {
+                    Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -30,7 +36,12 @@ public class AddMoneyActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shareMoney((Float.parseFloat(addMoneyView.getText().toString()))*(-1));
+                if (!addMoneyView.getText().toString().equals("")) {
+                    shareMoney((Float.parseFloat(addMoneyView.getText().toString()))*(-1));
+                }
+                else  {
+                    Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
