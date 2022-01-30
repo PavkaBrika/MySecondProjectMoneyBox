@@ -146,13 +146,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        ImageView AddSubButton = (ImageView) findViewById(R.id.buttonAddSubMoney);
+        AddSubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddMoneyActivity.class);
 
                 startForResultAddMoney.launch(intent);
+            }
+        });
+
+        ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 

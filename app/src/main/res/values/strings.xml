@@ -17,4 +17,5 @@
     <string name="alertDialogMessageNewGoal">Finish or reset the previous target first </string>
     <string name="activityTitleNewGoal">Create new goal</string>
     <string name="activityTitleAddMoney">Add/Subtract amount</string>
+    <string name="textHintToAddNewGoalTextView">Click here to create a goal </string>
 </resources>
