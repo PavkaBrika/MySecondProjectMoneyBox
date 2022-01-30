@@ -21,11 +21,11 @@
         </activity>
         <activity
             android:name=".AddNewGoalActivity"
-            android:label="Add new goal"
+            android:label="@string/activityTitleNewGoal"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
         <activity
             android:name=".AddMoneyActivity"
-            android:label="Add/Minus amount"
+            android:label="@string/activityTitleAddMoney"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
     </application>
 
