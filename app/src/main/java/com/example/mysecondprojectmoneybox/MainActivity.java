@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences AppSettings;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_COST = "cost";
     public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney";
 
+    DecimalFormat decimalFormat = new DecimalFormat( "#.##" );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +62,8 @@ public class MainActivity extends AppCompatActivity {
         itemDesire = (TextView) findViewById(R.id.item);
         AddSubButton = (ImageView) findViewById(R.id.buttonAddSubMoney);
 
-        moneyQuantity.setText(Float.toString(money));
+        moneyQuantity.setText(decimalFormat.format(money));
         addItemCost.setText(""); //TODO: добавить музыку после добавления денег
-
 
         ImageView resButton = (ImageView) findViewById(R.id.buttonReset);
         resButton.setOnClickListener(new View.OnClickListener() {
@@ -77,15 +80,13 @@ public class MainActivity extends AppCompatActivity {
                         item = "";
                         calcLeftSum();
 
-
                         SharedPreferences.Editor editor = AppSettings.edit();
                         editor.putFloat(APP_PREFERENCES_MONEY, money);
                         editor.putString(APP_PREFERENCES_ITEM, item);
                         editor.putFloat(APP_PREFERENCES_COST, cost);
                         editor.apply();
 
-
-                        moneyQuantity.setText(Float.toString(money));
+                        moneyQuantity.setText(decimalFormat.format(money));
                         itemDesire.setText(item);
                         addItemCost.setText("");
                         moneyQuantity.setVisibility(View.INVISIBLE);
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = AppSettings.edit();
                     editor.putFloat(APP_PREFERENCES_MONEY, money);
                     editor.apply();
-                    moneyQuantity.setText(Float.toString(money));
+                    moneyQuantity.setText(decimalFormat.format(money));
                 }
                 else {
                     moneyQuantity.setText("Error");
@@ -180,8 +181,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     protected void onPause() {
@@ -207,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM)) && (AppSettings.contains(APP_PREFERENCES_COST))) {
             money = AppSettings.getFloat(APP_PREFERENCES_MONEY, 0);
             moneyQuantity = (TextView) findViewById(R.id.money);
-            moneyQuantity.setText(Float.toString(money));
+            moneyQuantity.setText(decimalFormat.format(money));
 
             item = AppSettings.getString(APP_PREFERENCES_ITEM, "");
 
@@ -215,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
             cost = AppSettings.getFloat(APP_PREFERENCES_COST, 0);
             if (cost != 0) {
-                addItemCost.setText(Float.toString(cost));
+                addItemCost.setText(decimalFormat.format(cost));
             }
             else addItemCost.setText("");
 
@@ -228,12 +227,13 @@ public class MainActivity extends AppCompatActivity {
     private void calcLeftSum() {
         left = cost - money;
         if (left > 0) {
-            leftToSaving.setText(Float.toString(left) + " Left");
+            leftToSaving.setText(decimalFormat.format(left) + " Left");
             leftToSaving.setVisibility(View.VISIBLE);
             textFirst.setVisibility(View.VISIBLE);
             textSecond.setVisibility(View.VISIBLE);
             jarHint.setVisibility(View.INVISIBLE);
             AddSubButton.setVisibility(View.VISIBLE);
+            moneyQuantity.setVisibility(View.VISIBLE);
         }
         else if (left < 0) {
             leftToSaving.setText(R.string.congratulations);
@@ -242,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
             textSecond.setVisibility(View.VISIBLE);
             jarHint.setVisibility(View.INVISIBLE);
             AddSubButton.setVisibility(View.VISIBLE);
+            moneyQuantity.setVisibility(View.VISIBLE);
         }
     }
 
