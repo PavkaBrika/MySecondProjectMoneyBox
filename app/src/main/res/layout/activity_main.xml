@@ -32,6 +32,7 @@
         android:layout_height="70dp"
         android:layout_margin="8dp"
         android:src="@drawable/outline_currency_exchange_24"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -42,6 +43,7 @@
         android:layout_margin="8dp"
         android:text="@string/saving"
         android:textSize="25sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/buttonSettings"
         app:layout_constraintStart_toEndOf="@+id/buttonReset"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +53,7 @@
         android:id="@+id/item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/itemHint"
+        android:text="item"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/money"
         app:layout_constraintEnd_toStartOf="@+id/buttonSettings"
@@ -66,6 +68,7 @@
         android:text="0"
         android:textAlignment="center"
         android:textSize="30sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -105,6 +108,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/cost"
         android:textSize="25sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonReset" />
 
@@ -115,7 +119,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="96dp"
         android:inputType="numberDecimal"
-        android:text="@string/itemHint"
+        android:text="costEditText"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.011"
