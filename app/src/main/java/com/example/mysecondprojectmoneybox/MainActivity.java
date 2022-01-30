@@ -6,25 +6,15 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                         editor.putFloat(APP_PREFERENCES_MONEY, money);
                         editor.putString(APP_PREFERENCES_ITEM, item);
                         editor.putFloat(APP_PREFERENCES_COST, cost);
-                        editor.commit();
                         editor.apply();
 
 
@@ -256,13 +245,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public static boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }
