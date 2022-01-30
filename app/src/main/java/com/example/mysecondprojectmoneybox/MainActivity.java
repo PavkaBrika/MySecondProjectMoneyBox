@@ -56,40 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
         moneyQuantity = (TextView) findViewById(R.id.money);
 
-//        EditText moneyAddition = (EditText) findViewById(R.id.editText);
         addItemCost = (TextView) findViewById(R.id.costEditText);
 
         moneyQuantity.setText(Float.toString(money));
-        addItemCost.setText("");
+        addItemCost.setText(""); //TODO: добавить музыку после добавления денег
 
-//        ImageView addButton = (ImageView) findViewById(R.id.buttonPlus);
-//        addButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (moneyAddition.getText().toString().length() != 0) {
-//                    money += Float.parseFloat(moneyAddition.getText().toString());
-//                    if (money % 1 == 0)
-//                        moneyQuantity.setText(Float.toString(Math.round(money)));
-//                    else
-//                        moneyQuantity.setText(Float.toString(money)); //TODO: добавить выскавиващее окошко ввода при нажатии на кнопку добавить или убавить вместо поля ввода
-//                } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();  //TODO: добавить музыку после добавления денег
-//                calcLeftSum();
-//            }
-//        });
-//
-//        ImageView subButton = (ImageView) findViewById(R.id.buttonMinus);
-//        subButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                    if (moneyAddition.getText().toString().length() != 0) {
-//                        money -= Float.parseFloat(moneyAddition.getText().toString());
-//                        if (money<0)
-//                            money = 0;
-//                        moneyQuantity.setText(Float.toString(money));
-//                    } else Toast.makeText(getApplicationContext(), R.string.toastAdd, Toast.LENGTH_SHORT).show();
-//                    calcLeftSum();
-//            }
-//        });
 
         ImageView resButton = (ImageView) findViewById(R.id.buttonReset);
         resButton.setOnClickListener(new View.OnClickListener() {
