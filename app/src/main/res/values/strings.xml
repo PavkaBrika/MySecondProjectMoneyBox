@@ -18,4 +18,7 @@
     <string name="activityTitleNewGoal">Create new goal</string>
     <string name="activityTitleAddMoney">Add/Subtract amount</string>
     <string name="textHintToAddNewGoalTextView">Click here to create a goal </string>
+    <string name="toastNoInfoNewGoalActivity">You must enter the target and its price!</string>
+    <string name="toastNoTargetNewGoalActivity">You must enter the target!</string>
+    <string name="toastNoCostNewGoalActivity">You must enter the cost!</string>
 </resources>
