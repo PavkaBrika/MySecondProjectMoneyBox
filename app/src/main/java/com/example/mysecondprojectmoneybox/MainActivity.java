@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                     editor.apply();
                     itemDesire.setText(item);
                     addItemCost.setText(Float.toString(cost));
-
                 }
                 else{
                     itemDesire.setText("Error");
