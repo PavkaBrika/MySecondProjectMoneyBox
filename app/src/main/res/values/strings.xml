@@ -9,6 +9,7 @@
     <string name="cost">It costs:</string>
     <string name="left"> Left</string>
     <string name="congratulations">Congratulations! You have reached your target! </string>
+    <string name="mainActivityHint">Click on your character to see more information</string>
     <string name="alertDialogTitle">Reset</string>
     <string name="alertDialogMessage">Reset your MoneyBox?</string>
     <string name="alertDialogPositiveButton">Yes</string>
@@ -21,4 +22,5 @@
     <string name="toastNoInfoNewGoalActivity">You must enter the target and its price!</string>
     <string name="toastNoTargetNewGoalActivity">You must enter the target!</string>
     <string name="toastNoCostNewGoalActivity">You must enter the cost!</string>
+    <string name="toastOnCharacterClick">Create a target first!</string>
 </resources>

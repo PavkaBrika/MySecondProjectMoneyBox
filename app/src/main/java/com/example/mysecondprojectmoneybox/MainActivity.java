@@ -12,9 +12,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
     TextView addItemCost;
     TextView leftToSaving;
     TextView jarHint;
+    TextView hintMainActivity;
     ImageView AddSubButton;
+    ImageView thoughtsView;
 
     TextView textFirst;
     TextView textSecond;
@@ -60,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
         textSecond = (TextView) findViewById(R.id.textView2);
         jarHint = (TextView) findViewById(R.id.HintToAddNewGoalTextView);
         itemDesire = (TextView) findViewById(R.id.item);
+        hintMainActivity = (TextView) findViewById(R.id.mainActivityHintTextView);
         AddSubButton = (ImageView) findViewById(R.id.buttonAddSubMoney);
+        thoughtsView = (ImageView) findViewById(R.id.imageViewThoughts);
 
         moneyQuantity.setText(decimalFormat.format(money));
         addItemCost.setText(""); //TODO: добавить музыку после добавления денег
@@ -90,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
                         itemDesire.setText(item);
                         addItemCost.setText("");
                         moneyQuantity.setVisibility(View.INVISIBLE);
-                        leftToSaving.setVisibility(View.INVISIBLE);
-                        textFirst.setVisibility(View.INVISIBLE);
-                        textSecond.setVisibility(View.INVISIBLE);
+                        setVisibilityView(View.INVISIBLE);
                         jarHint.setVisibility(View.VISIBLE);
-                        AddSubButton.setVisibility(View.INVISIBLE);
+                        AddSubButton.setVisibility(View.INVISIBLE); //ТУТ
+                        thoughtsView.setVisibility(View.INVISIBLE);
+                        hintMainActivity.setVisibility(View.INVISIBLE);
 
                         dialogInterface.cancel();
                     }
@@ -180,6 +186,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
+        characterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (thoughtsView.getVisibility() == View.INVISIBLE) {
+                    if (!(item.equals("")) && !(cost == 0)) {
+                        thoughtsView.setVisibility(View.VISIBLE);
+                        itemDesire.setVisibility(View.VISIBLE);
+                        addItemCost.setVisibility(View.VISIBLE);  //ТУТ
+                        hintMainActivity.setVisibility(View.INVISIBLE);
+                        setVisibilityView(View.VISIBLE);
+                        calcLeftSum();
+                    }
+                    else Toast.makeText(getApplicationContext(), R.string.toastOnCharacterClick, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    hintMainActivity.setVisibility(View.VISIBLE);
+                    thoughtsView.setVisibility(View.INVISIBLE);
+                    setVisibilityView(View.INVISIBLE); //ТУТ
+                    itemDesire.setVisibility(View.INVISIBLE);
+                    addItemCost.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 
     protected void onPause() {
@@ -217,6 +248,30 @@ public class MainActivity extends AppCompatActivity {
             }
             else addItemCost.setText("");
 
+
+            AddSubButton.setVisibility(View.VISIBLE);
+            moneyQuantity.setVisibility(View.VISIBLE);
+
+            setVisibilityView(View.VISIBLE);
+            addItemCost.setVisibility(View.VISIBLE);
+            thoughtsView.setVisibility(View.VISIBLE);
+            itemDesire.setVisibility(View.VISIBLE);
+            hintMainActivity.setVisibility(View.INVISIBLE);
+            new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long l) {
+                }
+
+                @Override
+                public void onFinish() {
+                    setVisibilityView(View.INVISIBLE);
+                    addItemCost.setVisibility(View.INVISIBLE);
+                    thoughtsView.setVisibility(View.INVISIBLE);
+                    itemDesire.setVisibility(View.INVISIBLE);
+                    hintMainActivity.setVisibility(View.VISIBLE);
+                }
+            }.start();
+
             calcLeftSum();
         }
 
@@ -227,22 +282,18 @@ public class MainActivity extends AppCompatActivity {
         left = cost - money;
         if (left > 0) {
             leftToSaving.setText(decimalFormat.format(left) + " Left");
-            leftToSaving.setVisibility(View.VISIBLE);
-            textFirst.setVisibility(View.VISIBLE);
-            textSecond.setVisibility(View.VISIBLE);
             jarHint.setVisibility(View.INVISIBLE);
-            AddSubButton.setVisibility(View.VISIBLE);
-            moneyQuantity.setVisibility(View.VISIBLE);
         }
         else if (left < 0) {
             leftToSaving.setText(R.string.congratulations);
-            leftToSaving.setVisibility(View.VISIBLE);
-            textFirst.setVisibility(View.VISIBLE);
-            textSecond.setVisibility(View.VISIBLE);
             jarHint.setVisibility(View.INVISIBLE);
-            AddSubButton.setVisibility(View.VISIBLE);
-            moneyQuantity.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setVisibilityView(int visibility) {
+        leftToSaving.setVisibility(visibility);
+        textFirst.setVisibility(visibility);
+        textSecond.setVisibility(visibility);
     }
 
 }
