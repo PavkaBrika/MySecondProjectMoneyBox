@@ -13,16 +13,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences AppSettings;
+
+    public InterstitialAd interstitialAd;
 
     float money;
     float cost;
@@ -55,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        MobileAds.initialize(this, "ca-app-pub-3967661567296020~5965954619");
+//        interstitialAd = new InterstitialAd(this);
+
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         moneyQuantity = (TextView) findViewById(R.id.money);
@@ -70,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         moneyQuantity.setText(decimalFormat.format(money));
         addItemCost.setText(""); //TODO: добавить музыку после добавления денег
+
+
 
         ImageView resButton = (ImageView) findViewById(R.id.buttonReset);
         resButton.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         characterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                touchVibration();
                 if (thoughtsView.getVisibility() == View.INVISIBLE) {
                     if (!(item.equals("")) && !(cost == 0)) {
                         thoughtsView.setVisibility(View.VISIBLE);
@@ -211,7 +224,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
+
+
 
     protected void onPause() {
         super.onPause();
@@ -295,5 +312,12 @@ public class MainActivity extends AppCompatActivity {
         textFirst.setVisibility(visibility);
         textSecond.setVisibility(visibility);
     }
+
+//    private void touchVibration() {
+//        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//        VibrationEffect effect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
+//        vibrator.vibrate(effect);
+//    };
+
 
 }
