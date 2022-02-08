@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,10 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:checked="true"
             android:text="@string/characterNameGriff" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/mrkrabsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -28,10 +30,28 @@
             android:text="@string/characterNameMrKrabs" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/mcduckButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/characterNameScroogeMcDuck" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="OK"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Cancel"
+        app:layout_constraintEnd_toStartOf="@+id/buttonOk"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 </androidx.constraintlayout.widget.ConstraintLayout>

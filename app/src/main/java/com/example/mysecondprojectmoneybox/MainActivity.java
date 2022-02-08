@@ -1,7 +1,5 @@
 package com.example.mysecondprojectmoneybox;
 
-import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
