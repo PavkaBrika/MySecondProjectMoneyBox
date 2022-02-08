@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     float cost;
     String item;
     float left;
+    int character;
 
     TextView moneyQuantity;
     TextView itemDesire;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_MONEY = "money";
     public static final String APP_PREFERENCES_COST = "cost";
     public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney";
+    public static final String ACTIVITY_FOR_RESULT_CHANGE_CHARACTER = "character";
 
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" );
 
@@ -167,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode()==RESULT_OK) {
                     Intent intent = result.getData();
+                    character = intent.getIntExtra(ACTIVITY_FOR_RESULT_CHANGE_CHARACTER, 0);
+                    SharedPreferences.Editor editor = AppSettings.edit();
+                    editor.putInt(ACTIVITY_FOR_RESULT_CHANGE_CHARACTER, character);
+                    editor.apply();
                 }
             }
         });
@@ -192,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
+        moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
         moneyJar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,7 +216,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
+        characterView.setImageDrawable(getDrawable(R.drawable.krabs));
         characterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -275,6 +284,18 @@ public class MainActivity extends AppCompatActivity {
             }
             else addItemCost.setText("");
 
+//            character = AppSettings.getInt(ACTIVITY_FOR_RESULT_CHANGE_CHARACTER, 0);
+//            ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
+//            ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
+//            character = 2;
+//            if (character == 1) {
+//                characterView.setImageDrawable(getDrawable(R.drawable.griff));
+//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
+//            }
+//            else if (character == 2) {
+//                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
+//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
+//            }
 
             AddSubButton.setVisibility(View.VISIBLE);
             moneyQuantity.setVisibility(View.VISIBLE);
@@ -298,6 +319,8 @@ public class MainActivity extends AppCompatActivity {
                     hintMainActivity.setVisibility(View.VISIBLE);
                 }
             }.start();
+
+
 
             calcLeftSum();
         }
