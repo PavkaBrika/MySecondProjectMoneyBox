@@ -1,5 +1,7 @@
 package com.example.mysecondprojectmoneybox;
 
+import static android.util.TypedValue.COMPLEX_UNIT_DIP;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -20,16 +22,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences AppSettings;
-
-    public InterstitialAd interstitialAd;
 
     float money;
     float cost;
@@ -105,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                         editor.apply();
 
                         moneyQuantity.setText(decimalFormat.format(money));
+                        leftToSaving.setTextSize(30);
+                        leftToSaving.setPadding(0,0,0,0);
                         itemDesire.setText(item);
                         addItemCost.setText("");
                         moneyQuantity.setVisibility(View.INVISIBLE);
@@ -113,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         AddSubButton.setVisibility(View.INVISIBLE); //ТУТ
                         thoughtsView.setVisibility(View.INVISIBLE);
                         hintMainActivity.setVisibility(View.INVISIBLE);
+                        startVibration(VibrationEffect.DEFAULT_AMPLITUDE);
 
                         dialogInterface.cancel();
                     }
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        ActivityResultLauncher<Intent> startForResultCreateTarget = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if(result.getResultCode() == RESULT_OK){
@@ -156,9 +156,19 @@ public class MainActivity extends AppCompatActivity {
                     editor.putFloat(APP_PREFERENCES_MONEY, money);
                     editor.apply();
                     moneyQuantity.setText(decimalFormat.format(money));
+                    startVibration(VibrationEffect.EFFECT_HEAVY_CLICK);
                 }
                 else {
                     moneyQuantity.setText("Error");
+                }
+            }
+        });
+
+        ActivityResultLauncher<Intent> startForResultChangeCharacter = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode()==RESULT_OK) {
+                    Intent intent = result.getData();
                 }
             }
         });
@@ -177,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ChangeCharacterActivity.class);
 
+                startForResultChangeCharacter.launch(intent);
             }
         });
 
@@ -187,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if ((item.equals("")) && (cost == 0)) {
                     Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class);
-                    startForResult.launch(intent);
+                    startForResultCreateTarget.launch(intent);
                 }
                 else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -203,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         characterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                touchVibration();
+                startVibration(VibrationEffect.EFFECT_TICK);
                 if (thoughtsView.getVisibility() == View.INVISIBLE) {
                     if (!(item.equals("")) && !(cost == 0)) {
                         thoughtsView.setVisibility(View.VISIBLE);
@@ -301,8 +313,11 @@ public class MainActivity extends AppCompatActivity {
             leftToSaving.setText(decimalFormat.format(left) + " Left");
             jarHint.setVisibility(View.INVISIBLE);
         }
-        else if (left < 0) {
+        else if (left <= 0) {
             leftToSaving.setText(R.string.congratulations);
+//            leftToSaving.setTextSize(COMPLEX_UNIT_DIP, 30);
+            leftToSaving.setTextSize(25);
+            leftToSaving.setPadding(80,0,80,0);
             jarHint.setVisibility(View.INVISIBLE);
         }
     }
@@ -313,11 +328,11 @@ public class MainActivity extends AppCompatActivity {
         textSecond.setVisibility(visibility);
     }
 
-//    private void touchVibration() {
-//        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-//        VibrationEffect effect = VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE);
-//        vibrator.vibrate(effect);
-//    };
+    private void startVibration(int vibrationEffect) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        VibrationEffect effect = VibrationEffect.createOneShot(150, vibrationEffect);
+        vibrator.vibrate(effect);
+    };
 
 
 }

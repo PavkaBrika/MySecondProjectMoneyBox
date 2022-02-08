@@ -57,7 +57,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:elevation="3dp"
         android:text="@string/saving"
         android:textSize="25dp"
@@ -136,7 +136,7 @@
         android:id="@+id/costEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:elevation="3dp"
         android:inputType="numberDecimal"
         android:text="costEditText"
@@ -146,13 +146,18 @@
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/item" />
 
+    <!--        android:paddingRight="40dp"-->
+    <!--        android:paddingLeft="40dp"-->
+    <!--        android:textSize="25dp"-->
+
     <TextView
         android:id="@+id/leftTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:elevation="3dp"
         android:text="Left"
+        android:textAlignment="center"
         android:textSize="30dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/imageViewThoughts"

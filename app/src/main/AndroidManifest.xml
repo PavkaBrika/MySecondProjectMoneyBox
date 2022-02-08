@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mysecondprojectmoneybox">
 
-<!--    <uses-permission android:name="android.permission.VIBRATE"/>-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -29,6 +29,10 @@
             android:name=".AddMoneyActivity"
             android:label="@string/activityTitleAddMoney"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+        <activity
+            android:name=".ChangeCharacterActivity"
+            android:label="@string/activityTitleChangeCharacter"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
     </application>
 
 </manifest>
