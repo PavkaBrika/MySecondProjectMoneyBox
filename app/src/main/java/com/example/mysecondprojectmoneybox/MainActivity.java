@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_COST = "cost";
     public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney";
     public static final String ACTIVITY_FOR_RESULT_CHANGE_CHARACTER = "character";
+    public static final String APP_PREFERENCES_CHARACTER = "character";
 
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" );
 
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = result.getData();
                     character = intent.getIntExtra(ACTIVITY_FOR_RESULT_CHANGE_CHARACTER, 0);
                     SharedPreferences.Editor editor = AppSettings.edit();
-                    editor.putInt(ACTIVITY_FOR_RESULT_CHANGE_CHARACTER, character);
+                    editor.putInt(APP_PREFERENCES_CHARACTER, character);
                     editor.apply();
                 }
             }
@@ -198,7 +199,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
-        moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
         moneyJar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
-        characterView.setImageDrawable(getDrawable(R.drawable.krabs));
         characterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -263,13 +262,14 @@ public class MainActivity extends AppCompatActivity {
         editor.putFloat(APP_PREFERENCES_MONEY, money);
         editor.putString(APP_PREFERENCES_ITEM, item);
         editor.putFloat(APP_PREFERENCES_COST, cost);
+        editor.putInt(APP_PREFERENCES_CHARACTER, character);
         editor.apply();
     }
 
     protected void onResume() {
         super.onResume();
 
-        if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM)) && (AppSettings.contains(APP_PREFERENCES_COST))) {
+        if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM)) && (AppSettings.contains(APP_PREFERENCES_COST)) && (AppSettings.contains(APP_PREFERENCES_CHARACTER))) {
             money = AppSettings.getFloat(APP_PREFERENCES_MONEY, 0);
             moneyQuantity = (TextView) findViewById(R.id.money);
             moneyQuantity.setText(decimalFormat.format(money));
@@ -284,18 +284,18 @@ public class MainActivity extends AppCompatActivity {
             }
             else addItemCost.setText("");
 
-//            character = AppSettings.getInt(ACTIVITY_FOR_RESULT_CHANGE_CHARACTER, 0);
-//            ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
-//            ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
-//            character = 2;
-//            if (character == 1) {
-//                characterView.setImageDrawable(getDrawable(R.drawable.griff));
-//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
-//            }
-//            else if (character == 2) {
-//                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
-//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
-//            }
+            character = AppSettings.getInt(APP_PREFERENCES_CHARACTER, 0);
+            ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
+            ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
+            character = 2;
+            if (character == 1) {
+                characterView.setImageDrawable(getDrawable(R.drawable.griff));
+                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
+            }
+            else if (character == 2) {
+                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
+                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
+            }
 
             AddSubButton.setVisibility(View.VISIBLE);
             moneyQuantity.setVisibility(View.VISIBLE);
