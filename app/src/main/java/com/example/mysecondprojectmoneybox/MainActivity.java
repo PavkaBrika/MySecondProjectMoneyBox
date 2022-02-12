@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 //        MobileAds.initialize(this, "ca-app-pub-3967661567296020~5965954619");
 //        interstitialAd = new InterstitialAd(this);
 
+
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         moneyQuantity = (TextView) findViewById(R.id.money);
