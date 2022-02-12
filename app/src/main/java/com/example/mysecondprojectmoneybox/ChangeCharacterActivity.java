@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ChangeCharacterActivity extends AppCompatActivity {
 
-    private SharedPreferences AppChar;
-    public static final String APP_PREFERENCES_CHARACTER= "character";
     int character;
 
     RadioButton Griff;
@@ -40,6 +39,12 @@ public class ChangeCharacterActivity extends AppCompatActivity {
                 else if (Krabs.isChecked()) {
                     changeChar(2);
                 }
+                else if (Mcduck.isChecked()) {
+                    changeChar(3);
+                }
+                else if ((!Griff.isChecked()) && (!Krabs.isChecked()) && (!Mcduck.isChecked())) {
+                    Toast.makeText(getApplicationContext(), R.string.toastNoCharacterChangeCharacterActivity, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -52,33 +57,9 @@ public class ChangeCharacterActivity extends AppCompatActivity {
         });
     }
 
-    protected void onResume() {
-        super.onResume();
-
-        Griff = (RadioButton) findViewById(R.id.griffButton);
-        Krabs = (RadioButton) findViewById(R.id.mrkrabsButton);
-        Mcduck = (RadioButton) findViewById(R.id.mcduckButton);
-
-        if (AppChar.contains(APP_PREFERENCES_CHARACTER)) {
-            character = AppChar.getInt(APP_PREFERENCES_CHARACTER, 0);
-        }
-
-        if (character == 1) {
-            Griff.setChecked(true);
-        }
-        else if (character == 2) {
-            Krabs.setChecked(true);
-        }
-
-    }
-
     public void changeChar(int charact) {
         Intent dataCharacter = new Intent();
-        character = charact;
-        SharedPreferences.Editor editor = AppChar.edit();
-        editor.putInt(APP_PREFERENCES_CHARACTER, character);
-        editor.apply();
-        dataCharacter.putExtra(MainActivity.ACTIVITY_FOR_RESULT_ADD_MONEY, character);
+        dataCharacter.putExtra(MainActivity.APP_PREFERENCES_CHARACTER, charact);
         setResult(RESULT_OK, dataCharacter);
         finish();
     }

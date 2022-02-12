@@ -168,10 +168,10 @@ public class MainActivity extends AppCompatActivity {
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode()==RESULT_OK) {
                     Intent intent = result.getData();
-                    character = intent.getIntExtra(ACTIVITY_FOR_RESULT_CHANGE_CHARACTER, 0);
-                    SharedPreferences.Editor editor = AppSettings.edit();
-                    editor.putInt(APP_PREFERENCES_CHARACTER, character);
-                    editor.apply();
+                    character = intent.getIntExtra(APP_PREFERENCES_CHARACTER, 0);
+//                    SharedPreferences.Editor editor = AppSettings.edit();
+//                    editor.putInt(APP_PREFERENCES_CHARACTER, character);
+//                    editor.apply();
                 }
             }
         });
@@ -282,17 +282,16 @@ public class MainActivity extends AppCompatActivity {
             }
             else addItemCost.setText("");
 
-            character = AppSettings.getInt(APP_PREFERENCES_CHARACTER, 0);
             ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
             ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
-//            if (character == 1) {
-//                characterView.setImageDrawable(getDrawable(R.drawable.griff));
-//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
-//            }
-//            else if (character == 2) {
-//                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
-//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
-//            }
+            if (character == 1) {
+                characterView.setImageDrawable(getDrawable(R.drawable.griff));
+                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
+            }
+            else if (character == 2) {
+                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
+                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
+            }
             calcLeftSum();
 
             if ((money != 0) || (cost != 0) || (!item.equals(""))) {
