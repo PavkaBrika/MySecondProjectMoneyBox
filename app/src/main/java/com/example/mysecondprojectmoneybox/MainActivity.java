@@ -24,35 +24,35 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
+    //SharedPreferences for access to memory
     private SharedPreferences AppSettings;
 
-    float money;
-    float cost;
-    String item;
-    float left;
-    int character;
+    // variables
+    float money; //money in pocket
+    float cost; //target cost
+    String item; //name of target
+    float left; //left to save
+    int character; //number of character
 
-    TextView moneyQuantity;
-    TextView itemDesire;
-    TextView addItemCost;
-    TextView leftToSaving;
-    TextView jarHint;
-    TextView hintMainActivity;
-    ImageView AddSubButton;
-    ImageView thoughtsView;
-
+    TextView moneyQuantity; //textView for money in pocket
+    TextView itemDesire; //textView for name of target
+    TextView addItemCost; //textView for target cost
+    TextView leftToSaving; //textView for left to save
+    TextView jarHint; //textView for hint on jar
+    TextView hintMainActivity; //textView for hint on mainactivity
+    ImageView AddSubButton; //imageView for adding/subtracting button
+    ImageView thoughtsView; //imageView for image where all information is displayed
     TextView textFirst;
     TextView textSecond;
 
-    public static final String APP_PREFERENCES = "settings";
-    public static final String APP_PREFERENCES_ITEM = "item";
-    public static final String APP_PREFERENCES_MONEY = "money";
-    public static final String APP_PREFERENCES_COST = "cost";
-    public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney";
-    public static final String ACTIVITY_FOR_RESULT_CHANGE_CHARACTER = "character";
-    public static final String APP_PREFERENCES_CHARACTER = "character";
+    public static final String APP_PREFERENCES = "settings"; //variable for whole SharedPreferences
+    public static final String APP_PREFERENCES_ITEM = "item"; //variable for SharedPreferences item
+    public static final String APP_PREFERENCES_MONEY = "money"; //variable for SharedPreferences money
+    public static final String APP_PREFERENCES_COST = "cost"; //variable for SharedPreferences cost
+    public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney"; //variable for ActivityForResult add_money
+    public static final String APP_PREFERENCES_CHARACTER = "character"; //variable for ActivityForResult character
 
-    DecimalFormat decimalFormat = new DecimalFormat( "#.##" );
+    DecimalFormat decimalFormat = new DecimalFormat( "#.##" ); //pattern for numbers
 
 
     @Override
@@ -169,9 +169,6 @@ public class MainActivity extends AppCompatActivity {
                 if (result.getResultCode()==RESULT_OK) {
                     Intent intent = result.getData();
                     character = intent.getIntExtra(APP_PREFERENCES_CHARACTER, 0);
-//                    SharedPreferences.Editor editor = AppSettings.edit();
-//                    editor.putInt(APP_PREFERENCES_CHARACTER, character);
-//                    editor.apply();
                 }
             }
         });
@@ -285,12 +282,13 @@ public class MainActivity extends AppCompatActivity {
             ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
             ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
             if (character == 1) {
-                characterView.setImageDrawable(getDrawable(R.drawable.griff));
-                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
+                characterView.setImageResource(R.drawable.griff);
+                moneyJar.setImageResource(R.drawable.moneyjar);
             }
             else if (character == 2) {
-                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
-                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
+                characterView.setImageResource(R.drawable.krabs);
+                moneyJar.setImageResource(R.drawable.moneyjarkrabs);
+
             }
             calcLeftSum();
 

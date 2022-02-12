@@ -146,9 +146,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/item" />
 
-    <!--        android:paddingRight="40dp"-->
-    <!--        android:paddingLeft="40dp"-->
-    <!--        android:textSize="25dp"-->
 
     <TextView
         android:id="@+id/leftTextView"
