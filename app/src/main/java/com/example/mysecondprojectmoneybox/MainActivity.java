@@ -225,6 +225,21 @@ public class MainActivity extends AppCompatActivity {
                         hintMainActivity.setVisibility(View.INVISIBLE);
                         setVisibilityView(View.VISIBLE);
                         calcLeftSum();
+                        new CountDownTimer(6000, 1000) {
+
+                            @Override
+                            public void onTick(long l) {
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                thoughtsView.setVisibility(View.INVISIBLE);
+                                itemDesire.setVisibility(View.INVISIBLE);
+                                addItemCost.setVisibility(View.INVISIBLE);  //ТУТ
+                                hintMainActivity.setVisibility(View.VISIBLE);
+                                setVisibilityView(View.INVISIBLE);
+                            }
+                        }.start();
                     }
                     else Toast.makeText(getApplicationContext(), R.string.toastOnCharacterClick, Toast.LENGTH_SHORT).show();
                 }

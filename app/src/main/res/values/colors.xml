@@ -7,8 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="backgroundColor">#ffd149</color>
-    <color name="statusBarColor">#c8a008</color>
+    <color name="backgroundColorBottomGradient">#ffd149</color>
+    <color name="backgroundColorTopGradient">#ffde70</color>
+    <color name="statusBarColor">#c9a73d</color>
     <color name="buttonColor">#937200</color>
     <color name="textColorHintToAddNewGoalTextView">#8fbdcb</color>
 </resources>
