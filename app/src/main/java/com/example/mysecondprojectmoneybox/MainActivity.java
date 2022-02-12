@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         moneyQuantity.setText(decimalFormat.format(money));
         addItemCost.setText(""); //TODO: добавить музыку после добавления денег
 
-
-
         ImageView resButton = (ImageView) findViewById(R.id.buttonReset);
         resButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,42 +285,48 @@ public class MainActivity extends AppCompatActivity {
             character = AppSettings.getInt(APP_PREFERENCES_CHARACTER, 0);
             ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
             ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
-            character = 2;
-            if (character == 1) {
-                characterView.setImageDrawable(getDrawable(R.drawable.griff));
-                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
-            }
-            else if (character == 2) {
-                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
-                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
-            }
-
-            AddSubButton.setVisibility(View.VISIBLE);
-            moneyQuantity.setVisibility(View.VISIBLE);
-
-            setVisibilityView(View.VISIBLE);
-            addItemCost.setVisibility(View.VISIBLE);
-            thoughtsView.setVisibility(View.VISIBLE);
-            itemDesire.setVisibility(View.VISIBLE);
-            hintMainActivity.setVisibility(View.INVISIBLE);
-            new CountDownTimer(3000, 1000) {
-                @Override
-                public void onTick(long l) {
-                }
-
-                @Override
-                public void onFinish() {
-                    setVisibilityView(View.INVISIBLE);
-                    addItemCost.setVisibility(View.INVISIBLE);
-                    thoughtsView.setVisibility(View.INVISIBLE);
-                    itemDesire.setVisibility(View.INVISIBLE);
-                    hintMainActivity.setVisibility(View.VISIBLE);
-                }
-            }.start();
-
-
-
+//            if (character == 1) {
+//                characterView.setImageDrawable(getDrawable(R.drawable.griff));
+//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjar));
+//            }
+//            else if (character == 2) {
+//                characterView.setImageDrawable(getDrawable(R.drawable.krabs));
+//                moneyJar.setImageDrawable(getDrawable(R.drawable.moneyjarkrabs));
+//            }
             calcLeftSum();
+
+            if ((money != 0) || (cost != 0) || (!item.equals(""))) {
+                setVisibilityView(View.VISIBLE);
+                AddSubButton.setVisibility(View.VISIBLE);
+                moneyQuantity.setVisibility(View.VISIBLE);
+                addItemCost.setVisibility(View.VISIBLE);
+                thoughtsView.setVisibility(View.VISIBLE);
+                itemDesire.setVisibility(View.VISIBLE);
+                hintMainActivity.setVisibility(View.INVISIBLE);
+                new CountDownTimer(3000, 1000) {
+                    @Override
+                    public void onTick(long l) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        setVisibilityView(View.INVISIBLE);
+                        addItemCost.setVisibility(View.INVISIBLE);
+                        thoughtsView.setVisibility(View.INVISIBLE);
+                        itemDesire.setVisibility(View.INVISIBLE);
+                        hintMainActivity.setVisibility(View.VISIBLE);
+                    }
+                }.start();
+            }
+            else {
+                jarHint.setVisibility(View.VISIBLE);
+                hintMainActivity.setVisibility(View.INVISIBLE);
+                moneyQuantity.setVisibility(View.INVISIBLE);
+                setVisibilityView(View.INVISIBLE);
+                jarHint.setVisibility(View.VISIBLE);
+                AddSubButton.setVisibility(View.INVISIBLE); //ТУТ
+                thoughtsView.setVisibility(View.INVISIBLE);
+            }
         }
 
     }
@@ -333,10 +337,10 @@ public class MainActivity extends AppCompatActivity {
         if (left > 0) {
             leftToSaving.setText(decimalFormat.format(left) + " Left");
             jarHint.setVisibility(View.INVISIBLE);
+            leftToSaving.setTextSize(30);
         }
         else if (left <= 0) {
             leftToSaving.setText(R.string.congratulations);
-//            leftToSaving.setTextSize(COMPLEX_UNIT_DIP, 30);
             leftToSaving.setTextSize(25);
             leftToSaving.setPadding(80,0,80,0);
             jarHint.setVisibility(View.INVISIBLE);
