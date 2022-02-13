@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -169,6 +170,9 @@ public class MainActivity extends AppCompatActivity {
                 if (result.getResultCode()==RESULT_OK) {
                     Intent intent = result.getData();
                     character = intent.getIntExtra(APP_PREFERENCES_CHARACTER, 0);
+                    SharedPreferences.Editor editor = AppSettings.edit();
+                    editor.putInt(APP_PREFERENCES_CHARACTER, character);
+                    editor.apply();
                 }
             }
         });
@@ -294,16 +298,26 @@ public class MainActivity extends AppCompatActivity {
             }
             else addItemCost.setText("");
 
+            int heightImageView;
+            int widthImageView;
+            character = AppSettings.getInt(APP_PREFERENCES_CHARACTER, 0);
             ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
             ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
             if (character == 1) {
                 characterView.setImageResource(R.drawable.griff);
                 moneyJar.setImageResource(R.drawable.moneyjar);
+                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 383, getResources().getDisplayMetrics());
+                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 257, getResources().getDisplayMetrics());
+                moneyJar.getLayoutParams().height = heightImageView;
+                moneyJar.getLayoutParams().width = widthImageView;
             }
             else if (character == 2) {
                 characterView.setImageResource(R.drawable.krabs);
                 moneyJar.setImageResource(R.drawable.moneyjarkrabs);
-
+                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 430, getResources().getDisplayMetrics());
+                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 350, getResources().getDisplayMetrics());
+                moneyJar.getLayoutParams().height = heightImageView;
+                moneyJar.getLayoutParams().width = widthImageView;
             }
             calcLeftSum();
 
