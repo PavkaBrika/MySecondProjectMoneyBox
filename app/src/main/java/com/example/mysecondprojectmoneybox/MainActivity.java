@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 //        MobileAds.initialize(this, "ca-app-pub-3967661567296020~5965954619");
 //        interstitialAd = new InterstitialAd(this);
 
+        MediaPlayer player;
+        player = MediaPlayer.create(this, R.raw.coinssound);
 
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -158,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.apply();
                     moneyQuantity.setText(decimalFormat.format(money));
                     startVibration(VibrationEffect.EFFECT_HEAVY_CLICK);
+                    player.start();
                 }
                 else {
                     moneyQuantity.setText("Error");
