@@ -10,10 +10,12 @@
         android:id="@+id/edittextItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="10"
+        android:layout_margin="8dp"
         android:hint="@string/itemHint"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="8dp"/>
+        android:maxLength="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edittextCost"

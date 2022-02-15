@@ -57,14 +57,14 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:elevation="3dp"
         android:text="@string/saving"
         android:textSize="25dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewThoughts"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="@+id/imageViewThoughts"
         app:layout_constraintTop_toTopOf="@+id/imageViewThoughts" />
 
     <TextView
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:elevation="3dp"
-        android:text="item"
+        android:text=""
         android:textSize="30dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/imageViewThoughts"

@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        MobileAds.initialize(this, "ca-app-pub-3967661567296020~5965954619");
 //        interstitialAd = new InterstitialAd(this);
+        item = "";
 
         MediaPlayer player;
         player = MediaPlayer.create(this, R.raw.coinssound);
@@ -156,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = result.getData();
                     addmoney = intent.getFloatExtra(ACTIVITY_FOR_RESULT_ADD_MONEY, 0);
                     money += addmoney;
+                    if (money < 0)
+                        money = 0;
                     SharedPreferences.Editor editor = AppSettings.edit();
                     editor.putFloat(APP_PREFERENCES_MONEY, money);
                     editor.apply();
@@ -277,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
         else
             cost = Float.parseFloat(addItemCost.getText().toString());
 
+
         SharedPreferences.Editor editor = AppSettings.edit();
         editor.putFloat(APP_PREFERENCES_MONEY, money);
         editor.putString(APP_PREFERENCES_ITEM, item);
@@ -326,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
             }
             calcLeftSum();
 
-            if ((money != 0) || (cost != 0) || (!item.equals(""))) {
+            if ((cost != 0) && (!item.equals(""))) {
                 setVisibilityView(View.VISIBLE);
                 AddSubButton.setVisibility(View.VISIBLE);
                 moneyQuantity.setVisibility(View.VISIBLE);
