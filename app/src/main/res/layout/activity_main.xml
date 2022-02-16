@@ -43,15 +43,13 @@
         android:id="@+id/buttonAddSubMoney"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="60dp"
         android:src="@drawable/outline_currency_exchange_24"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCharacter"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCharacter" />
 
     <TextView
         android:id="@+id/textView"
@@ -198,7 +196,7 @@
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:adSize="SMART_BANNER"
+        app:adSize="BANNER"
         app:adUnitId="ca-app-pub-3940256099942544/6300978111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
