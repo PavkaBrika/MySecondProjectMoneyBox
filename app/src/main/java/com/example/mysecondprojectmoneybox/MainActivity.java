@@ -22,12 +22,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
     //SharedPreferences for access to memory
     private SharedPreferences AppSettings;
+    private AdView mAdView;
+
 
     // variables
     float money; //money in pocket
@@ -62,8 +70,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        MobileAds.initialize(this, "ca-app-pub-3967661567296020~5965954619");
-//        interstitialAd = new InterstitialAd(this);
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         item = "";
 
         MediaPlayer player;
