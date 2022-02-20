@@ -3,6 +3,7 @@
     package="com.example.mysecondprojectmoneybox">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"

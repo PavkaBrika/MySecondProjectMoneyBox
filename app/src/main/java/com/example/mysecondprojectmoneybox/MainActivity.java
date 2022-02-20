@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,11 +26,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.text.DecimalFormat;
 
@@ -37,7 +44,13 @@ public class MainActivity extends AppCompatActivity {
     //SharedPreferences for access to memory
     private SharedPreferences AppSettings;
     private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
+    private AdRequest adRequest;
 
+    int AdsMoneyAddClick;
+    int AdsCharacterClick;
+    int AdsChangeCharClick;
+    int AdsResetClick;
 
     // variables
     float money; //money in pocket
@@ -63,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_COST = "cost"; //variable for SharedPreferences cost
     public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney"; //variable for ActivityForResult add_money
     public static final String APP_PREFERENCES_CHARACTER = "character"; //variable for ActivityForResult character
+    public static final String APP_PREFERENCES_ADSMONEYADDCLICK = "adsmoneyaddclick";
+
 
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" ); //pattern for numbers
 
@@ -79,8 +94,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+        });
+
 
         item = "";
 
@@ -177,8 +206,10 @@ public class MainActivity extends AppCompatActivity {
                     money += addmoney;
                     if (money < 0)
                         money = 0;
+                    AdsMoneyAddClick += 1;
                     SharedPreferences.Editor editor = AppSettings.edit();
                     editor.putFloat(APP_PREFERENCES_MONEY, money);
+                    editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
                     editor.apply();
                     moneyQuantity.setText(decimalFormat.format(money));
                     startVibration(VibrationEffect.EFFECT_HEAVY_CLICK);
@@ -309,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(APP_PREFERENCES_ITEM, item);
         editor.putFloat(APP_PREFERENCES_COST, cost);
         editor.putInt(APP_PREFERENCES_CHARACTER, character);
+        editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
         editor.apply();
     }
 
@@ -316,6 +348,20 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM)) && (AppSettings.contains(APP_PREFERENCES_COST)) && (AppSettings.contains(APP_PREFERENCES_CHARACTER))) {
+            if (!AppSettings.contains(APP_PREFERENCES_ADSMONEYADDCLICK)) {
+                AdsMoneyAddClick = 0;
+                SharedPreferences.Editor editor = AppSettings.edit();
+                editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
+                editor.apply();
+            }
+
+            AdsMoneyAddClick = AppSettings.getInt(APP_PREFERENCES_ADSMONEYADDCLICK, 0);
+            if ((AdsMoneyAddClick % 3 == 0) && (mInterstitialAd != null)) {
+                mInterstitialAd.show(MainActivity.this);
+                AdsMoneyAddClick = 0;
+            }
+
+
             money = AppSettings.getFloat(APP_PREFERENCES_MONEY, 0);
             moneyQuantity = (TextView) findViewById(R.id.money);
             moneyQuantity.setText(decimalFormat.format(money));
