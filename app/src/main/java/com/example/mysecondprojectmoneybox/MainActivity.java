@@ -337,19 +337,18 @@ public class MainActivity extends AppCompatActivity {
             ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
             if (character == 1) {
                 characterView.setImageResource(R.drawable.griff);
-                moneyJar.setImageResource(R.drawable.moneyjar);
-                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 383, getResources().getDisplayMetrics());
-                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 257, getResources().getDisplayMetrics());
-                moneyJar.getLayoutParams().height = heightImageView;
-                moneyJar.getLayoutParams().width = widthImageView;
+                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 216, getResources().getDisplayMetrics());
+                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 203, getResources().getDisplayMetrics());
+                characterView.getLayoutParams().height = heightImageView;
+                characterView.getLayoutParams().width = widthImageView;
             }
             else if (character == 2) {
                 characterView.setImageResource(R.drawable.krabs);
-                moneyJar.setImageResource(R.drawable.moneyjarkrabs);
-                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 430, getResources().getDisplayMetrics());
-                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 350, getResources().getDisplayMetrics());
-                moneyJar.getLayoutParams().height = heightImageView;
-                moneyJar.getLayoutParams().width = widthImageView;
+//                moneyJar.setImageResource(R.drawable.moneyjarkrabs);
+                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
+                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
+                characterView.getLayoutParams().height = heightImageView;
+                characterView.getLayoutParams().width = widthImageView;
             }
             calcLeftSum();
 

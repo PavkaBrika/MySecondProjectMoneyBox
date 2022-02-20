@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ChangeCharacterActivity extends AppCompatActivity {
 
-    int character;
-
     RadioButton Griff;
     RadioButton Krabs;
     RadioButton Mcduck;
@@ -25,7 +23,7 @@ public class ChangeCharacterActivity extends AppCompatActivity {
 
         Griff = (RadioButton) findViewById(R.id.griffButton);
         Krabs = (RadioButton) findViewById(R.id.mrkrabsButton);
-        Mcduck = (RadioButton) findViewById(R.id.mcduckButton);
+//        Mcduck = (RadioButton) findViewById(R.id.mcduckButton);
         Button OKbtn = (Button) findViewById(R.id.buttonOk);
         Button Cancelbtn = (Button) findViewById(R.id.buttonCancel);
 
