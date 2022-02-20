@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
-                                if ((thoughtsView.getVisibility() == View.VISIBLE) && (itemDesire.getVisibility() == View.VISIBLE) && (addItemCost.getVisibility() == View.VISIBLE) && (hintMainActivity.getVisibility() == View.VISIBLE)) {
+                                if ((thoughtsView.getVisibility() == View.VISIBLE) && (itemDesire.getVisibility() == View.VISIBLE) && (addItemCost.getVisibility() == View.VISIBLE) && (hintMainActivity.getVisibility() == View.INVISIBLE)) {
                                     startAnim(R.anim.finishthoughtsanim);
                                     thoughtsView.setVisibility(View.INVISIBLE);
                                     itemDesire.setVisibility(View.INVISIBLE);
@@ -370,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        if ((thoughtsView.getVisibility() == View.VISIBLE) && (itemDesire.getVisibility() == View.VISIBLE) && (addItemCost.getVisibility() == View.VISIBLE) && (hintMainActivity.getVisibility() == View.VISIBLE)) {
+                        if ((thoughtsView.getVisibility() == View.VISIBLE) && (itemDesire.getVisibility() == View.VISIBLE) && (addItemCost.getVisibility() == View.VISIBLE) && (hintMainActivity.getVisibility() == View.INVISIBLE)) {
                             startAnim(R.anim.finishthoughtsanim);
                             setVisibilityView(View.INVISIBLE);
                             addItemCost.setVisibility(View.INVISIBLE);
