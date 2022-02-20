@@ -264,18 +264,21 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
-                                startAnim(R.anim.finishthoughtsanim);
-                                thoughtsView.setVisibility(View.INVISIBLE);
-                                itemDesire.setVisibility(View.INVISIBLE);
-                                addItemCost.setVisibility(View.INVISIBLE);  //ТУТ
-                                hintMainActivity.setVisibility(View.VISIBLE);
-                                setVisibilityView(View.INVISIBLE);
+                                if ((thoughtsView.getVisibility() == View.VISIBLE) && (itemDesire.getVisibility() == View.VISIBLE) && (addItemCost.getVisibility() == View.VISIBLE) && (hintMainActivity.getVisibility() == View.VISIBLE)) {
+                                    startAnim(R.anim.finishthoughtsanim);
+                                    thoughtsView.setVisibility(View.INVISIBLE);
+                                    itemDesire.setVisibility(View.INVISIBLE);
+                                    addItemCost.setVisibility(View.INVISIBLE);  //ТУТ
+                                    hintMainActivity.setVisibility(View.VISIBLE);
+                                    setVisibilityView(View.INVISIBLE);
+                                }
                             }
                         }.start();
                     }
                     else Toast.makeText(getApplicationContext(), R.string.toastOnCharacterClick, Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    startAnim(R.anim.finishthoughtsanim);
                     hintMainActivity.setVisibility(View.VISIBLE);
                     thoughtsView.setVisibility(View.INVISIBLE);
                     setVisibilityView(View.INVISIBLE); //ТУТ
@@ -367,12 +370,14 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        startAnim(R.anim.finishthoughtsanim);
-                        setVisibilityView(View.INVISIBLE);
-                        addItemCost.setVisibility(View.INVISIBLE);
-                        thoughtsView.setVisibility(View.INVISIBLE);
-                        itemDesire.setVisibility(View.INVISIBLE);
-                        hintMainActivity.setVisibility(View.VISIBLE);
+                        if ((thoughtsView.getVisibility() == View.VISIBLE) && (itemDesire.getVisibility() == View.VISIBLE) && (addItemCost.getVisibility() == View.VISIBLE) && (hintMainActivity.getVisibility() == View.VISIBLE)) {
+                            startAnim(R.anim.finishthoughtsanim);
+                            setVisibilityView(View.INVISIBLE);
+                            addItemCost.setVisibility(View.INVISIBLE);
+                            thoughtsView.setVisibility(View.INVISIBLE);
+                            itemDesire.setVisibility(View.INVISIBLE);
+                            hintMainActivity.setVisibility(View.VISIBLE);
+                        }
                     }
                 }.start();
             }
