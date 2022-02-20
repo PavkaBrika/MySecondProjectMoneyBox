@@ -18,6 +18,8 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -247,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
                 startVibration(VibrationEffect.EFFECT_TICK);
                 if (thoughtsView.getVisibility() == View.INVISIBLE) {
                     if (!(item.equals("")) && !(cost == 0)) {
+                        startAnim(R.anim.startthoughtsanim);
                         thoughtsView.setVisibility(View.VISIBLE);
                         itemDesire.setVisibility(View.VISIBLE);
                         addItemCost.setVisibility(View.VISIBLE);  //ТУТ
@@ -261,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
+                                startAnim(R.anim.finishthoughtsanim);
                                 thoughtsView.setVisibility(View.INVISIBLE);
                                 itemDesire.setVisibility(View.INVISIBLE);
                                 addItemCost.setVisibility(View.INVISIBLE);  //ТУТ
@@ -347,6 +351,8 @@ public class MainActivity extends AppCompatActivity {
             calcLeftSum();
 
             if ((cost != 0) && (!item.equals(""))) {
+                startAnim(R.anim.startthoughtsanim);
+
                 setVisibilityView(View.VISIBLE);
                 AddSubButton.setVisibility(View.VISIBLE);
                 moneyQuantity.setVisibility(View.VISIBLE);
@@ -361,6 +367,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
+                        startAnim(R.anim.finishthoughtsanim);
                         setVisibilityView(View.INVISIBLE);
                         addItemCost.setVisibility(View.INVISIBLE);
                         thoughtsView.setVisibility(View.INVISIBLE);
@@ -410,5 +417,14 @@ public class MainActivity extends AppCompatActivity {
         vibrator.vibrate(effect);
     };
 
+    private void startAnim(int animation) {
+        Animation anim = AnimationUtils.loadAnimation(this, animation);
+        addItemCost.startAnimation(anim);
+        thoughtsView.startAnimation(anim);
+        itemDesire.startAnimation(anim);
+        leftToSaving.startAnimation(anim);
+        textFirst.startAnimation(anim);
+        textSecond.startAnimation(anim);
+    }
 
 }
