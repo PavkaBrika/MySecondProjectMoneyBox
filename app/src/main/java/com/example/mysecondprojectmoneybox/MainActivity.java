@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney"; //variable for ActivityForResult add_money
     public static final String APP_PREFERENCES_CHARACTER = "character"; //variable for ActivityForResult character
     public static final String APP_PREFERENCES_ADSMONEYADDCLICK = "adsmoneyaddclick";
+    public static final String APP_PREFERENCES_ADSCHARACTERCLICK = "adscharacterclick";
+    public static final String APP_PREFERENCES_ADSCHANGECHARCLICK = "adschangecharclick";
+    public static final String APP_PREFERENCES_ADSRESETCLICK = "adsresetclick";
 
 
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" ); //pattern for numbers
@@ -112,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
         resButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AdsResetClick += 1;
+                if ((AdsResetClick == 2) && (mInterstitialAd != null)) {
+                    mInterstitialAd.show(MainActivity.this);
+                    AdsResetClick = 0;
+                }
+                saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle(R.string.alertDialogTitle);
                 builder.setMessage(R.string.alertDialogMessage);
@@ -123,11 +132,9 @@ public class MainActivity extends AppCompatActivity {
                         item = "";
                         calcLeftSum();
 
-                        SharedPreferences.Editor editor = AppSettings.edit();
-                        editor.putFloat(APP_PREFERENCES_MONEY, money);
-                        editor.putString(APP_PREFERENCES_ITEM, item);
-                        editor.putFloat(APP_PREFERENCES_COST, cost);
-                        editor.apply();
+                        saveFloatInMemory(APP_PREFERENCES_MONEY, money);
+                        saveStringInMemory(APP_PREFERENCES_ITEM, item);
+                        saveFloatInMemory(APP_PREFERENCES_COST, cost);
 
                         moneyQuantity.setText(decimalFormat.format(money));
                         leftToSaving.setTextSize(30);
@@ -158,10 +165,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = result.getData();
                     item = intent.getStringExtra(APP_PREFERENCES_ITEM);
                     cost = intent.getFloatExtra(APP_PREFERENCES_COST, 0);
-                    SharedPreferences.Editor editor = AppSettings.edit();
-                    editor.putString(APP_PREFERENCES_ITEM, item);
-                    editor.putFloat(APP_PREFERENCES_COST, cost);
-                    editor.apply();
+                    saveStringInMemory(APP_PREFERENCES_ITEM, item);
+                    saveFloatInMemory(APP_PREFERENCES_COST, cost);
                     itemDesire.setText(item);
                     addItemCost.setText(Float.toString(cost));
                 }
@@ -182,9 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     money += addmoney;
                     if (money < 0)
                         money = 0;
-                    SharedPreferences.Editor editor = AppSettings.edit();
-                    editor.putFloat(APP_PREFERENCES_MONEY, money);
-                    editor.apply();
+                    saveFloatInMemory(APP_PREFERENCES_MONEY, money);
                     moneyQuantity.setText(decimalFormat.format(money));
                     startVibration(VibrationEffect.EFFECT_HEAVY_CLICK);
                     player.start();
@@ -201,9 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 if (result.getResultCode()==RESULT_OK) {
                     Intent intent = result.getData();
                     character = intent.getIntExtra(APP_PREFERENCES_CHARACTER, 0);
-                    SharedPreferences.Editor editor = AppSettings.edit();
-                    editor.putInt(APP_PREFERENCES_CHARACTER, character);
-                    editor.apply();
+                    saveIntInMemory(APP_PREFERENCES_CHARACTER, character);
                 }
             }
         });
@@ -212,9 +213,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AdsMoneyAddClick += 1;
-                SharedPreferences.Editor editor = AppSettings.edit();
-                editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
-                editor.apply();
+                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
                 Intent intent = new Intent(MainActivity.this, AddMoneyActivity.class);
                 startForResultAddMoney.launch(intent);
             }
@@ -224,8 +223,9 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AdsChangeCharClick += 1;
+                saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick);
                 Intent intent = new Intent(MainActivity.this, ChangeCharacterActivity.class);
-
                 startForResultChangeCharacter.launch(intent);
             }
         });
@@ -253,6 +253,12 @@ public class MainActivity extends AppCompatActivity {
         characterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AdsCharacterClick += 1;
+                if ((AdsCharacterClick == 10) && (mInterstitialAd != null)) {
+                    mInterstitialAd.show(MainActivity.this);
+                    AdsCharacterClick = 0;
+                }
+                saveIntInMemory(APP_PREFERENCES_ADSCHARACTERCLICK, AdsCharacterClick);
                 startVibration(VibrationEffect.EFFECT_TICK);
                 if (thoughtsView.getVisibility() == View.INVISIBLE) {
                     if (!(item.equals("")) && !(cost == 0)) {
@@ -298,45 +304,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void onStart() {
-        super.onStart();
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        mAdView = (AdView) findViewById(R.id.adView);
-        adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        mInterstitialAd = interstitialAd;
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        mInterstitialAd = null;
-                    }
-                });
-    }
-
     protected void onResume() {
         super.onResume();
 
         if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM)) && (AppSettings.contains(APP_PREFERENCES_COST)) && (AppSettings.contains(APP_PREFERENCES_CHARACTER))) {
-            if (!AppSettings.contains(APP_PREFERENCES_ADSMONEYADDCLICK)) {
+            AdsMoneyAddClick = AppSettings.getInt(APP_PREFERENCES_ADSMONEYADDCLICK, 0);
+            if ((!AppSettings.contains(APP_PREFERENCES_ADSMONEYADDCLICK)) || (AdsMoneyAddClick > 3)) {
                 AdsMoneyAddClick = 0;
-                SharedPreferences.Editor editor = AppSettings.edit();
-                editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
-                editor.apply();
+                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
+            }
+            AdsCharacterClick = AppSettings.getInt(APP_PREFERENCES_ADSCHARACTERCLICK, 0);
+            if ((!AppSettings.contains(APP_PREFERENCES_ADSCHARACTERCLICK)) || (AdsCharacterClick > 10)) {
+                AdsCharacterClick = 0;
+                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsCharacterClick);
+            }
+            AdsChangeCharClick = AppSettings.getInt(APP_PREFERENCES_ADSCHANGECHARCLICK, 0);
+            if ((!AppSettings.contains(APP_PREFERENCES_ADSCHANGECHARCLICK)) || (AdsChangeCharClick > 2)) {
+                AdsChangeCharClick = 0;
+                saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick);
+            }
+            if ((!AppSettings.contains(APP_PREFERENCES_ADSRESETCLICK)) || (AdsResetClick > 2)) {
+                AdsResetClick = 0;
+                saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
             }
 
-            AdsMoneyAddClick = AppSettings.getInt(APP_PREFERENCES_ADSMONEYADDCLICK, 0);
+            if ((AdsChangeCharClick == 2) && (mInterstitialAd != null)) {
+                mInterstitialAd.show(MainActivity.this);
+                AdsChangeCharClick = 0;
+            }
+
             if ((AdsMoneyAddClick == 3) && (mInterstitialAd != null)) {
                 mInterstitialAd.show(MainActivity.this);
                 AdsMoneyAddClick = 0;
@@ -404,7 +400,54 @@ public class MainActivity extends AppCompatActivity {
                 thoughtsView.setVisibility(View.INVISIBLE);
             }
         }
+        //Ads
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                mAdView = (AdView) findViewById(R.id.adView); //banner ad view
+                adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest); //load banner ad
+                //load intestitial ad
+                if (mInterstitialAd == null) {
+                    InterstitialAd.load(MainActivity.this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                            new InterstitialAdLoadCallback() {
+                                @Override
+                                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                                    mInterstitialAd = interstitialAd;
+                                    Log.i("TAG", "onAdLoaded");
+                                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                                        @Override
+                                        public void onAdDismissedFullScreenContent() {
+                                            // Called when fullscreen content is dismissed.
+                                            Log.i("TAG", "The ad was dismissed.");
+                                        }
 
+                                        @Override
+                                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                            // Called when fullscreen content failed to show.
+                                            Log.i("TAG", "The ad failed to show.");
+                                        }
+
+                                        @Override
+                                        public void onAdShowedFullScreenContent() {
+                                            // Called when fullscreen content is shown.
+                                            // Make sure to set your reference to null so you don't
+                                            // show it a second time.
+                                            mInterstitialAd = null;
+                                            Log.i("TAG", "The ad was shown.");
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                    mInterstitialAd = null;
+                                    Log.i("TAG", loadAdError.getMessage());
+                                }
+                            });
+                    }
+                }
+            });
     }
 
     protected void onPause() {
@@ -417,14 +460,14 @@ public class MainActivity extends AppCompatActivity {
         else
             cost = Float.parseFloat(addItemCost.getText().toString());
 
-
-        SharedPreferences.Editor editor = AppSettings.edit();
-        editor.putFloat(APP_PREFERENCES_MONEY, money);
-        editor.putString(APP_PREFERENCES_ITEM, item);
-        editor.putFloat(APP_PREFERENCES_COST, cost);
-        editor.putInt(APP_PREFERENCES_CHARACTER, character);
-        editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
-        editor.apply();
+        saveFloatInMemory(APP_PREFERENCES_MONEY, money);
+        saveStringInMemory(APP_PREFERENCES_ITEM, item);
+        saveFloatInMemory(APP_PREFERENCES_COST, cost);
+        saveIntInMemory(APP_PREFERENCES_CHARACTER, character);
+        saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
+        saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick);
+        saveIntInMemory(APP_PREFERENCES_ADSCHARACTERCLICK, AdsCharacterClick);
+        saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
     }
 
 
@@ -439,6 +482,7 @@ public class MainActivity extends AppCompatActivity {
             leftToSaving.setText(R.string.congratulations);
             leftToSaving.setTextSize(25);
             leftToSaving.setPadding(80,0,80,0);
+            AddSubButton.setVisibility(View.INVISIBLE);
             jarHint.setVisibility(View.INVISIBLE);
         }
     }
@@ -472,5 +516,23 @@ public class MainActivity extends AppCompatActivity {
         int widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         characterView.getLayoutParams().height = heightImageView;
         characterView.getLayoutParams().width = widthImageView;
+    }
+
+    private void saveIntInMemory(String preferences, int variable) {
+        SharedPreferences.Editor editor = AppSettings.edit();
+        editor.putInt(preferences, variable);
+        editor.apply();
+    }
+
+    private void saveFloatInMemory(String preferences, float variable) {
+        SharedPreferences.Editor editor = AppSettings.edit();
+        editor.putFloat(preferences, variable);
+        editor.apply();
+    }
+
+    private void saveStringInMemory(String preferences, String variable) {
+        SharedPreferences.Editor editor = AppSettings.edit();
+        editor.putString(preferences, variable);
+        editor.apply();
     }
 }
