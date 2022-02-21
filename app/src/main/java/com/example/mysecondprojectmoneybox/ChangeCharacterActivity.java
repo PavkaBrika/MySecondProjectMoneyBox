@@ -37,10 +37,10 @@ public class ChangeCharacterActivity extends AppCompatActivity {
                 else if (Krabs.isChecked()) {
                     changeChar(2);
                 }
-                else if (Mcduck.isChecked()) {
-                    changeChar(3);
-                }
-                else if ((!Griff.isChecked()) && (!Krabs.isChecked()) && (!Mcduck.isChecked())) {
+//                else if (Mcduck.isChecked()) {
+//                    changeChar(3);
+//                }
+                else if ((!Griff.isChecked()) && (!Krabs.isChecked())) {
                     Toast.makeText(getApplicationContext(), R.string.toastNoCharacterChangeCharacterActivity, Toast.LENGTH_SHORT).show();
                 }
             }

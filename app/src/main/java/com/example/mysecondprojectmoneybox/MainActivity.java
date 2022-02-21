@@ -206,11 +206,6 @@ public class MainActivity extends AppCompatActivity {
                     money += addmoney;
                     if (money < 0)
                         money = 0;
-                    AdsMoneyAddClick += 1;
-                    SharedPreferences.Editor editor = AppSettings.edit();
-                    editor.putFloat(APP_PREFERENCES_MONEY, money);
-                    editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
-                    editor.apply();
                     moneyQuantity.setText(decimalFormat.format(money));
                     startVibration(VibrationEffect.EFFECT_HEAVY_CLICK);
                     player.start();
@@ -234,12 +229,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         AddSubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AdsMoneyAddClick += 1;
+                SharedPreferences.Editor editor = AppSettings.edit();
+                editor.putFloat(APP_PREFERENCES_MONEY, money);
+                editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
+                editor.apply();
                 Intent intent = new Intent(MainActivity.this, AddMoneyActivity.class);
-
                 startForResultAddMoney.launch(intent);
             }
         });
@@ -356,11 +354,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
             AdsMoneyAddClick = AppSettings.getInt(APP_PREFERENCES_ADSMONEYADDCLICK, 0);
-            if ((AdsMoneyAddClick % 3 == 0) && (mInterstitialAd != null)) {
+            if ((AdsMoneyAddClick == 3) && (mInterstitialAd != null)) {
                 mInterstitialAd.show(MainActivity.this);
                 AdsMoneyAddClick = 0;
             }
-
 
             money = AppSettings.getFloat(APP_PREFERENCES_MONEY, 0);
             moneyQuantity = (TextView) findViewById(R.id.money);
@@ -376,25 +373,13 @@ public class MainActivity extends AppCompatActivity {
             }
             else addItemCost.setText("");
 
-            int heightImageView;
-            int widthImageView;
             character = AppSettings.getInt(APP_PREFERENCES_CHARACTER, 0);
-            ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
-            ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
+//            ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
             if (character == 1) {
-                characterView.setImageResource(R.drawable.griff);
-                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 216, getResources().getDisplayMetrics());
-                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 203, getResources().getDisplayMetrics());
-                characterView.getLayoutParams().height = heightImageView;
-                characterView.getLayoutParams().width = widthImageView;
+                changeCharacter(R.drawable.griff, 216, 203);
             }
             else if (character == 2) {
-                characterView.setImageResource(R.drawable.krabs);
-//                moneyJar.setImageResource(R.drawable.moneyjarkrabs);
-                heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-                widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-                characterView.getLayoutParams().height = heightImageView;
-                characterView.getLayoutParams().width = widthImageView;
+                changeCharacter(R.drawable.krabs, 250, 250);
             }
             calcLeftSum();
 
@@ -439,6 +424,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected void onStart() {
+        super.onStart();
+
+    }
+
 
     private void calcLeftSum() {
         left = cost - money;
@@ -477,4 +467,12 @@ public class MainActivity extends AppCompatActivity {
         textSecond.startAnimation(anim);
     }
 
+    private void changeCharacter(int character, int height, int width) {
+        ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
+        characterView.setImageResource(character);
+        int heightImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources().getDisplayMetrics());
+        int widthImageView = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        characterView.getLayoutParams().height = heightImageView;
+        characterView.getLayoutParams().width = widthImageView;
+    }
 }
