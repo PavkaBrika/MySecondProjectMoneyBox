@@ -360,6 +360,9 @@ public class MainActivity extends AppCompatActivity {
             else if (character == 2) {
                 changeCharacter(R.drawable.krabs, 250, 250);
             }
+            else if (character == 3) {
+                changeCharacter(R.drawable.mcduck, 216, 203);
+            }
             calcLeftSum();
 
             if ((cost != 0) && (!item.equals(""))) {

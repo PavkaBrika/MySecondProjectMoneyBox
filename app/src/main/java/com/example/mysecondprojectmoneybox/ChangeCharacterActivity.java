@@ -23,7 +23,7 @@ public class ChangeCharacterActivity extends AppCompatActivity {
 
         Griff = (RadioButton) findViewById(R.id.griffButton);
         Krabs = (RadioButton) findViewById(R.id.mrkrabsButton);
-//        Mcduck = (RadioButton) findViewById(R.id.mcduckButton);
+        Mcduck = (RadioButton) findViewById(R.id.mcduckButton);
         Button OKbtn = (Button) findViewById(R.id.buttonOk);
         Button Cancelbtn = (Button) findViewById(R.id.buttonCancel);
 
@@ -37,10 +37,10 @@ public class ChangeCharacterActivity extends AppCompatActivity {
                 else if (Krabs.isChecked()) {
                     changeChar(2);
                 }
-//                else if (Mcduck.isChecked()) {
-//                    changeChar(3);
-//                }
-                else if ((!Griff.isChecked()) && (!Krabs.isChecked())) {
+                else if (Mcduck.isChecked()) {
+                    changeChar(3);
+                }
+                else if ((!Griff.isChecked()) && (!Krabs.isChecked()) && (!Mcduck.isChecked())) {
                     Toast.makeText(getApplicationContext(), R.string.toastNoCharacterChangeCharacterActivity, Toast.LENGTH_SHORT).show();
                 }
             }
