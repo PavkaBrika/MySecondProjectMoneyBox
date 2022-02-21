@@ -87,30 +87,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        mAdView = (AdView) findViewById(R.id.adView);
-        adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        mInterstitialAd = interstitialAd;
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        mInterstitialAd = null;
-                    }
-        });
-
-
         item = "";
 
         MediaPlayer player;
@@ -320,26 +296,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected void onStart() {
+        super.onStart();
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
-    protected void onPause() {
-        super.onPause();
+        mAdView = (AdView) findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
-        item = itemDesire.getText().toString();
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                    }
 
-        if (addItemCost.getText().toString().equals(""))
-            cost = 0;
-        else
-            cost = Float.parseFloat(addItemCost.getText().toString());
-
-
-        SharedPreferences.Editor editor = AppSettings.edit();
-        editor.putFloat(APP_PREFERENCES_MONEY, money);
-        editor.putString(APP_PREFERENCES_ITEM, item);
-        editor.putFloat(APP_PREFERENCES_COST, cost);
-        editor.putInt(APP_PREFERENCES_CHARACTER, character);
-        editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
-        editor.apply();
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     protected void onResume() {
@@ -424,9 +405,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void onStart() {
-        super.onStart();
+    protected void onPause() {
+        super.onPause();
 
+        item = itemDesire.getText().toString();
+
+        if (addItemCost.getText().toString().equals(""))
+            cost = 0;
+        else
+            cost = Float.parseFloat(addItemCost.getText().toString());
+
+
+        SharedPreferences.Editor editor = AppSettings.edit();
+        editor.putFloat(APP_PREFERENCES_MONEY, money);
+        editor.putString(APP_PREFERENCES_ITEM, item);
+        editor.putFloat(APP_PREFERENCES_COST, cost);
+        editor.putInt(APP_PREFERENCES_CHARACTER, character);
+        editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
+        editor.apply();
     }
 
 
