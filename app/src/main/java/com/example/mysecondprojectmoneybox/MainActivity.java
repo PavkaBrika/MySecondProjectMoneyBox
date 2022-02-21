@@ -182,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
                     money += addmoney;
                     if (money < 0)
                         money = 0;
+                    SharedPreferences.Editor editor = AppSettings.edit();
+                    editor.putFloat(APP_PREFERENCES_MONEY, money);
+                    editor.apply();
                     moneyQuantity.setText(decimalFormat.format(money));
                     startVibration(VibrationEffect.EFFECT_HEAVY_CLICK);
                     player.start();
@@ -210,7 +213,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AdsMoneyAddClick += 1;
                 SharedPreferences.Editor editor = AppSettings.edit();
-                editor.putFloat(APP_PREFERENCES_MONEY, money);
                 editor.putInt(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
                 editor.apply();
                 Intent intent = new Intent(MainActivity.this, AddMoneyActivity.class);
