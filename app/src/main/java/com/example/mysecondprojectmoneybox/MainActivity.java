@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_ADSCHARACTERCLICK = "adscharacterclick";
     public static final String APP_PREFERENCES_ADSCHANGECHARCLICK = "adschangecharclick";
     public static final String APP_PREFERENCES_ADSRESETCLICK = "adsresetclick";
+    public static final String APP_PREFERENCES_AUDIO = "audio";
+    public static final String APP_PREFERENCES_VIBRO = "vibro";
 
 
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" ); //pattern for numbers
