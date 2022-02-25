@@ -19,8 +19,12 @@ public class ChangeCharacterActivity extends AppCompatActivity {
     RadioButton Griff;
     RadioButton Krabs;
     RadioButton Mcduck;
+    CheckBox AudioCheckBox;
+    CheckBox VibroCheckBox;
 
     int character;
+    boolean audio;
+    boolean vibro;
 
     public static final String SETTINGS_MEMORY = "settings memory";
     public static final String SETTINGS_MEMORY_CHARACTER = "character";
@@ -37,8 +41,8 @@ public class ChangeCharacterActivity extends AppCompatActivity {
         Mcduck = (RadioButton) findViewById(R.id.mcduckButton);
         Button OKbtn = (Button) findViewById(R.id.buttonOk);
         Button Cancelbtn = (Button) findViewById(R.id.buttonCancel);
-        CheckBox AudioCheckBox = (CheckBox) findViewById(R.id.checkBoxEnableSound);
-        CheckBox VibroCheckBox = (CheckBox) findViewById(R.id.checkBoxEnableVibration);
+        AudioCheckBox = (CheckBox) findViewById(R.id.checkBoxEnableSound);
+        VibroCheckBox = (CheckBox) findViewById(R.id.checkBoxEnableVibration);
 
         AppSettings = getSharedPreferences(SETTINGS_MEMORY, Context.MODE_PRIVATE);
 
@@ -46,8 +50,8 @@ public class ChangeCharacterActivity extends AppCompatActivity {
         OKbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkChar();
-
+                checkCheckBoxes();
+                changeSettings(character, audio, vibro);
             }
         });
 
@@ -62,8 +66,10 @@ public class ChangeCharacterActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        if (AppSettings.contains(SETTINGS_MEMORY_CHARACTER)) {
+        if ((AppSettings.contains(SETTINGS_MEMORY_CHARACTER)) && (AppSettings.contains(SETTINGS_MEMORY_AUDIO)) && (AppSettings.contains(SETTINGS_MEMORY_VIBRATION))) {
             character = AppSettings.getInt(SETTINGS_MEMORY_CHARACTER, 0);
+            audio = AppSettings.getBoolean(SETTINGS_MEMORY_AUDIO, true);
+            vibro = AppSettings.getBoolean(SETTINGS_MEMORY_VIBRATION, true);
 
             if (character == 1) {
                 Griff.setChecked(true);
@@ -74,24 +80,48 @@ public class ChangeCharacterActivity extends AppCompatActivity {
             else if (character == 3) {
                 Mcduck.setChecked(true);
             }
+            if (audio == true)
+                AudioCheckBox.setChecked(true);
+            else
+                AudioCheckBox.setChecked(false);
+            if (vibro == true)
+                VibroCheckBox.setChecked(true);
+            else
+                VibroCheckBox.setChecked(false);
         }
     }
 
-    public void checkChar() {
+    public void checkCheckBoxes() {
         if (Griff.isChecked()) {
-            changeSettings(1);
-            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, 0);
+            character = 1;
+            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, character);
         }
         else if (Krabs.isChecked()) {
-            changeSettings(2);
-            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, 0);
+            character = 2;
+            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, character);
         }
         else if (Mcduck.isChecked()) {
-            changeSettings(3);
-            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, 0);
+            character = 3;
+            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, character);
         }
         else if ((!Griff.isChecked()) && (!Krabs.isChecked()) && (!Mcduck.isChecked())) {
             Toast.makeText(getApplicationContext(), R.string.toastNoCharacterChangeCharacterActivity, Toast.LENGTH_SHORT).show();
+        }
+        if (AudioCheckBox.isChecked()) {
+            audio = true;
+            saveBoolInMemory(SETTINGS_MEMORY_AUDIO, audio);
+        }
+        else{
+            audio = false;
+            saveBoolInMemory(SETTINGS_MEMORY_AUDIO, audio);
+        }
+        if (VibroCheckBox.isChecked()) {
+            vibro = true;
+            saveBoolInMemory(SETTINGS_MEMORY_VIBRATION, vibro);
+        }
+        else {
+            vibro = false;
+            saveBoolInMemory(SETTINGS_MEMORY_VIBRATION, vibro);
         }
     }
 
@@ -101,10 +131,18 @@ public class ChangeCharacterActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    private void saveBoolInMemory(String preferences, boolean variable) {
+        SharedPreferences.Editor editor = AppSettings.edit();
+        editor.putBoolean(preferences, variable);
+        editor.apply();
+    }
 
-    public void changeSettings(int charact) {
+
+    public void changeSettings(int charact, boolean audio, boolean vibro) {
         Intent dataCharacter = new Intent();
         dataCharacter.putExtra(MainActivity.APP_PREFERENCES_CHARACTER, charact);
+        dataCharacter.putExtra(MainActivity.APP_PREFERENCES_AUDIO, audio);
+        dataCharacter.putExtra(MainActivity.APP_PREFERENCES_VIBRO, vibro);
         setResult(RESULT_OK, dataCharacter);
         finish();
     }

@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     String item; //name of target
     float left; //left to save
     int character; //number of character
+    boolean audio;
+    boolean vibro;
 
     TextView moneyQuantity; //textView for money in pocket
     TextView itemDesire; //textView for name of target
@@ -149,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         AddSubButton.setVisibility(View.INVISIBLE); //ТУТ
                         thoughtsView.setVisibility(View.INVISIBLE);
                         hintMainActivity.setVisibility(View.INVISIBLE);
-                        startVibration(VibrationEffect.DEFAULT_AMPLITUDE);
+                        startVibration(VibrationEffect.DEFAULT_AMPLITUDE, vibro);
 
                         dialogInterface.cancel();
                     }
@@ -191,8 +193,9 @@ public class MainActivity extends AppCompatActivity {
                         money = 0;
                     saveFloatInMemory(APP_PREFERENCES_MONEY, money);
                     moneyQuantity.setText(decimalFormat.format(money));
-                    startVibration(VibrationEffect.EFFECT_HEAVY_CLICK);
-                    player.start();
+                    startVibration(VibrationEffect.EFFECT_HEAVY_CLICK, vibro);
+                    if (audio == true)
+                        player.start();
                 }
                 else {
                     moneyQuantity.setText("Error");
@@ -206,7 +209,11 @@ public class MainActivity extends AppCompatActivity {
                 if (result.getResultCode()==RESULT_OK) {
                     Intent intent = result.getData();
                     character = intent.getIntExtra(APP_PREFERENCES_CHARACTER, 0);
+                    audio = intent.getBooleanExtra(APP_PREFERENCES_AUDIO, true);
+                    vibro = intent.getBooleanExtra(APP_PREFERENCES_VIBRO, true);
                     saveIntInMemory(APP_PREFERENCES_CHARACTER, character);
+                    saveBoolInMemory(APP_PREFERENCES_AUDIO, audio);
+                    saveBoolInMemory(APP_PREFERENCES_VIBRO, vibro);
                 }
             }
         });
@@ -261,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
                     AdsCharacterClick = 0;
                 }
                 saveIntInMemory(APP_PREFERENCES_ADSCHARACTERCLICK, AdsCharacterClick);
-                startVibration(VibrationEffect.EFFECT_TICK);
+                startVibration(VibrationEffect.EFFECT_TICK, vibro);
                 if (thoughtsView.getVisibility() == View.INVISIBLE) {
                     if (!(item.equals("")) && !(cost == 0)) {
                         startAnim(R.anim.startthoughtsanim);
@@ -339,6 +346,9 @@ public class MainActivity extends AppCompatActivity {
                 mInterstitialAd.show(MainActivity.this);
                 AdsMoneyAddClick = 0;
             }
+
+            vibro = AppSettings.getBoolean(APP_PREFERENCES_VIBRO, true);
+            audio = AppSettings.getBoolean(APP_PREFERENCES_AUDIO, true);
 
             money = AppSettings.getFloat(APP_PREFERENCES_MONEY, 0);
             moneyQuantity = (TextView) findViewById(R.id.money);
@@ -497,10 +507,12 @@ public class MainActivity extends AppCompatActivity {
         textSecond.setVisibility(visibility);
     }
 
-    private void startVibration(int vibrationEffect) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        VibrationEffect effect = VibrationEffect.createOneShot(150, vibrationEffect);
-        vibrator.vibrate(effect);
+    private void startVibration(int vibrationEffect, boolean enable) {
+        if (enable == true) {
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            VibrationEffect effect = VibrationEffect.createOneShot(150, vibrationEffect);
+            vibrator.vibrate(effect);
+        }
     };
 
     private void startAnim(int animation) {
@@ -537,6 +549,12 @@ public class MainActivity extends AppCompatActivity {
     private void saveStringInMemory(String preferences, String variable) {
         SharedPreferences.Editor editor = AppSettings.edit();
         editor.putString(preferences, variable);
+        editor.apply();
+    }
+
+    private void saveBoolInMemory(String preferences, boolean variable) {
+        SharedPreferences.Editor editor = AppSettings.edit();
+        editor.putBoolean(preferences, variable);
         editor.apply();
     }
 }
