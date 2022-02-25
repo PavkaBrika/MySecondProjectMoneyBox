@@ -23,7 +23,10 @@
     <string name="toastNoTargetNewGoalActivity">You must enter the target!</string>
     <string name="toastNoCostNewGoalActivity">You must enter the cost!</string>
     <string name="toastOnCharacterClick">Create a target first!</string>
-    <string name="activityTitleChangeCharacter">Change character</string>
+    <string name="activityTitleChangeCharacter">Settings</string>
+    <string name="titleChangeCharacter">Change character</string>
+    <string name="checkBoxTextEnableVibrationChangeCharacter">Enable vibration</string>
+    <string name="checkBoxTextEnableSoundChangeCharacter">Enable sound</string>
     <string name="characterNameGriff">Griff</string>
     <string name="characterNameMrKrabs">Mr. Krabs</string>
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>

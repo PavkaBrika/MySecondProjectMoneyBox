@@ -409,8 +409,7 @@ public class MainActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
                 mAdView = (AdView) findViewById(R.id.adView); //banner ad view
                 adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest); //load banner ad
-                //load intestitial ad
+                mAdView.loadAd(adRequest); //load banner a
                 if (mInterstitialAd == null) {
                     InterstitialAd.load(MainActivity.this,"ca-app-pub-3940256099942544/1033173712", adRequest,
                             new InterstitialAdLoadCallback() {
