@@ -1,4 +1,4 @@
-package com.example.mysecondprojectmoneybox;
+package com.breackneck.mysecondprojectmoneybox;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.example.mysecondprojectmoneybox;
+package com.breackneck.mysecondprojectmoneybox;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -41,8 +41,7 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    //SharedPreferences for access to memory
-    private SharedPreferences AppSettings;
+    private SharedPreferences AppSettings; //SharedPreferences for access to memory
     private AdView mAdView;
     private InterstitialAd mInterstitialAd;
     private AdRequest adRequest;
@@ -85,9 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_AUDIO = "audio";
     public static final String APP_PREFERENCES_VIBRO = "vibro";
 
-
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" ); //pattern for numbers
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-
 
         ActivityResultLauncher<Intent> startForResultCreateTarget = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
@@ -257,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         ImageView characterView = (ImageView) findViewById(R.id.imageViewCharacter);
         characterView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,8 +304,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     protected void onResume() {
@@ -365,7 +358,6 @@ public class MainActivity extends AppCompatActivity {
             else addItemCost.setText("");
 
             character = AppSettings.getInt(APP_PREFERENCES_CHARACTER, 0);
-//            ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
             if (character == 1) {
                 changeCharacter(R.drawable.griff, 216, 203);
             }
@@ -421,9 +413,9 @@ public class MainActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
                 mAdView = (AdView) findViewById(R.id.adView); //banner ad view
                 adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest); //load banner a
+                mAdView.loadAd(adRequest); //load banner
                 if (mInterstitialAd == null) {
-                    InterstitialAd.load(MainActivity.this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                    InterstitialAd.load(MainActivity.this,"ca-app-pub-3967661567296020/5029111613", adRequest,
                             new InterstitialAdLoadCallback() {
                                 @Override
                                 public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -484,11 +476,10 @@ public class MainActivity extends AppCompatActivity {
         saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
     }
 
-
     private void calcLeftSum() {
         left = cost - money;
         if (left > 0) {
-            leftToSaving.setText(decimalFormat.format(left) + " Left");
+            leftToSaving.setText(decimalFormat.format(left) + " " + getString(R.string.left));
             jarHint.setVisibility(View.INVISIBLE);
             leftToSaving.setTextSize(30);
         }

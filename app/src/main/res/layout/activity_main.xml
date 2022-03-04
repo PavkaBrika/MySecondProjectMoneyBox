@@ -164,7 +164,7 @@
 
     <TextView
         android:id="@+id/HintToAddNewGoalTextView"
-        android:layout_width="143dp"
+        android:layout_width="160dp"
         android:layout_height="53dp"
         android:text="@string/textHintToAddNewGoalTextView"
         android:textAlignment="center"
@@ -196,7 +196,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:adUnitId="ca-app-pub-3967661567296020/9292703957"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

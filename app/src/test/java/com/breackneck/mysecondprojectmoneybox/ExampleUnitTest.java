@@ -1,4 +1,4 @@
-package com.example.mysecondprojectmoneybox;
+package com.breackneck.mysecondprojectmoneybox;
 
 import org.junit.Test;
 
