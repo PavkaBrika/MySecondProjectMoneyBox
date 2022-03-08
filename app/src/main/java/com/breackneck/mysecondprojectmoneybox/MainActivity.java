@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
     String item; //name of target
     float left; //left to save
     int character; //number of character
-    boolean audio;
-    boolean vibro;
+    boolean audio; //enable audio
+    boolean vibro; //enable vibration
 
     TextView moneyQuantity; //textView for money in pocket
     TextView itemDesire; //textView for name of target
@@ -77,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_COST = "cost"; //variable for SharedPreferences cost
     public static final String ACTIVITY_FOR_RESULT_ADD_MONEY = "addmoney"; //variable for ActivityForResult add_money
     public static final String APP_PREFERENCES_CHARACTER = "character"; //variable for ActivityForResult character
-    public static final String APP_PREFERENCES_ADSMONEYADDCLICK = "adsmoneyaddclick";
-    public static final String APP_PREFERENCES_ADSCHARACTERCLICK = "adscharacterclick";
-    public static final String APP_PREFERENCES_ADSCHANGECHARCLICK = "adschangecharclick";
-    public static final String APP_PREFERENCES_ADSRESETCLICK = "adsresetclick";
-    public static final String APP_PREFERENCES_AUDIO = "audio";
-    public static final String APP_PREFERENCES_VIBRO = "vibro";
+    public static final String APP_PREFERENCES_ADSMONEYADDCLICK = "adsmoneyaddclick"; //variable for Ad
+    public static final String APP_PREFERENCES_ADSCHARACTERCLICK = "adscharacterclick";//variable for Ad
+    public static final String APP_PREFERENCES_ADSCHANGECHARCLICK = "adschangecharclick"; //variable for Ad
+    public static final String APP_PREFERENCES_ADSRESETCLICK = "adsresetclick"; //variable for Ad
+    public static final String APP_PREFERENCES_AUDIO = "audio"; //variable for enable audio
+    public static final String APP_PREFERENCES_VIBRO = "vibro"; //variable for enable vibration
 
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" ); //pattern for numbers
 
@@ -93,10 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
         item = "";
 
-        MediaPlayer player;
-        player = MediaPlayer.create(this, R.raw.coinssound);
+        MediaPlayer player; //initialize player for coin sound
+        player = MediaPlayer.create(this, R.raw.coinssound); //added coin sound to MediaPlayer
 
-        AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE); //set name to App Preferences
 
         moneyQuantity = (TextView) findViewById(R.id.money);
         addItemCost = (TextView) findViewById(R.id.costEditText);
@@ -110,30 +110,30 @@ public class MainActivity extends AppCompatActivity {
         thoughtsView = (ImageView) findViewById(R.id.imageViewThoughts);
 
         moneyQuantity.setText(decimalFormat.format(money));
-        addItemCost.setText(""); //TODO: добавить музыку после добавления денег
+        addItemCost.setText("");
 
         ImageView resButton = (ImageView) findViewById(R.id.buttonReset);
-        resButton.setOnClickListener(new View.OnClickListener() {
+        resButton.setOnClickListener(new View.OnClickListener() { // on Reset button click listener
             @Override
-            public void onClick(View view) {
-                AdsResetClick += 1;
-                if ((AdsResetClick == 2) && (mInterstitialAd != null)) {
-                    mInterstitialAd.show(MainActivity.this);
-                    AdsResetClick = 0;
+            public void onClick(View view) { //on reset button click
+                AdsResetClick += 1; //add 1 to Ad variable
+                if ((AdsResetClick == 2) && (mInterstitialAd != null)) { // if reset button was clicked 2 times and ad is loaded
+                    mInterstitialAd.show(MainActivity.this); //show the ads
+                    AdsResetClick = 0; //and ad variable set 0
                 }
-                saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle(R.string.alertDialogTitle);
-                builder.setMessage(R.string.alertDialogMessage);
-                builder.setPositiveButton(R.string.alertDialogPositiveButton, new DialogInterface.OnClickListener() {
+                saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick); //save ad variable in memory
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this); //create alertdialog
+                builder.setTitle(R.string.alertDialogTitle); //set title
+                builder.setMessage(R.string.alertDialogMessage); //set message
+                builder.setPositiveButton(R.string.alertDialogPositiveButton, new DialogInterface.OnClickListener() { //set title to positive button and listener
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        money = 0;
+                    public void onClick(DialogInterface dialogInterface, int i) { //on yes button on click
+                        money = 0; //set variables to 0
                         cost = 0;
                         item = "";
-                        calcLeftSum();
+                        calcLeftSum(); //calculating other variables
 
-                        saveFloatInMemory(APP_PREFERENCES_MONEY, money);
+                        saveFloatInMemory(APP_PREFERENCES_MONEY, money); //save variables in memory
                         saveStringInMemory(APP_PREFERENCES_ITEM, item);
                         saveFloatInMemory(APP_PREFERENCES_COST, cost);
 
@@ -145,56 +145,56 @@ public class MainActivity extends AppCompatActivity {
                         moneyQuantity.setVisibility(View.INVISIBLE);
                         setVisibilityView(View.INVISIBLE);
                         jarHint.setVisibility(View.VISIBLE);
-                        AddSubButton.setVisibility(View.INVISIBLE); //ТУТ
+                        AddSubButton.setVisibility(View.INVISIBLE);
                         thoughtsView.setVisibility(View.INVISIBLE);
                         hintMainActivity.setVisibility(View.INVISIBLE);
-                        startVibration(VibrationEffect.DEFAULT_AMPLITUDE, vibro);
+                        startVibration(VibrationEffect.DEFAULT_AMPLITUDE, vibro); //start vibration in default effect if vibro is true
 
-                        dialogInterface.cancel();
+                        dialogInterface.cancel(); //close alert dialog
                     }
                 });
-                builder.setNegativeButton(R.string.alertDialogNegativeButton, null);
-                builder.show();
+                builder.setNegativeButton(R.string.alertDialogNegativeButton, null); //set title No to negative button and null action
+                builder.show(); //show alert dialog
             }
         });
-
+        //start AddNewGoalActivity for result
         ActivityResultLauncher<Intent> startForResultCreateTarget = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode() == RESULT_OK){
-                    Intent intent = result.getData();
-                    item = intent.getStringExtra(APP_PREFERENCES_ITEM);
-                    cost = intent.getFloatExtra(APP_PREFERENCES_COST, 0);
-                    saveStringInMemory(APP_PREFERENCES_ITEM, item);
+                if(result.getResultCode() == RESULT_OK){ //if result is OK
+                    Intent intent = result.getData(); //set name to getData()
+                    item = intent.getStringExtra(APP_PREFERENCES_ITEM); //get item variable
+                    cost = intent.getFloatExtra(APP_PREFERENCES_COST, 0); //get cost variable
+                    saveStringInMemory(APP_PREFERENCES_ITEM, item); //save this variables in memory
                     saveFloatInMemory(APP_PREFERENCES_COST, cost);
-                    itemDesire.setText(item);
+                    itemDesire.setText(item); //and set text in Views
                     addItemCost.setText(Float.toString(cost));
                 }
-                else{
-                    itemDesire.setText("Error");
+                else{ //if result is not OK
+                    itemDesire.setText("Error"); //set Error text in Views
                     addItemCost.setText("Error");
                 }
             }
         });
-
+        // start AddMoneyActivity for result
         ActivityResultLauncher<Intent> startForResultAddMoney = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-                float addmoney = 0;
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent intent = result.getData();
-                    addmoney = intent.getFloatExtra(ACTIVITY_FOR_RESULT_ADD_MONEY, 0);
-                    money += addmoney;
-                    if (money < 0)
+                float addmoney = 0; //initialize variable for money add and set 0
+                if (result.getResultCode() == RESULT_OK) { // if result ok
+                    Intent intent = result.getData(); //set name to getData
+                    addmoney = intent.getFloatExtra(ACTIVITY_FOR_RESULT_ADD_MONEY, 0); //get variable
+                    money += addmoney; //add addmoney variable to money
+                    if (money < 0) // fix bug if money < 0 set money 0
                         money = 0;
-                    saveFloatInMemory(APP_PREFERENCES_MONEY, money);
-                    moneyQuantity.setText(decimalFormat.format(money));
-                    startVibration(VibrationEffect.EFFECT_HEAVY_CLICK, vibro);
-                    if (audio == true)
-                        player.start();
+                    saveFloatInMemory(APP_PREFERENCES_MONEY, money); //save money variable in memory
+                    moneyQuantity.setText(decimalFormat.format(money)); //set text money
+                    startVibration(VibrationEffect.EFFECT_HEAVY_CLICK, vibro); //if vibro variable is true start vibration with heavy click effect
+                    if (audio == true) //if audio variable is true
+                        player.start(); //start coin sound
                 }
                 else {
-                    moneyQuantity.setText("Error");
+                    moneyQuantity.setText("Error"); //else if result is not ok set text error
                 }
             }
         });
