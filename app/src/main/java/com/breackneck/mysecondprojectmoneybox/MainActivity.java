@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         moneyQuantity.setText(decimalFormat.format(money));
         addItemCost.setText("");
-
+        //on reset button click action
         ImageView resButton = (ImageView) findViewById(R.id.buttonReset);
         resButton.setOnClickListener(new View.OnClickListener() { // on Reset button click listener
             @Override
@@ -198,54 +198,54 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //start ChangeCharacterActivity for result
         ActivityResultLauncher<Intent> startForResultChangeCharacter = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode()==RESULT_OK) {
-                    Intent intent = result.getData();
-                    character = intent.getIntExtra(APP_PREFERENCES_CHARACTER, 0);
+                if (result.getResultCode()==RESULT_OK) { //if result is OK
+                    Intent intent = result.getData(); //set name to getData
+                    character = intent.getIntExtra(APP_PREFERENCES_CHARACTER, 0);//get variables
                     audio = intent.getBooleanExtra(APP_PREFERENCES_AUDIO, true);
                     vibro = intent.getBooleanExtra(APP_PREFERENCES_VIBRO, true);
-                    saveIntInMemory(APP_PREFERENCES_CHARACTER, character);
+                    saveIntInMemory(APP_PREFERENCES_CHARACTER, character); //save variables in memory
                     saveBoolInMemory(APP_PREFERENCES_AUDIO, audio);
                     saveBoolInMemory(APP_PREFERENCES_VIBRO, vibro);
                 }
             }
         });
-
+        //action on adding/substracting button click
         AddSubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AdsMoneyAddClick += 1;
-                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
-                Intent intent = new Intent(MainActivity.this, AddMoneyActivity.class);
-                startForResultAddMoney.launch(intent);
+                AdsMoneyAddClick += 1; //add 1 to Ad variable
+                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick); //save ad variable in memory
+                Intent intent = new Intent(MainActivity.this, AddMoneyActivity.class); //start AddMoneyActivity
+                startForResultAddMoney.launch(intent); //start activity
             }
         });
 
-        ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        ImageView settingsButton = (ImageView) findViewById(R.id.buttonSettings); //initialize settingsButton
+        settingsButton.setOnClickListener(new View.OnClickListener() { //set on settingsButton click listener
             @Override
             public void onClick(View view) {
-                AdsChangeCharClick += 1;
-                saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick);
-                Intent intent = new Intent(MainActivity.this, ChangeCharacterActivity.class);
-                startForResultChangeCharacter.launch(intent);
+                AdsChangeCharClick += 1; //add 1 to ad variable
+                saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick); //save ad variable in memory
+                Intent intent = new Intent(MainActivity.this, ChangeCharacterActivity.class); //start ChangeCharacter activity
+                startForResultChangeCharacter.launch(intent); //start activity
             }
         });
 
-        ImageView moneyJar = (ImageView) findViewById(R.id.imageView);
-        moneyJar.setOnClickListener(new View.OnClickListener() {
+        ImageView moneyJar = (ImageView) findViewById(R.id.imageView); //initialize moneyJar imageview
+        moneyJar.setOnClickListener(new View.OnClickListener() { //set on moneyjar imageview click listener
             @Override
             public void onClick(View view) {
-                if ((item.equals("")) && (cost == 0)) {
-                    Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class);
-                    startForResultCreateTarget.launch(intent);
+                if ((item.equals("")) && (cost == 0)) { //if goal is not setted
+                    Intent intent = new Intent(MainActivity.this, AddNewGoalActivity.class); //start AddNewGoalActivity
+                    startForResultCreateTarget.launch(intent); //launch activity
                 }
                 else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle(R.string.alertDialogTitleNewGoal);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this); //else show AlertDialog
+                    builder.setTitle(R.string.alertDialogTitleNewGoal); //which says that goal is already setted
                     builder.setMessage(R.string.alertDialogMessageNewGoal);
                     builder.setPositiveButton("Ok", null);
                     builder.show();
@@ -463,8 +463,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (addItemCost.getText().toString().equals(""))
             cost = 0;
-        else
-            cost = Float.parseFloat(addItemCost.getText().toString());
 
         saveFloatInMemory(APP_PREFERENCES_MONEY, money);
         saveStringInMemory(APP_PREFERENCES_ITEM, item);
