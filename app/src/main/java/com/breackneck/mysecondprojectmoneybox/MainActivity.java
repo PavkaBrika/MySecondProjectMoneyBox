@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     int character; //number of character
     boolean audio; //enable audio
     boolean vibro; //enable vibration
+    float costpercent; //variable for coins in jar
 
     TextView moneyQuantity; //textView for money in pocket
     TextView itemDesire; //textView for name of target
@@ -68,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
     TextView hintMainActivity; //textView for hint on mainactivity
     ImageView AddSubButton; //imageView for adding/subtracting button
     ImageView thoughtsView; //imageView for image where all information is displayed
+    ImageView coinsFirstView;
+    ImageView coinsSecondView;
+    ImageView coinsThirdView;
+    ImageView coinsForthView;
+    ImageView coinsFifthView;
+    ImageView coinsSixthView;
+    ImageView coinsSeventView;
+    ImageView coinsEighthView;
+    ImageView coinsNinthView;
     TextView textFirst;
     TextView textSecond;
 
@@ -148,6 +159,15 @@ public class MainActivity extends AppCompatActivity {
                         AddSubButton.setVisibility(View.INVISIBLE);
                         thoughtsView.setVisibility(View.INVISIBLE);
                         hintMainActivity.setVisibility(View.INVISIBLE);
+                        coinsFirstView.setVisibility(View.INVISIBLE);
+                        coinsSecondView.setVisibility(View.INVISIBLE);
+                        coinsThirdView.setVisibility(View.INVISIBLE);
+                        coinsForthView.setVisibility(View.INVISIBLE);
+                        coinsFifthView.setVisibility(View.INVISIBLE);
+                        coinsSixthView.setVisibility(View.INVISIBLE);
+                        coinsSeventView.setVisibility(View.INVISIBLE);
+                        coinsEighthView.setVisibility(View.INVISIBLE);
+                        coinsNinthView.setVisibility(View.INVISIBLE);
                         startVibration(VibrationEffect.DEFAULT_AMPLITUDE, vibro); //start vibration in default effect if vibro is true
 
                         dialogInterface.cancel(); //close alert dialog
@@ -368,6 +388,27 @@ public class MainActivity extends AppCompatActivity {
                 changeCharacter(R.drawable.mcduck, 216, 203);
             }
             calcLeftSum();
+            //Adding coins in jar
+            coinsFirstView = (ImageView) findViewById(R.id.coins1);
+            coinsSecondView = (ImageView) findViewById(R.id.coins2);
+            coinsThirdView = (ImageView) findViewById(R.id.coins3);
+            coinsForthView = (ImageView) findViewById(R.id.coins4);
+            coinsFifthView = (ImageView) findViewById(R.id.coins5);
+            coinsSixthView = (ImageView) findViewById(R.id.coins6);
+            coinsSeventView = (ImageView) findViewById(R.id.coins7);
+            coinsEighthView = (ImageView) findViewById(R.id.coins8);
+            coinsNinthView = (ImageView) findViewById(R.id.coins9);
+
+            costpercent = (money / cost) * 100;
+            addAndSubCoinsInJar(10, coinsFirstView);
+            addAndSubCoinsInJar(20, coinsSecondView);
+            addAndSubCoinsInJar(30, coinsThirdView);
+            addAndSubCoinsInJar(40, coinsForthView);
+            addAndSubCoinsInJar(50, coinsFifthView);
+            addAndSubCoinsInJar(60, coinsSixthView);
+            addAndSubCoinsInJar(70, coinsSeventView);
+            addAndSubCoinsInJar(80, coinsEighthView);
+            addAndSubCoinsInJar(90, coinsNinthView);
 
             if ((cost != 0) && (!item.equals(""))) {
                 startAnim(R.anim.startthoughtsanim);
@@ -545,5 +586,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = AppSettings.edit();
         editor.putBoolean(preferences, variable);
         editor.apply();
+    }
+
+    private void addAndSubCoinsInJar(int percent, ImageView coinImage) {
+        if (costpercent >= percent)
+            coinImage.setVisibility(View.VISIBLE);
+        else
+            coinImage.setVisibility(View.INVISIBLE);
     }
 }
