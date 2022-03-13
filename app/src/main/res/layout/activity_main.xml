@@ -7,11 +7,13 @@
     android:background="@drawable/backgroundcolor"
     tools:context=".MainActivity">
 
+
+
     <ImageView
         android:id="@+id/imageViewThoughts"
         android:layout_width="393dp"
         android:layout_height="319dp"
-        android:elevation="3dp"
+        android:elevation="4dp"
         android:src="@drawable/thoughts2"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/imageViewCharacter"
@@ -95,6 +97,103 @@
         app:layout_constraintVertical_bias="0.34" />
 
     <ImageView
+        android:layout_width="167dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="4dp"
+        android:elevation="2dp"
+        android:src="@drawable/coinsfirst"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+
+    <ImageView
+        android:layout_width="201dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="20dp"
+        android:elevation="2dp"
+        android:src="@drawable/coinssecond"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="203dp"
+        android:layout_height="81dp"
+        android:layout_marginBottom="36dp"
+        android:elevation="3dp"
+        android:src="@drawable/coinsthird"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="223dp"
+        android:layout_height="91dp"
+        android:layout_marginBottom="52dp"
+        android:elevation="3dp"
+        android:src="@drawable/coinsforth"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+
+    <ImageView
+        android:layout_width="202dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="80dp"
+        android:elevation="3dp"
+        android:src="@drawable/coinsfifth"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="221dp"
+        android:layout_height="92dp"
+        android:layout_marginBottom="104dp"
+        android:elevation="3dp"
+        android:src="@drawable/coinssixth"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="203dp"
+        android:layout_height="76dp"
+        android:layout_marginBottom="126dp"
+        android:elevation="3dp"
+        android:src="@drawable/coinsseventh"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="203dp"
+        android:layout_height="76dp"
+        android:layout_marginBottom="156dp"
+        android:elevation="3dp"
+        android:src="@drawable/coinseighth"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="177dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="265dp"
+        android:elevation="3dp"
+        android:src="@drawable/coinsnineth"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="257dp"
         android:layout_height="383dp"
@@ -111,6 +210,7 @@
         android:layout_height="203dp"
         android:layout_marginStart="84dp"
         android:layout_marginTop="192dp"
+        android:elevation="4dp"
         android:src="@drawable/griff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.882"
