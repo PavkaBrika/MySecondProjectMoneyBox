@@ -525,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
         else if (left <= 0) {
             leftToSaving.setText(R.string.congratulations);
             leftToSaving.setTextSize(25);
-            leftToSaving.setPadding(80,0,80,0);
+            leftToSaving.setPadding(170,0,170,0);
             AddSubButton.setVisibility(View.INVISIBLE);
             jarHint.setVisibility(View.INVISIBLE);
         }
