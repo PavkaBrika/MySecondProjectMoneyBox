@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +49,30 @@ public class AddNewGoalActivity extends AppCompatActivity {
                 }
                 else if ((!itemEnterView.getText().toString().equals("")) && (costEnterView.getText().toString().equals(""))) {
                     Toast.makeText(getApplicationContext(), R.string.toastNoCostNewGoalActivity, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        costEnterView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String str = editable.toString();
+                int p = str.indexOf(".");
+                if (p != -1) {
+                    String tmpStr = str.substring(p);
+                    if (tmpStr.length() == 4) {
+                        editable.delete(editable.length() - 1, editable.length());
+                    }
                 }
             }
         });
