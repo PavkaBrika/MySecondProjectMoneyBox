@@ -24,7 +24,7 @@ public class AddMoneyActivity extends AppCompatActivity {
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!addMoneyView.getText().toString().equals("")) {
+                if ((!addMoneyView.getText().toString().equals("")) && (!addMoneyView.getText().toString().equals("."))) {
                     shareMoney(Float.parseFloat(addMoneyView.getText().toString()));
                 }
                 else  {
@@ -37,7 +37,7 @@ public class AddMoneyActivity extends AppCompatActivity {
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!addMoneyView.getText().toString().equals("")) {
+                if ((!addMoneyView.getText().toString().equals("")) && (!addMoneyView.getText().toString().equals(".")))  {
                     shareMoney((Float.parseFloat(addMoneyView.getText().toString()))*(-1));
                 }
                 else  {
