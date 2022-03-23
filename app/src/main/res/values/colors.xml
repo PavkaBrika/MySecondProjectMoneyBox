@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dialogActivitiesBackgroundColor">#FFD14A</color>
     <color name="backgroundColorBottomGradient">#ffd149</color>
     <color name="backgroundColorTopGradient">#ffde70</color>
     <color name="statusBarColor">#c9a73d</color>

@@ -36,6 +36,9 @@ public class ChangeCharacterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_character);
 
+        View v = getWindow().getDecorView();
+        v.setBackgroundResource(android.R.color.transparent);
+
         Griff = (RadioButton) findViewById(R.id.griffButton);
         Krabs = (RadioButton) findViewById(R.id.mrkrabsButton);
         Mcduck = (RadioButton) findViewById(R.id.mcduckButton);

@@ -18,6 +18,9 @@ public class AddNewGoalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addnewgoal);
 
+        View v = getWindow().getDecorView();
+        v.setBackgroundResource(android.R.color.transparent);
+
         EditText itemEnterView = (EditText) findViewById(R.id.edittextItem);
         EditText costEnterView = (EditText) findViewById(R.id.edittextCost);
 

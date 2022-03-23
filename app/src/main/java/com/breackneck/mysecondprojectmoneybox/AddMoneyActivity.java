@@ -18,6 +18,9 @@ public class AddMoneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addmoneyactivity);
 
+        View v = getWindow().getDecorView();
+        v.setBackgroundResource(android.R.color.transparent);
+
         EditText addMoneyView = (EditText) findViewById(R.id.editTextAddMoney);
 
         ImageView btnPlus = (ImageView) findViewById(R.id.buttonPlus);
