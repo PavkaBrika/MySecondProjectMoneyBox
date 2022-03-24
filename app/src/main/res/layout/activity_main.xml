@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundcolor"
+    style="@style/MainActivityBackground"
     tools:context=".MainActivity">
 
     <ImageView
@@ -25,6 +25,7 @@
         android:layout_height="70dp"
         android:layout_margin="8dp"
         android:src="@drawable/ic_baseline_refresh_24"
+        style="@style/MainActivityButtons"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +35,7 @@
         android:layout_height="70dp"
         android:layout_margin="8dp"
         android:src="@drawable/ic_baseline_settings_24"
+        style="@style/MainActivityButtons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,6 +46,7 @@
         android:layout_height="70dp"
         android:src="@drawable/outline_currency_exchange_24"
         android:visibility="invisible"
+        style="@style/MainActivityButtons"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MainActivityBackground">
+        <item name="android:background">@drawable/backgroundcolor</item>
+    </style>
+    <style name="MainActivityButtons">
+        <item name="android:tint">@color/mainActivityButtonsColor</item>
+    </style>
+</resources>
