@@ -3,19 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/drawable/dialog_bg.xml" value="0.1" />
+        <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.184" />
+        <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_baseline_remove_circle_24.xml" value="0.184" />
         <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/layout/addmoneyactivity.xml" value="0.25" />
+        <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/layout/addnewgoal.xml" value="0.22" />
+        <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/layout/change_character.xml" value="0.25" />
         <entry key="..\:/Android/Android Apps/MySecondProjectMoneyBox/app/src/main/res/layout/test.xml" value="0.35733819507748404" />
         <entry key="..\:/AndroidProgramms/MySecondProjectMoneyBox/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22135416666666666" />
-        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/backgroundcolor.xml" value="0.301" />
-        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/dialog_bg.xml" value="0.301" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.22135416666666666" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_baseline_remove_circle_24.xml" value="0.257" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.257" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22135416666666666" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/outline_currency_exchange_24.xml" value="0.257" />
-        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/outline_menu_24.xml" value="0.301" />
-        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/activity_main.xml" value="0.6514522821576764" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/addmoneyactivity.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/addnewgoal.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/change_character.xml" value="0.36666666666666664" />

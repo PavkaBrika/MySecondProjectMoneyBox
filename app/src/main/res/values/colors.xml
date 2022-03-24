@@ -11,6 +11,7 @@
     <color name="backgroundColorBottomGradient">#ffd149</color>
     <color name="backgroundColorTopGradient">#ffde70</color>
     <color name="statusBarColor">#c9a73d</color>
-    <color name="buttonColor">#937200</color>
+<!--    <color name="buttonColor">#937200</color>-->
+    <color name="buttonColor">#c8a00b</color>
     <color name="textColorHintToAddNewGoalTextView">#8fbdcb</color>
 </resources>
