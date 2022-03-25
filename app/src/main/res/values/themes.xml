@@ -16,10 +16,5 @@
         <item name="android:background">@drawable/dialog_bg</item>
         <item name="android:backgroundTint">@color/dialogActivitiesBackgroundColor</item>
     </style>
-    <style name="MyEditTextTheme">
-        <item name="colorControlNormal">@color/statusBarColor</item>
-        <item name="colorControlActivated">@color/buttonColor</item>
-        <item name="colorControlHighlight">#FFFFFF</item>
-    </style>
 
 </resources>

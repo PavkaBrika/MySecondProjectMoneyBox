@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="4dp"
         android:text="@string/titleChangeCharacter"
-        android:textColor="@color/black"
+        style="@style/ChangeCharacterActivityTextColor"
         android:textSize="20dp" />
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
-        android:background="@color/black" />
+        style="@style/ChangeCharacterActivityBackgroundTextViewColor" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/characterNameGriff"
-            android:textColor="@color/black"/>
+            style="@style/ChangeCharacterActivityTextColor"/>
 
         <RadioButton
             android:id="@+id/mrkrabsButton"
@@ -47,7 +47,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:text="@string/characterNameMrKrabs"
-            android:textColor="@color/black"/>
+            style="@style/ChangeCharacterActivityTextColor"/>
 
         <RadioButton
             android:id="@+id/mcduckButton"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/characterNameScroogeMcDuck"
-            android:textColor="@color/black"/>
+            style="@style/ChangeCharacterActivityTextColor"/>
 
     </RadioGroup>
 
@@ -65,7 +65,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/black" />
+        style="@style/ChangeCharacterActivityBackgroundTextViewColor" />
 
     <CheckBox
         android:id="@+id/checkBoxEnableVibration"
@@ -74,7 +74,7 @@
         android:text="@string/checkBoxTextEnableVibrationChangeCharacter"
         android:checked="true"
         android:layout_margin="8dp"
-        android:textColor="@color/black"/>
+        style="@style/ChangeCharacterActivityTextColor"/>
 
     <CheckBox
         android:id="@+id/checkBoxEnableSound"
@@ -84,7 +84,7 @@
         android:text="@string/checkBoxTextEnableSoundChangeCharacter"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
-        android:textColor="@color/black"/>
+        style="@style/ChangeCharacterActivityTextColor"/>
 
     <TextView
         android:id="@+id/textView6"
@@ -93,7 +93,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
-        android:background="@color/black" />
+        style="@style/ChangeCharacterActivityBackgroundTextViewColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
