@@ -9,7 +9,7 @@
     <string name="cost">Это стоит</string>
     <string name="left">осталось</string>
     <string name="congratulations">Поздравляем! Вы достигли цели!</string>
-    <string name="mainActivityHint">Нажмите на персонажа чтобы увидеть больше</string>
+    <string name="mainActivityHint">Нажмите на вашего персонажа чтобы увидеть больше</string>
     <string name="alertDialogTitle">Сброс</string>
     <string name="alertDialogMessage">Сбросить вашу копилку?</string>
     <string name="alertDialogPositiveButton">Да</string>

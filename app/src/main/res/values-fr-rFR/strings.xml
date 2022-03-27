@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimpleSave</string>
+    <string name="saving">J\'économise de l\'argent pour:</string>
+    <string name="itemHint">Saisissez votre objectif</string>
+    <string name="amountHint">Entrer le montant</string>
+    <string name="targetHint">Entrez le coût</string>
+    <string name="toastAdd">Vous devez entrer le montant!</string>
+    <string name="cost">Ça coute:</string>
+    <string name="left">Restants</string>
+    <string name="congratulations">Toutes nos félicitations! Vous avez atteint votre objectif!</string>
+    <string name="mainActivityHint">Cliquez sur le personnage pour voir plus d\'informations</string>
+    <string name="alertDialogTitle">Réinitialiser </string>
+    <string name="alertDialogMessage">Réinitialisez votre tirelire?</string>
+    <string name="alertDialogPositiveButton">Oui</string>
+    <string name="alertDialogNegativeButton">Non</string>
+    <string name="alertDialogTitleNewGoal">Créer un nouvel objectif</string>
+    <string name="alertDialogMessageNewGoal">Terminez ou réinitialisez l\'objectif précédent en premier</string>
+    <string name="activityTitleNewGoal">Créer un objectif</string>
+    <string name="activityTitleAddMoney">Ajouter/Soustraire le montant</string>
+    <string name="textHintToAddNewGoalTextView">Cliquez ici pour créer un objectif</string>
+    <string name="toastNoInfoNewGoalActivity">Vous devez saisir l\'objectif et son prix!</string>
+    <string name="toastNoTargetNewGoalActivity">Vous devez saisir l\'objectif!</string>
+    <string name="toastNoCostNewGoalActivity">Vous devez entrer le coût!</string>
+    <string name="toastOnCharacterClick">Créez d\'abord un objectif!</string>
+    <string name="activityTitleChangeCharacter">Réglages</string>
+    <string name="titleChangeCharacter">Changement de caractère</string>
+    <string name="checkBoxTextEnableVibrationChangeCharacter">Activer les vibrations</string>
+    <string name="checkBoxTextEnableSoundChangeCharacter">Activer le son</string>
+    <string name="characterNameGriff">Griff</string>
+    <string name="characterNameMrKrabs">Mr. Krabs</string>
+    <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
+    <string name="toastNoCharacterChangeCharacterActivity">Vous devez choisir un personnage</string>
+    <string name="cancel">Annuler</string>
+</resources>
