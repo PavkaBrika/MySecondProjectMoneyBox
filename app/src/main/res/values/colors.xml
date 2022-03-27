@@ -9,7 +9,7 @@
     <color name="backgroundColorBottomGradient">#ffd149</color>
     <color name="backgroundColorBottomGradientNight">#111111</color>
     <color name="statusBarColor">#c9a73d</color>
-    <color name="statusBarColorNight">#111111</color>
+    <color name="statusBarColorNight">#eeeeee</color>
     <color name="mainActivityButtonsColor">#937200</color>
     <color name="mainActivityButtonsColorNight">#616161</color>
     <color name="buttonColor">#c8a00b</color>
