@@ -20,6 +20,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     AdsResetClick = 0; //and ad variable set 0
                 }
                 saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick); //save ad variable in memory
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this); //create alertdialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.AlertDialogStyle)); //create alertdialog
                 builder.setTitle(R.string.alertDialogTitle); //set title
                 builder.setMessage(R.string.alertDialogMessage); //set message
                 builder.setPositiveButton(R.string.alertDialogPositiveButton, new DialogInterface.OnClickListener() { //set title to positive button and listener

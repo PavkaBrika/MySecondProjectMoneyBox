@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="2dp"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            style="@style/ButtonsColor"/>
 
         <Button
             android:id="@+id/buttonOk"
@@ -48,7 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="2dp"
-            android:text="Ok" />
+            android:text="Ok"
+            style="@style/ButtonsColor"/>
 
 
     </LinearLayout>

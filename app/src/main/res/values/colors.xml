@@ -13,5 +13,6 @@
     <color name="mainActivityButtonsColor">#937200</color>
     <color name="mainActivityButtonsColorNight">#616161</color>
     <color name="buttonColor">#c8a00b</color>
+    <color name="buttonColorNight">#8e8e8e</color>
     <color name="textColorHintToAddNewGoalTextView">#8fbdcb</color>
 </resources>
