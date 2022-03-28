@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Копіпроста</string>
+    <string name="app_name">КопіПроста</string>
     <string name="saving">я назапашваю на</string>
     <string name="itemHint">Увядзіце мэту</string>
     <string name="amountHint">Увядзіце суму</string>

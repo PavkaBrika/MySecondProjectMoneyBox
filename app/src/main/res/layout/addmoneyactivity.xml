@@ -15,7 +15,7 @@
         android:maxLength="7"
         android:inputType="numberDecimal"
         android:textColorHint="#616161"
-        android:theme="@style/MyEditTextTheme"/>
+        style="@style/MyEditTextTheme"/>
 
     <LinearLayout
         android:layout_width="match_parent"

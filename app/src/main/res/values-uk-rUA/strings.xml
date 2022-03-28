@@ -27,7 +27,6 @@
     <string name="titleChangeCharacter">Змінити персонажа </string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Увімкнути вібрацію </string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Увімкнути звук</string>
-    <string name="characterNamпиeGriff">Griff</string>
     <string name="characterNameMrKrabs">Mr. Krabs</string>
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
     <string name="toastNoCharacterChangeCharacterActivity">Ви повинні вибрати персонажа </string>
