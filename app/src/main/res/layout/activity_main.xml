@@ -12,7 +12,7 @@
         android:layout_width="393dp"
         android:layout_height="319dp"
         android:elevation="4dp"
-        android:src="@drawable/thoughts2"
+        style="@style/ThoughtsImageViewSrc"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/imageViewCharacter"
         app:layout_constraintEnd_toEndOf="parent"

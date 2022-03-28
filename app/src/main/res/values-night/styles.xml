@@ -18,5 +18,9 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:backgroundTint">@color/statusBarColorNight</item>
     </style>
+    <style name="ThoughtsImageViewSrc">
+        <item name="android:src">@drawable/thoughts2night</item>
+    </style>
+
 
 </resources>

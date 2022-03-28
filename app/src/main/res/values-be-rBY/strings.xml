@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Копіпроста</string>
+    <string name="saving">я назапашваю на</string>
+    <string name="itemHint">Увядзіце мэту</string>
+    <string name="amountHint">Увядзіце суму</string>
+    <string name="targetHint">Увядзіце кошт</string>
+    <string name="toastAdd">Вы павінны ўвесці суму!</string>
+    <string name="cost">Гэта каштуе</string>
+    <string name="left">засталося</string>
+    <string name="congratulations">Віншуем! Вы дасягнулі мэты!</string>
+    <string name="mainActivityHint">Націсніце на вашага персанажа каб убачыць больш</string>
+    <string name="alertDialogTitle">Скід</string>
+    <string name="alertDialogMessage">Скінуць вашу скарбонку?</string>
+    <string name="alertDialogPositiveButton">Так</string>
+    <string name="alertDialogNegativeButton">Не</string>
+    <string name="alertDialogTitleNewGoal">Стварыць новую мэту</string>
+    <string name="alertDialogMessageNewGoal">Скончыце або Скіньце мінулую мэту</string>
+    <string name="activityTitleNewGoal">Стварыць новую мэту</string>
+    <string name="activityTitleAddMoney">Дадаць/Адняць</string>
+    <string name="textHintToAddNewGoalTextView">Націсніце, каб стварыць мэта</string>
+    <string name="toastNoInfoNewGoalActivity">Вы павінны ўвесці мэта і яе кошт!</string>
+    <string name="toastNoTargetNewGoalActivity">Вы павінны ўвесці мэта!</string>
+    <string name="toastNoCostNewGoalActivity">Вы павінны ўвесці кошт!</string>
+    <string name="toastOnCharacterClick">Спачатку стварыце мэта!</string>
+    <string name="activityTitleChangeCharacter">Наладжваньне</string>
+    <string name="titleChangeCharacter">Змяніць персанажа</string>
+    <string name="checkBoxTextEnableVibrationChangeCharacter">Ўключыць вібрацыю</string>
+    <string name="checkBoxTextEnableSoundChangeCharacter">Уключыць гук</string>
+    <string name="characterNameGriff">Грифф</string>
+    <string name="characterNameMrKrabs">Мистер Краббс</string>
+    <string name="characterNameScroogeMcDuck">Скурдж Макдак</string>
+    <string name="toastNoCharacterChangeCharacterActivity">Вы павінны выбраць персанажа</string>
+    <string name="cancel">Адмена</string>
+</resources>
