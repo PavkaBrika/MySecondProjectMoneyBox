@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -28,6 +27,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.BannerCallbacks;
+import com.appodeal.ads.InterstitialCallbacks;
+import com.appodeal.ads.utils.Log;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -38,6 +41,8 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 
@@ -103,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Appodeal.setTesting(true);
+        Appodeal.setLogLevel(Log.LogLevel.debug);
+
         item = "";
 
         MediaPlayer player; //initialize player for coin sound
@@ -130,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) { //on reset button click
                 AdsResetClick += 1; //add 1 to Ad variable
                 if ((AdsResetClick == 2) && (mInterstitialAd != null)) { // if reset button was clicked 2 times and ad is loaded
-                    mInterstitialAd.show(MainActivity.this); //show the ads
+                   // mInterstitialAd.show(MainActivity.this); //show the ads
+                    Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                     AdsResetClick = 0; //and ad variable set 0
                 }
                 saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick); //save ad variable in memory
@@ -279,8 +288,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AdsCharacterClick += 1;
-                if ((AdsCharacterClick == 10) && (mInterstitialAd != null)) {
-                    mInterstitialAd.show(MainActivity.this);
+                if ((AdsCharacterClick == 10) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
+//                    mInterstitialAd.show(MainActivity.this);
+                    Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                     AdsCharacterClick = 0;
                 }
                 saveIntInMemory(APP_PREFERENCES_ADSCHARACTERCLICK, AdsCharacterClick);
@@ -351,13 +361,15 @@ public class MainActivity extends AppCompatActivity {
                 saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
             }
 
-            if ((AdsChangeCharClick == 2) && (mInterstitialAd != null)) {
-                mInterstitialAd.show(MainActivity.this);
+            if ((AdsChangeCharClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
+               // mInterstitialAd.show(MainActivity.this);
+                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 AdsChangeCharClick = 0;
             }
 
-            if ((AdsMoneyAddClick == 3) && (mInterstitialAd != null)) {
-                mInterstitialAd.show(MainActivity.this);
+            if ((AdsMoneyAddClick == 3) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+               // mInterstitialAd.show(MainActivity.this);
+                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 AdsMoneyAddClick = 0;
             }
 
@@ -450,52 +462,56 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         //Ads
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                mAdView = (AdView) findViewById(R.id.adView); //banner ad view
-                adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest); //load banner
-                if (mInterstitialAd == null) {
-                    InterstitialAd.load(MainActivity.this,"ca-app-pub-3967661567296020/5029111613", adRequest,
-                            new InterstitialAdLoadCallback() {
-                                @Override
-                                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                                    mInterstitialAd = interstitialAd;
-                                    Log.i("TAG", "onAdLoaded");
-                                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-                                        @Override
-                                        public void onAdDismissedFullScreenContent() {
-                                            // Called when fullscreen content is dismissed.
-                                            Log.i("TAG", "The ad was dismissed.");
-                                        }
-
-                                        @Override
-                                        public void onAdFailedToShowFullScreenContent(AdError adError) {
-                                            // Called when fullscreen content failed to show.
-                                            Log.i("TAG", "The ad failed to show.");
-                                        }
-
-                                        @Override
-                                        public void onAdShowedFullScreenContent() {
-                                            // Called when fullscreen content is shown.
-                                            // Make sure to set your reference to null so you don't
-                                            // show it a second time.
-                                            mInterstitialAd = null;
-                                            Log.i("TAG", "The ad was shown.");
-                                        }
-                                    });
-                                }
-
-                                @Override
-                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                                    mInterstitialAd = null;
-                                    Log.i("TAG", loadAdError.getMessage());
-                                }
-                            });
-                    }
-                }
-            });
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//                mAdView = (AdView) findViewById(R.id.adView); //banner ad view
+//                adRequest = new AdRequest.Builder().build();
+//                mAdView.loadAd(adRequest); //load banner
+//                if (mInterstitialAd == null) {
+//                    InterstitialAd.load(MainActivity.this,"ca-app-pub-3967661567296020/5029111613", adRequest,
+//                            new InterstitialAdLoadCallback() {
+//                                @Override
+//                                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+//                                    mInterstitialAd = interstitialAd;
+//                                    Log.i("TAG", "onAdLoaded");
+//                                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+//                                        @Override
+//                                        public void onAdDismissedFullScreenContent() {
+//                                            // Called when fullscreen content is dismissed.
+//                                            Log.i("TAG", "The ad was dismissed.");
+//                                        }
+//
+//                                        @Override
+//                                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+//                                            // Called when fullscreen content failed to show.
+//                                            Log.i("TAG", "The ad failed to show.");
+//                                        }
+//
+//                                        @Override
+//                                        public void onAdShowedFullScreenContent() {
+//                                            // Called when fullscreen content is shown.
+//                                            // Make sure to set your reference to null so you don't
+//                                            // show it a second time.
+//                                            mInterstitialAd = null;
+//                                            Log.i("TAG", "The ad was shown.");
+//                                        }
+//                                    });
+//                                }
+//
+//                                @Override
+//                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                                    mInterstitialAd = null;
+//                                    Log.i("TAG", loadAdError.getMessage());
+//                                }
+//                            });
+//                    }
+//                }
+//            });
+        Appodeal.setChildDirectedTreatment(false);
+        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
+        Appodeal.show(MainActivity.this, Appodeal.BANNER_BOTTOM);
+        Appodeal.muteVideosIfCallsMuted(true);
     }
 
     protected void onPause() {
