@@ -4,7 +4,6 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -12,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -28,21 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
-import com.appodeal.ads.BannerCallbacks;
-import com.appodeal.ads.InterstitialCallbacks;
 import com.appodeal.ads.utils.Log;
-import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
-import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 
@@ -138,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) { //on reset button click
                 AdsResetClick += 1; //add 1 to Ad variable
                 if ((AdsResetClick == 2) && (mInterstitialAd != null)) { // if reset button was clicked 2 times and ad is loaded
-                   // mInterstitialAd.show(MainActivity.this); //show the ads
                     Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                     AdsResetClick = 0; //and ad variable set 0
                 }
@@ -289,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AdsCharacterClick += 1;
                 if ((AdsCharacterClick == 10) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
-//                    mInterstitialAd.show(MainActivity.this);
                     Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                     AdsCharacterClick = 0;
                 }
@@ -329,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
                     startAnim(R.anim.finishthoughtsanim);
                     hintMainActivity.setVisibility(View.VISIBLE);
                     thoughtsView.setVisibility(View.INVISIBLE);
-                    setVisibilityView(View.INVISIBLE); //ТУТ
+                    setVisibilityView(View.INVISIBLE);
                     itemDesire.setVisibility(View.INVISIBLE);
                     addItemCost.setVisibility(View.INVISIBLE);
                 }
@@ -362,13 +348,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if ((AdsChangeCharClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
-               // mInterstitialAd.show(MainActivity.this);
                 Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 AdsChangeCharClick = 0;
             }
 
             if ((AdsMoneyAddClick == 3) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-               // mInterstitialAd.show(MainActivity.this);
                 Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 AdsMoneyAddClick = 0;
             }
@@ -462,52 +446,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         //Ads
-//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-//            @Override
-//            public void onInitializationComplete(InitializationStatus initializationStatus) {
-//                mAdView = (AdView) findViewById(R.id.adView); //banner ad view
-//                adRequest = new AdRequest.Builder().build();
-//                mAdView.loadAd(adRequest); //load banner
-//                if (mInterstitialAd == null) {
-//                    InterstitialAd.load(MainActivity.this,"ca-app-pub-3967661567296020/5029111613", adRequest,
-//                            new InterstitialAdLoadCallback() {
-//                                @Override
-//                                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-//                                    mInterstitialAd = interstitialAd;
-//                                    Log.i("TAG", "onAdLoaded");
-//                                    mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-//                                        @Override
-//                                        public void onAdDismissedFullScreenContent() {
-//                                            // Called when fullscreen content is dismissed.
-//                                            Log.i("TAG", "The ad was dismissed.");
-//                                        }
-//
-//                                        @Override
-//                                        public void onAdFailedToShowFullScreenContent(AdError adError) {
-//                                            // Called when fullscreen content failed to show.
-//                                            Log.i("TAG", "The ad failed to show.");
-//                                        }
-//
-//                                        @Override
-//                                        public void onAdShowedFullScreenContent() {
-//                                            // Called when fullscreen content is shown.
-//                                            // Make sure to set your reference to null so you don't
-//                                            // show it a second time.
-//                                            mInterstitialAd = null;
-//                                            Log.i("TAG", "The ad was shown.");
-//                                        }
-//                                    });
-//                                }
-//
-//                                @Override
-//                                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-//                                    mInterstitialAd = null;
-//                                    Log.i("TAG", loadAdError.getMessage());
-//                                }
-//                            });
-//                    }
-//                }
-//            });
         Appodeal.setChildDirectedTreatment(false);
         Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
         Appodeal.show(MainActivity.this, Appodeal.BANNER_BOTTOM);

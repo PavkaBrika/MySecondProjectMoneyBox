@@ -14,7 +14,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:hint="@string/itemHint"
-        android:maxLength="10"
+        android:maxLength="15"
         android:textColorHint="#616161"
         style="@style/MyEditTextTheme"/>
 
