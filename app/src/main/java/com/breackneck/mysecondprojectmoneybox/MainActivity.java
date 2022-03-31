@@ -116,6 +116,15 @@ public class MainActivity extends AppCompatActivity {
         hintMainActivity = (TextView) findViewById(R.id.mainActivityHintTextView);
         AddSubButton = (ImageView) findViewById(R.id.buttonAddSubMoney);
         thoughtsView = (ImageView) findViewById(R.id.imageViewThoughts);
+        coinsFirstView = (ImageView) findViewById(R.id.coins1);
+        coinsSecondView = (ImageView) findViewById(R.id.coins2);
+        coinsThirdView = (ImageView) findViewById(R.id.coins3);
+        coinsForthView = (ImageView) findViewById(R.id.coins4);
+        coinsFifthView = (ImageView) findViewById(R.id.coins5);
+        coinsSixthView = (ImageView) findViewById(R.id.coins6);
+        coinsSeventView = (ImageView) findViewById(R.id.coins7);
+        coinsEighthView = (ImageView) findViewById(R.id.coins8);
+        coinsNinthView = (ImageView) findViewById(R.id.coins9);
 
         moneyQuantity.setText(decimalFormat.format(money));
         addItemCost.setText("");
