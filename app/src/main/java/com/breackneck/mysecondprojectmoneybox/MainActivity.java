@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     int AdsCharacterClick;
     int AdsChangeCharClick;
     int AdsResetClick;
+    int AdsGoalsListClick;
 
     // variables
     float money; //money in pocket
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Appodeal.setTesting(true);
+        Appodeal.setTesting(true);
         Appodeal.setLogLevel(Log.LogLevel.debug);
 
         item = "";
@@ -239,6 +240,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        //start GoalsListActivity for result
+        ActivityResultLauncher<Intent> startForResultGoalsList = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    item = intent.getStringExtra(APP_PREFERENCES_ITEM); //get item variable
+                    cost = intent.getFloatExtra(APP_PREFERENCES_COST, 0); //get cost variable
+                    money = intent.getFloatExtra(APP_PREFERENCES_MONEY, 0);
+                    saveStringInMemory(APP_PREFERENCES_ITEM, item); //save this variables in memory
+                    saveFloatInMemory(APP_PREFERENCES_COST, cost);
+                    saveFloatInMemory(APP_PREFERENCES_MONEY, money);
+                }
+            }
+        });
+
+        ImageView goalsListButton = findViewById(R.id.buttonGoalsList);
+        goalsListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AdsGoalsListClick += 1;
+                Intent intent = new Intent(MainActivity.this, GoalsListActivity.class);
+                intent.putExtra("money", money);
+                intent.putExtra("cost", cost);
+                intent.putExtra("item", item);
+                startForResultGoalsList.launch(intent);
+            }
+        });
+
         //action on adding/substracting button click
         AddSubButton.setOnClickListener(new View.OnClickListener() {
             @Override

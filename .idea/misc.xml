@@ -20,10 +20,12 @@
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.257" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22135416666666666" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/outline_currency_exchange_24.xml" value="0.257" />
-        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/activity_main.xml" value="0.25148809523809523" />
+        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/drawable/outline_menu_24.xml" value="0.313" />
+        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/addmoneyactivity.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/addnewgoal.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/change_character.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/goals_list_activity.xml" value="0.37864583333333335" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/layout/settings_activity.xml" value="0.20520833333333333" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidPrograms/MySecondProjectMoneyBox/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.208" />
@@ -37,5 +39,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

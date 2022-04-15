@@ -31,4 +31,5 @@
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
     <string name="toastNoCharacterChangeCharacterActivity">Ви повинні вибрати персонажа </string>
     <string name="cancel">Cкасування </string>
+    <string name="characterNameGriff">Griff</string>
 </resources>

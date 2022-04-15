@@ -36,6 +36,10 @@
             android:name="com.breackneck.mysecondprojectmoneybox.ChangeCharacterActivity"
             android:label="@string/activityTitleChangeCharacter"
             android:theme="@style/OtherActivities" />
+        <activity
+            android:name="com.breackneck.mysecondprojectmoneybox.GoalsListActivity"
+            android:label="@string/activityTitleGoalsList"
+            android:theme="@style/OtherActivities" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3967661567296020~5965954619" />
