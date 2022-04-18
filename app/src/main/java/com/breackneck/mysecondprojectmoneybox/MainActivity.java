@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         player = MediaPlayer.create(this, R.raw.coinssound); //added coin sound to MediaPlayer
 
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE); //set name to App Preferences
-        goalid = AppSettings.getInt(APP_PREFERENCES_GOAL_ID, 0);
+        goalid = AppSettings.getInt(APP_PREFERENCES_GOAL_ID, 1);
 
         saveIntInMemory(APP_PREFERENCES_GOAL_ID,goalid);
 
