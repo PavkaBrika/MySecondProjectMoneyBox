@@ -32,4 +32,12 @@
     <string name="toastNoCharacterChangeCharacterActivity">Ви повинні вибрати персонажа </string>
     <string name="cancel">Cкасування </string>
     <string name="characterNameGriff">Griff</string>
+    <string name="activityTitleGoalsList">Список цілей</string>
+    <string name="characterNameHomerSimpson">Homer Simpson</string>
+    <string name="characterNamePeterGriffin">Peter Griffin</string>
+    <string name="firstbuttongoalslist">Перша мета</string>
+    <string name="secondbuttongoalslist">Друга мета</string>
+    <string name="thirdbuttongoalslist">Третя мета</string>
+    <string name="progressBarText">вже накопичено</string>
+    <string name="alreadyFinished">Закінчено!</string>
 </resources>

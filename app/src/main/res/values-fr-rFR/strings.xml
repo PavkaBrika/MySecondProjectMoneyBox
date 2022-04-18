@@ -32,4 +32,12 @@
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
     <string name="toastNoCharacterChangeCharacterActivity">Vous devez choisir un personnage</string>
     <string name="cancel">Annuler</string>
+    <string name="activityTitleGoalsList">Liste des objectifs</string>
+    <string name="characterNameHomerSimpson">Homer Simpson</string>
+    <string name="characterNamePeterGriffin">Peter Griffin</string>
+    <string name="firstbuttongoalslist">Premier objectif</string>
+    <string name="secondbuttongoalslist">Deuxième objectif</string>
+    <string name="thirdbuttongoalslist">Troisième objectif</string>
+    <string name="progressBarText">déjà accumulés</string>
+    <string name="alreadyFinished">Terminé!</string>
 </resources>

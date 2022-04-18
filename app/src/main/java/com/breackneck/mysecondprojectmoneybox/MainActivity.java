@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     String item; //name of target
     float left; //left to save
     int character; //number of character
+    int goalid;
     boolean audio; //enable audio
     boolean vibro; //enable vibration
     float costpercent; //variable for coins in jar
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_ADSRESETCLICK = "adsresetclick"; //variable for Ad
     public static final String APP_PREFERENCES_AUDIO = "audio"; //variable for enable audio
     public static final String APP_PREFERENCES_VIBRO = "vibro"; //variable for enable vibration
+    public static final String APP_PREFERENCES_GOAL_ID = "goalid";
 
     DecimalFormat decimalFormat = new DecimalFormat( "#.##" ); //pattern for numbers
 
@@ -97,15 +99,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Appodeal.setTesting(true);
+        //Appodeal.setTesting(true);
         Appodeal.setLogLevel(Log.LogLevel.debug);
 
         item = "";
+        goalid = 1;
 
         MediaPlayer player; //initialize player for coin sound
         player = MediaPlayer.create(this, R.raw.coinssound); //added coin sound to MediaPlayer
 
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE); //set name to App Preferences
+        goalid = AppSettings.getInt(APP_PREFERENCES_GOAL_ID, 0);
+
+        saveIntInMemory(APP_PREFERENCES_GOAL_ID,goalid);
 
         moneyQuantity = (TextView) findViewById(R.id.money);
         addItemCost = (TextView) findViewById(R.id.costEditText);
@@ -249,9 +255,11 @@ public class MainActivity extends AppCompatActivity {
                     item = intent.getStringExtra(APP_PREFERENCES_ITEM); //get item variable
                     cost = intent.getFloatExtra(APP_PREFERENCES_COST, 0); //get cost variable
                     money = intent.getFloatExtra(APP_PREFERENCES_MONEY, 0);
+                    goalid = intent.getIntExtra(APP_PREFERENCES_GOAL_ID, 0);
                     saveStringInMemory(APP_PREFERENCES_ITEM, item); //save this variables in memory
                     saveFloatInMemory(APP_PREFERENCES_COST, cost);
                     saveFloatInMemory(APP_PREFERENCES_MONEY, money);
+                    saveIntInMemory(APP_PREFERENCES_GOAL_ID, goalid);
                 }
             }
         });
@@ -265,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("money", money);
                 intent.putExtra("cost", cost);
                 intent.putExtra("item", item);
+                intent.putExtra("id", goalid);
                 startForResultGoalsList.launch(intent);
             }
         });
@@ -300,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
                     startForResultCreateTarget.launch(intent); //launch activity
                 }
                 else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this); //else show AlertDialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.AlertDialogStyle)); //else show AlertDialog
                     builder.setTitle(R.string.alertDialogTitleNewGoal); //which says that goal is already setted
                     builder.setMessage(R.string.alertDialogMessageNewGoal);
                     builder.setPositiveButton("Ok", null);
@@ -405,6 +414,8 @@ public class MainActivity extends AppCompatActivity {
 
             item = AppSettings.getString(APP_PREFERENCES_ITEM, "");
 
+            goalid = AppSettings.getInt(APP_PREFERENCES_GOAL_ID, 0);
+
             itemDesire.setText(item);
 
             cost = AppSettings.getFloat(APP_PREFERENCES_COST, 0);
@@ -422,6 +433,12 @@ public class MainActivity extends AppCompatActivity {
             }
             else if (character == 3) {
                 changeCharacter(R.drawable.mcduck, 216, 203);
+            }
+            else if (character == 4) {
+                changeCharacter(R.drawable.homer, 250, 180);
+            }
+            else if (character == 5) {
+                changeCharacter(R.drawable.griffin, 250, 180);
             }
             calcLeftSum();
             //Adding coins in jar
@@ -503,6 +520,7 @@ public class MainActivity extends AppCompatActivity {
         saveStringInMemory(APP_PREFERENCES_ITEM, item);
         saveFloatInMemory(APP_PREFERENCES_COST, cost);
         saveIntInMemory(APP_PREFERENCES_CHARACTER, character);
+        saveIntInMemory(APP_PREFERENCES_GOAL_ID, goalid);
         saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
         saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick);
         saveIntInMemory(APP_PREFERENCES_ADSCHARACTERCLICK, AdsCharacterClick);
