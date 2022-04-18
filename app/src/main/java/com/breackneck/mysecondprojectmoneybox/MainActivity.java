@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_ADSMONEYADDCLICK = "adsmoneyaddclick"; //variable for Ad
     public static final String APP_PREFERENCES_ADSCHARACTERCLICK = "adscharacterclick";//variable for Ad
     public static final String APP_PREFERENCES_ADSCHANGECHARCLICK = "adschangecharclick"; //variable for Ad
+    public static final String APP_PREFERENCES_ADSGOALSLISTCLICK = "adschangecharclick"; //variable for Ad
     public static final String APP_PREFERENCES_ADSRESETCLICK = "adsresetclick"; //variable for Ad
     public static final String APP_PREFERENCES_AUDIO = "audio"; //variable for enable audio
     public static final String APP_PREFERENCES_VIBRO = "vibro"; //variable for enable vibration
@@ -269,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AdsGoalsListClick += 1;
+                saveIntInMemory(APP_PREFERENCES_ADSGOALSLISTCLICK, AdsGoalsListClick);
                 Intent intent = new Intent(MainActivity.this, GoalsListActivity.class);
                 intent.putExtra("money", money);
                 intent.putExtra("cost", cost);
@@ -394,6 +396,10 @@ public class MainActivity extends AppCompatActivity {
                 AdsResetClick = 0;
                 saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
             }
+            if ((!AppSettings.contains(APP_PREFERENCES_ADSGOALSLISTCLICK)) || (AdsChangeCharClick > 2)) {
+                AdsChangeCharClick = 0;
+                saveIntInMemory(APP_PREFERENCES_ADSGOALSLISTCLICK, AdsResetClick);
+            }
 
             if ((AdsChangeCharClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
                 Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
@@ -403,6 +409,11 @@ public class MainActivity extends AppCompatActivity {
             if ((AdsMoneyAddClick == 3) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
                 Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 AdsMoneyAddClick = 0;
+            }
+
+            if ((AdsGoalsListClick == 2) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+                AdsGoalsListClick = 0;
             }
 
             vibro = AppSettings.getBoolean(APP_PREFERENCES_VIBRO, true);
