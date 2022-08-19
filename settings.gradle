@@ -11,3 +11,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MySecondProjectMoneyBox"
 include ':app'
+include ':data'
+include ':domain'

@@ -4,6 +4,8 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -25,21 +28,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appodeal.ads.Appodeal;
-import com.appodeal.ads.utils.Log;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-
+import com.yandex.mobile.ads.banner.AdSize;
+import com.yandex.mobile.ads.banner.BannerAdEventListener;
+import com.yandex.mobile.ads.banner.BannerAdView;
+import com.yandex.mobile.ads.common.AdRequest;
+import com.yandex.mobile.ads.common.AdRequestError;
+import com.yandex.mobile.ads.common.ImpressionData;
+import com.yandex.mobile.ads.common.InitializationListener;
+import com.yandex.mobile.ads.common.MobileAds;
+import com.yandex.mobile.ads.interstitial.InterstitialAd;
+import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener;
 
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences AppSettings; //SharedPreferences for access to memory
-    private AdView mAdView;
-    private InterstitialAd mInterstitialAd;
-    private AdRequest adRequest;
+
+    InterstitialAd interstitialAd;
 
     int AdsMoneyAddClick;
     int AdsCharacterClick;
@@ -100,8 +106,97 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Appodeal.setTesting(true);
-        Appodeal.setLogLevel(Log.LogLevel.debug);
+
+        //BANNER AD
+        BannerAdView mBannerAdView = findViewById(R.id.bannerAdView);
+        AdRequest adRequestBuild = new AdRequest.Builder().build();
+//        mBannerAdView.setAdUnitId("R-M-DEMO-320x50");
+        mBannerAdView.setAdUnitId("R-M-1611210-2");
+        mBannerAdView.setAdSize(AdSize.flexibleSize(320, 50));
+        mBannerAdView.setBannerAdEventListener(new BannerAdEventListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.e("TAG", "BANNER LOADED");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
+                Log.e("TAG", "BANNER LOAD FAILED");
+                mBannerAdView.loadAd(adRequestBuild);
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.e("TAG", "BANNER CLICKED");
+            }
+
+            @Override
+            public void onLeftApplication() {
+                Log.e("TAG", "BANNER LEFT");
+            }
+
+            @Override
+            public void onReturnedToApplication() {
+                Log.e("TAG", "BANNER RETURN");
+            }
+
+            @Override
+            public void onImpression(@Nullable ImpressionData impressionData) {
+                Log.e("TAG", "BANNER IMPRESSION");
+                mBannerAdView.loadAd(adRequestBuild);
+            }
+        });
+        mBannerAdView.loadAd(adRequestBuild);
+
+        //INTERSTITIAL AD
+        interstitialAd = new InterstitialAd(this);
+//        interstitialAd.setAdUnitId("R-M-DEMO-interstitial");
+        interstitialAd.setAdUnitId("R-M-1611210-3");
+        interstitialAd.setInterstitialAdEventListener(new InterstitialAdEventListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.e("TAG", "INTERSTITIAL LOADED");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
+                Log.e("TAG", "INTERSTITIAL LOAD FAILED");
+                interstitialAd.loadAd(adRequestBuild);
+                Log.e("TAG", adRequestError.getDescription().toString());
+            }
+
+            @Override
+            public void onAdShown() {
+                Log.e("TAG", "INTERSTITIAL SHOWN");
+            }
+
+            @Override
+            public void onAdDismissed() {
+                Log.e("TAG", "INTERSTITIAL DISMISSED");
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.e("TAG", "INTERSTITIAL CLICKED");
+            }
+
+            @Override
+            public void onLeftApplication() {
+                Log.e("TAG", "INTERSTITIAL LEFT APP");
+            }
+
+            @Override
+            public void onReturnedToApplication() {
+                Log.e("TAG", "INTERSTITIAL RETURN APP");
+            }
+
+            @Override
+            public void onImpression(@Nullable ImpressionData impressionData) {
+                Log.e("TAG", "INTERSTITIAL IMPRESSION");
+                interstitialAd.loadAd(adRequestBuild);
+            }
+        });
+        interstitialAd.loadAd(adRequestBuild);
 
         item = "";
         goalid = 1;
@@ -142,8 +237,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) { //on reset button click
                 AdsResetClick += 1; //add 1 to Ad variable
-                if ((AdsResetClick == 2) && (mInterstitialAd != null)) { // if reset button was clicked 2 times and ad is loaded
-                    Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+                if ((AdsResetClick == 2) && (interstitialAd.isLoaded())) { // if reset button was clicked 2 times and ad is loaded
+                    interstitialAd.show();
                     AdsResetClick = 0; //and ad variable set 0
                 }
                 saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick); //save ad variable in memory
@@ -325,8 +420,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AdsCharacterClick += 1;
-                if ((AdsCharacterClick == 10) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
-                    Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+                if ((AdsCharacterClick == 10) && (interstitialAd.isLoaded())) {
+                    interstitialAd.show();
                     AdsCharacterClick = 0;
                 }
                 saveIntInMemory(APP_PREFERENCES_ADSCHARACTERCLICK, AdsCharacterClick);
@@ -401,18 +496,18 @@ public class MainActivity extends AppCompatActivity {
                 saveIntInMemory(APP_PREFERENCES_ADSGOALSLISTCLICK, AdsResetClick);
             }
 
-            if ((AdsChangeCharClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
-                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+            if ((AdsChangeCharClick == 2) && (interstitialAd.isLoaded())) {
+                interstitialAd.show();
                 AdsChangeCharClick = 0;
             }
 
-            if ((AdsMoneyAddClick == 3) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+            if ((AdsMoneyAddClick == 3) && (interstitialAd.isLoaded())) {
+                interstitialAd.show();
                 AdsMoneyAddClick = 0;
             }
 
-            if ((AdsGoalsListClick == 2) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+            if ((AdsGoalsListClick == 2) && (interstitialAd.isLoaded())) {
+                interstitialAd.show();
                 AdsGoalsListClick = 0;
             }
 
@@ -512,11 +607,6 @@ public class MainActivity extends AppCompatActivity {
                 thoughtsView.setVisibility(View.INVISIBLE);
             }
         }
-        //Ads
-        Appodeal.setChildDirectedTreatment(false);
-        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
-        Appodeal.show(MainActivity.this, Appodeal.BANNER_BOTTOM);
-        Appodeal.muteVideosIfCallsMuted(true);
     }
 
     protected void onPause() {
