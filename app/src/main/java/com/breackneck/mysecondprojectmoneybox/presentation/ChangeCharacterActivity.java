@@ -1,4 +1,4 @@
-package com.breackneck.mysecondprojectmoneybox;
+package com.breackneck.mysecondprojectmoneybox.presentation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.breackneck.mysecondprojectmoneybox.R;
 
 public class ChangeCharacterActivity extends AppCompatActivity {
 

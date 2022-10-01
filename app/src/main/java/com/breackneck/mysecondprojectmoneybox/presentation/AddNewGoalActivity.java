@@ -1,4 +1,4 @@
-package com.breackneck.mysecondprojectmoneybox;
+package com.breackneck.mysecondprojectmoneybox.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.breackneck.mysecondprojectmoneybox.R;
 
 public class AddNewGoalActivity extends AppCompatActivity {
 

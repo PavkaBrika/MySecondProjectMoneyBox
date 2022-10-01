@@ -1,4 +1,4 @@
-package com.breackneck.mysecondprojectmoneybox;
+package com.breackneck.mysecondprojectmoneybox.app;
 
 import android.app.Application;
 import android.util.Log;

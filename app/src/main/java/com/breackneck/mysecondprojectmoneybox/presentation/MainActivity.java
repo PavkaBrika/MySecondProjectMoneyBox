@@ -1,11 +1,9 @@
-package com.breackneck.mysecondprojectmoneybox;
+package com.breackneck.mysecondprojectmoneybox.presentation;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -18,7 +16,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -28,16 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yandex.mobile.ads.banner.AdSize;
-import com.yandex.mobile.ads.banner.BannerAdEventListener;
-import com.yandex.mobile.ads.banner.BannerAdView;
-import com.yandex.mobile.ads.common.AdRequest;
-import com.yandex.mobile.ads.common.AdRequestError;
-import com.yandex.mobile.ads.common.ImpressionData;
-import com.yandex.mobile.ads.common.InitializationListener;
-import com.yandex.mobile.ads.common.MobileAds;
+import com.breackneck.mysecondprojectmoneybox.R;
 import com.yandex.mobile.ads.interstitial.InterstitialAd;
-import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener;
 
 import java.text.DecimalFormat;
 
@@ -107,96 +96,96 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //BANNER AD
-        BannerAdView mBannerAdView = findViewById(R.id.bannerAdView);
-        AdRequest adRequestBuild = new AdRequest.Builder().build();
-//        mBannerAdView.setAdUnitId("R-M-DEMO-320x50");
-        mBannerAdView.setAdUnitId("R-M-1611210-2");
-        mBannerAdView.setAdSize(AdSize.flexibleSize(320, 50));
-        mBannerAdView.setBannerAdEventListener(new BannerAdEventListener() {
-            @Override
-            public void onAdLoaded() {
-                Log.e("TAG", "BANNER LOADED");
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
-                Log.e("TAG", "BANNER LOAD FAILED");
-                mBannerAdView.loadAd(adRequestBuild);
-            }
-
-            @Override
-            public void onAdClicked() {
-                Log.e("TAG", "BANNER CLICKED");
-            }
-
-            @Override
-            public void onLeftApplication() {
-                Log.e("TAG", "BANNER LEFT");
-            }
-
-            @Override
-            public void onReturnedToApplication() {
-                Log.e("TAG", "BANNER RETURN");
-            }
-
-            @Override
-            public void onImpression(@Nullable ImpressionData impressionData) {
-                Log.e("TAG", "BANNER IMPRESSION");
-                mBannerAdView.loadAd(adRequestBuild);
-            }
-        });
-        mBannerAdView.loadAd(adRequestBuild);
-
-        //INTERSTITIAL AD
-        interstitialAd = new InterstitialAd(this);
-//        interstitialAd.setAdUnitId("R-M-DEMO-interstitial");
-        interstitialAd.setAdUnitId("R-M-1611210-3");
-        interstitialAd.setInterstitialAdEventListener(new InterstitialAdEventListener() {
-            @Override
-            public void onAdLoaded() {
-                Log.e("TAG", "INTERSTITIAL LOADED");
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
-                Log.e("TAG", "INTERSTITIAL LOAD FAILED");
-                interstitialAd.loadAd(adRequestBuild);
-                Log.e("TAG", adRequestError.getDescription().toString());
-            }
-
-            @Override
-            public void onAdShown() {
-                Log.e("TAG", "INTERSTITIAL SHOWN");
-            }
-
-            @Override
-            public void onAdDismissed() {
-                Log.e("TAG", "INTERSTITIAL DISMISSED");
-            }
-
-            @Override
-            public void onAdClicked() {
-                Log.e("TAG", "INTERSTITIAL CLICKED");
-            }
-
-            @Override
-            public void onLeftApplication() {
-                Log.e("TAG", "INTERSTITIAL LEFT APP");
-            }
-
-            @Override
-            public void onReturnedToApplication() {
-                Log.e("TAG", "INTERSTITIAL RETURN APP");
-            }
-
-            @Override
-            public void onImpression(@Nullable ImpressionData impressionData) {
-                Log.e("TAG", "INTERSTITIAL IMPRESSION");
-                interstitialAd.loadAd(adRequestBuild);
-            }
-        });
-        interstitialAd.loadAd(adRequestBuild);
+//        //BANNER AD
+//        BannerAdView mBannerAdView = findViewById(R.id.bannerAdView);
+//        AdRequest adRequestBuild = new AdRequest.Builder().build();
+////        mBannerAdView.setAdUnitId("R-M-DEMO-320x50");
+//        mBannerAdView.setAdUnitId("R-M-1611210-2");
+//        mBannerAdView.setAdSize(AdSize.flexibleSize(320, 50));
+//        mBannerAdView.setBannerAdEventListener(new BannerAdEventListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                Log.e("TAG", "BANNER LOADED");
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
+//                Log.e("TAG", "BANNER LOAD FAILED");
+//                mBannerAdView.loadAd(adRequestBuild);
+//            }
+//
+//            @Override
+//            public void onAdClicked() {
+//                Log.e("TAG", "BANNER CLICKED");
+//            }
+//
+//            @Override
+//            public void onLeftApplication() {
+//                Log.e("TAG", "BANNER LEFT");
+//            }
+//
+//            @Override
+//            public void onReturnedToApplication() {
+//                Log.e("TAG", "BANNER RETURN");
+//            }
+//
+//            @Override
+//            public void onImpression(@Nullable ImpressionData impressionData) {
+//                Log.e("TAG", "BANNER IMPRESSION");
+//                mBannerAdView.loadAd(adRequestBuild);
+//            }
+//        });
+//        mBannerAdView.loadAd(adRequestBuild);
+//
+//        //INTERSTITIAL AD
+//        interstitialAd = new InterstitialAd(this);
+////        interstitialAd.setAdUnitId("R-M-DEMO-interstitial");
+//        interstitialAd.setAdUnitId("R-M-1611210-3");
+//        interstitialAd.setInterstitialAdEventListener(new InterstitialAdEventListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                Log.e("TAG", "INTERSTITIAL LOADED");
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {
+//                Log.e("TAG", "INTERSTITIAL LOAD FAILED");
+//                interstitialAd.loadAd(adRequestBuild);
+//                Log.e("TAG", adRequestError.getDescription().toString());
+//            }
+//
+//            @Override
+//            public void onAdShown() {
+//                Log.e("TAG", "INTERSTITIAL SHOWN");
+//            }
+//
+//            @Override
+//            public void onAdDismissed() {
+//                Log.e("TAG", "INTERSTITIAL DISMISSED");
+//            }
+//
+//            @Override
+//            public void onAdClicked() {
+//                Log.e("TAG", "INTERSTITIAL CLICKED");
+//            }
+//
+//            @Override
+//            public void onLeftApplication() {
+//                Log.e("TAG", "INTERSTITIAL LEFT APP");
+//            }
+//
+//            @Override
+//            public void onReturnedToApplication() {
+//                Log.e("TAG", "INTERSTITIAL RETURN APP");
+//            }
+//
+//            @Override
+//            public void onImpression(@Nullable ImpressionData impressionData) {
+//                Log.e("TAG", "INTERSTITIAL IMPRESSION");
+//                interstitialAd.loadAd(adRequestBuild);
+//            }
+//        });
+//        interstitialAd.loadAd(adRequestBuild);
 
         item = "";
         goalid = 1;
