@@ -21,12 +21,14 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.utils.Log;
+import com.breackneck.mysecondprojectmoneybox.presentation.activity.StartActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -101,6 +103,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Appodeal.setTesting(true);
         Appodeal.setLogLevel(Log.LogLevel.debug);
+
+        Button testButton = findViewById(R.id.testButton);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, StartActivity.class);
+                startActivity(intent);
+            }
+        });
 
         item = "";
         goalid = 1;

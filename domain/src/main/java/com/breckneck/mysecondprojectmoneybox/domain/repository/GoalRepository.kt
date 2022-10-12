@@ -4,5 +4,5 @@ import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 
 interface GoalRepository {
 
-    fun createMoneybox(moneyboxDomain: GoalDomain)
+    fun createGoal(goalDomain: GoalDomain)
 }

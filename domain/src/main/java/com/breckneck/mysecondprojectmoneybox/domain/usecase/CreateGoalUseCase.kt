@@ -6,7 +6,7 @@ import com.breckneck.mysecondprojectmoneybox.domain.repository.GoalRepository
 class CreateGoalUseCase(val goalRepository: GoalRepository) {
 
     fun execute(cost: Double, money: Double, item: String) {
-        goalRepository.createMoneybox(GoalDomain(cost = cost, money = money, item = item))
+        goalRepository.createGoal(GoalDomain(cost = cost, money = money, item = item))
     }
 
 }

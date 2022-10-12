@@ -44,6 +44,9 @@
             android:name="com.breackneck.mysecondprojectmoneybox.GoalsListActivity"
             android:label="@string/activityTitleGoalsList"
             android:theme="@style/OtherActivities" />
+        <activity
+            android:name=".presentation.activity.StartActivity"
+            android:label="test" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3967661567296020~5965954619" />
