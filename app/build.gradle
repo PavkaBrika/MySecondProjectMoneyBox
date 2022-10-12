@@ -39,4 +39,16 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.appodeal.ads:sdk:2.11.1.+'
     implementation 'com.explorestack:consent:1.0.4'
+
+    //Clean Architecture
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+
+    //Koin
+    def koin_version = "3.2.0"
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 }
