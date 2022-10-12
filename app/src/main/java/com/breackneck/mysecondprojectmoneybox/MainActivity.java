@@ -434,12 +434,6 @@ public class MainActivity extends AppCompatActivity {
             else if (character == 3) {
                 changeCharacter(R.drawable.mcduck, 216, 203);
             }
-            else if (character == 4) {
-                changeCharacter(R.drawable.homer, 250, 180);
-            }
-            else if (character == 5) {
-                changeCharacter(R.drawable.griffin, 250, 180);
-            }
             calcLeftSum();
             //Adding coins in jar
             coinsFirstView = (ImageView) findViewById(R.id.coins1);

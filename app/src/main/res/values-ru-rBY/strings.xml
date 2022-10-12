@@ -33,8 +33,6 @@
     <string name="toastNoCharacterChangeCharacterActivity">Вы должны выбрать персонажа</string>
     <string name="cancel">Отмена</string>
     <string name="activityTitleGoalsList">Список целей</string>
-    <string name="characterNameHomerSimpson">Гомер Симпсон</string>
-    <string name="characterNamePeterGriffin">Питер Гриффин</string>
     <string name="firstbuttongoalslist">Первая цель</string>
     <string name="secondbuttongoalslist">Вторая цель</string>
     <string name="thirdbuttongoalslist">Третья цель</string>

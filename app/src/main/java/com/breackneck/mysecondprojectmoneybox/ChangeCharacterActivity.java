@@ -44,8 +44,6 @@ public class ChangeCharacterActivity extends AppCompatActivity {
         Griff = (RadioButton) findViewById(R.id.griffButton);
         Krabs = (RadioButton) findViewById(R.id.mrkrabsButton);
         Mcduck = (RadioButton) findViewById(R.id.mcduckButton);
-        Homer = findViewById(R.id.homerButton);
-        Griffin = findViewById(R.id.griffinButton);
         Button OKbtn = (Button) findViewById(R.id.buttonOk);
         Button Cancelbtn = (Button) findViewById(R.id.buttonCancel);
         AudioCheckBox = (CheckBox) findViewById(R.id.checkBoxEnableSound);
@@ -87,9 +85,6 @@ public class ChangeCharacterActivity extends AppCompatActivity {
             else if (character == 3) {
                 Mcduck.setChecked(true);
             }
-            else if (character == 4) {
-                Homer.setChecked(true);
-            }
             if (audio == true)
                 AudioCheckBox.setChecked(true);
             else
@@ -114,15 +109,7 @@ public class ChangeCharacterActivity extends AppCompatActivity {
             character = 3;
             saveIntInMemory(SETTINGS_MEMORY_CHARACTER, character);
         }
-        else if (Homer.isChecked()) {
-            character = 4;
-            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, character);
-        }
-        else if (Griffin.isChecked()) {
-            character = 5;
-            saveIntInMemory(SETTINGS_MEMORY_CHARACTER, character);
-        }
-        else if ((!Griff.isChecked()) && (!Krabs.isChecked()) && (!Mcduck.isChecked()) && (!Homer.isChecked()) && (!Griffin.isChecked())) {
+        else if ((!Griff.isChecked()) && (!Krabs.isChecked()) && (!Mcduck.isChecked())) {
             Toast.makeText(getApplicationContext(), R.string.toastNoCharacterChangeCharacterActivity, Toast.LENGTH_SHORT).show();
         }
         if (AudioCheckBox.isChecked()) {

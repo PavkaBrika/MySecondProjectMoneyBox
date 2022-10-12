@@ -31,8 +31,6 @@
     <string name="characterNameGriff">Griff</string>
     <string name="characterNameMrKrabs">Mr. Krabs</string>
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
-    <string name="characterNameHomerSimpson">Homer Simpson</string>
-    <string name="characterNamePeterGriffin">Peter Griffin</string>
     <string name="toastNoCharacterChangeCharacterActivity">You must choose a character</string>
     <string name="cancel">Cancel</string>
     <string name="firstbuttongoalslist">First goal</string>

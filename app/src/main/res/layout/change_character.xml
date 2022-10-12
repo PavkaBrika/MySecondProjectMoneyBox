@@ -57,27 +57,6 @@
             android:text="@string/characterNameScroogeMcDuck"
             style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
 
-        <RadioButton
-            android:id="@+id/homerButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/characterNameHomerSimpson"
-            style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
-
-        <RadioButton
-            android:id="@+id/griffinButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/characterNamePeterGriffin"
-            style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
-
-
     </RadioGroup>
 
     <TextView
