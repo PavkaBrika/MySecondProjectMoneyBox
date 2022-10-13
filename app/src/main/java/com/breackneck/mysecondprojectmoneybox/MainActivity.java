@@ -39,9 +39,9 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences AppSettings; //SharedPreferences for access to memory
-    private AdView mAdView;
-    private InterstitialAd mInterstitialAd;
-    private AdRequest adRequest;
+//    private AdView mAdView;
+//    private InterstitialAd mInterstitialAd;
+//    private AdRequest adRequest;
 
     int AdsMoneyAddClick;
     int AdsCharacterClick;
@@ -102,8 +102,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Appodeal.setTesting(true);
-        Appodeal.setLogLevel(Log.LogLevel.debug);
+//        Appodeal.setLogLevel(Log.LogLevel.debug);
 
+        //TEST
         Button testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
         goalid = AppSettings.getInt(APP_PREFERENCES_GOAL_ID, 1);
 
         saveIntInMemory(APP_PREFERENCES_GOAL_ID,goalid);
+
+
 
         moneyQuantity = (TextView) findViewById(R.id.money);
         addItemCost = (TextView) findViewById(R.id.costEditText);
@@ -152,10 +155,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) { //on reset button click
                 AdsResetClick += 1; //add 1 to Ad variable
-                if ((AdsResetClick == 2) && (mInterstitialAd != null)) { // if reset button was clicked 2 times and ad is loaded
-                    Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
-                    AdsResetClick = 0; //and ad variable set 0
-                }
+//                if ((AdsResetClick == 2) && (mInterstitialAd != null)) { // if reset button was clicked 2 times and ad is loaded
+//                    Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+//                    AdsResetClick = 0; //and ad variable set 0
+//                }
                 saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick); //save ad variable in memory
                 AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.AlertDialogStyle)); //create alertdialog
                 builder.setTitle(R.string.alertDialogTitle); //set title
@@ -386,35 +389,35 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         if ((AppSettings.contains(APP_PREFERENCES_MONEY)) && (AppSettings.contains(APP_PREFERENCES_ITEM)) && (AppSettings.contains(APP_PREFERENCES_COST)) && (AppSettings.contains(APP_PREFERENCES_CHARACTER))) {
-            AdsMoneyAddClick = AppSettings.getInt(APP_PREFERENCES_ADSMONEYADDCLICK, 0);
-            if ((!AppSettings.contains(APP_PREFERENCES_ADSMONEYADDCLICK)) || (AdsMoneyAddClick > 3)) {
-                AdsMoneyAddClick = 0;
-                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
-            }
-            AdsCharacterClick = AppSettings.getInt(APP_PREFERENCES_ADSCHARACTERCLICK, 0);
-            if ((!AppSettings.contains(APP_PREFERENCES_ADSCHARACTERCLICK)) || (AdsCharacterClick > 10)) {
-                AdsCharacterClick = 0;
-                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsCharacterClick);
-            }
-            AdsChangeCharClick = AppSettings.getInt(APP_PREFERENCES_ADSCHANGECHARCLICK, 0);
-            if ((!AppSettings.contains(APP_PREFERENCES_ADSCHANGECHARCLICK)) || (AdsChangeCharClick > 2)) {
-                AdsChangeCharClick = 0;
-                saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick);
-            }
-            if ((!AppSettings.contains(APP_PREFERENCES_ADSRESETCLICK)) || (AdsResetClick > 2)) {
-                AdsResetClick = 0;
-                saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
-            }
+//            AdsMoneyAddClick = AppSettings.getInt(APP_PREFERENCES_ADSMONEYADDCLICK, 0);
+//            if ((!AppSettings.contains(APP_PREFERENCES_ADSMONEYADDCLICK)) || (AdsMoneyAddClick > 3)) {
+//                AdsMoneyAddClick = 0;
+//                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsMoneyAddClick);
+//            }
+//            AdsCharacterClick = AppSettings.getInt(APP_PREFERENCES_ADSCHARACTERCLICK, 0);
+//            if ((!AppSettings.contains(APP_PREFERENCES_ADSCHARACTERCLICK)) || (AdsCharacterClick > 10)) {
+//                AdsCharacterClick = 0;
+//                saveIntInMemory(APP_PREFERENCES_ADSMONEYADDCLICK, AdsCharacterClick);
+//            }
+//            AdsChangeCharClick = AppSettings.getInt(APP_PREFERENCES_ADSCHANGECHARCLICK, 0);
+//            if ((!AppSettings.contains(APP_PREFERENCES_ADSCHANGECHARCLICK)) || (AdsChangeCharClick > 2)) {
+//                AdsChangeCharClick = 0;
+//                saveIntInMemory(APP_PREFERENCES_ADSCHANGECHARCLICK, AdsChangeCharClick);
+//            }
+//            if ((!AppSettings.contains(APP_PREFERENCES_ADSRESETCLICK)) || (AdsResetClick > 2)) {
+//                AdsResetClick = 0;
+//                saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
+//            }
+//
+//            if ((AdsChangeCharClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
+//                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+//                AdsChangeCharClick = 0;
+//            }
 
-            if ((AdsChangeCharClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
-                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
-                AdsChangeCharClick = 0;
-            }
-
-            if ((AdsMoneyAddClick == 3) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
-                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
-                AdsMoneyAddClick = 0;
-            }
+//            if ((AdsMoneyAddClick == 3) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+//                Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
+//                AdsMoneyAddClick = 0;
+//            }
 
             vibro = AppSettings.getBoolean(APP_PREFERENCES_VIBRO, true);
             audio = AppSettings.getBoolean(APP_PREFERENCES_AUDIO, true);
@@ -434,6 +437,8 @@ public class MainActivity extends AppCompatActivity {
                 addItemCost.setText(decimalFormat.format(cost));
             }
             else addItemCost.setText("");
+
+
 
             character = AppSettings.getInt(APP_PREFERENCES_CHARACTER, 0);
             if (character == 1) {
@@ -507,10 +512,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         //Ads
-        Appodeal.setChildDirectedTreatment(false);
-        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
-        Appodeal.show(MainActivity.this, Appodeal.BANNER_BOTTOM);
-        Appodeal.muteVideosIfCallsMuted(true);
+//        Appodeal.setChildDirectedTreatment(false);
+//        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
+//        Appodeal.show(MainActivity.this, Appodeal.BANNER_BOTTOM);
+//        Appodeal.muteVideosIfCallsMuted(true);
     }
 
     protected void onPause() {

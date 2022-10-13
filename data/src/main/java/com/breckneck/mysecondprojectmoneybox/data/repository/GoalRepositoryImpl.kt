@@ -11,4 +11,9 @@ class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository 
         goalStorage.createGoal(goal = Goal(id = 0, cost = goalDomain.cost, money = goalDomain.money, item = goalDomain.item))
     }
 
+    override fun getGoal(id: Int): GoalDomain {
+        val goal = goalStorage.getGoal(id = id)
+        return GoalDomain(id = goal.id, cost = goal.cost, money = goal.cost, item = goal.item)
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.breackneck.mysecondprojectmoneybox.app
 
 import android.app.Application
+import com.breackneck.mysecondprojectmoneybox.di.dataModule
+import com.breackneck.mysecondprojectmoneybox.di.domainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +16,7 @@ class App: Application() {
         startKoin {
             androidLogger(level = Level.DEBUG)
             androidContext(this@App)
-            modules(listOf())
+            modules(listOf(domainModule, dataModule))
         }
     }
 

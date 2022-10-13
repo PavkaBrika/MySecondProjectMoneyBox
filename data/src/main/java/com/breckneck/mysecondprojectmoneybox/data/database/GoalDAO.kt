@@ -3,6 +3,7 @@ package com.breckneck.mysecondprojectmoneybox.data.database
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.Query
 import androidx.room.Update
 import com.breckneck.mysecondprojectmoneybox.data.entity.Goal
 
@@ -17,5 +18,8 @@ interface GoalDAO {
 
     @Update
     fun updateGoal(goal: Goal)
+
+    @Query("SELECT * FROM goal WHERE id = :id")
+    fun getGoalById(id: Int): Goal
 
 }

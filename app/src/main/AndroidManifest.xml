@@ -10,6 +10,7 @@
         tools:node="remove" />
 
     <application
+        android:name=".app.App"
         android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

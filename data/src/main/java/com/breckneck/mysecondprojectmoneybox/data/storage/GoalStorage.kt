@@ -6,4 +6,6 @@ interface GoalStorage {
 
     fun createGoal(goal: Goal)
 
+    fun getGoal(id: Int): Goal
+
 }

@@ -13,5 +13,9 @@ class GoalStorageImpl(context: Context): GoalStorage {
         db.appDao().insertGoal(goal = goal)
     }
 
+    override fun getGoal(id: Int): Goal {
+        return db.appDao().getGoalById(id = id)
+    }
+
 
 }
