@@ -1,9 +1,6 @@
 package com.breackneck.mysecondprojectmoneybox.di
 
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.CheckMainActivityUseCase
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.CreateGoalUseCase
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.GetGoalUseCase
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.GetLastGoalIdUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -22,5 +19,9 @@ val domainModule = module {
 
     factory<GetLastGoalIdUseCase> {
         GetLastGoalIdUseCase(settingsRepository = get())
+    }
+
+    factory<MigrationUseCase> {
+        MigrationUseCase(migrationRepository = get())
     }
 }
