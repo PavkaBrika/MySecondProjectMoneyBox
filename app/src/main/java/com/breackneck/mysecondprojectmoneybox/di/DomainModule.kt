@@ -24,4 +24,8 @@ val domainModule = module {
     factory<MigrationUseCase> {
         MigrationUseCase(migrationRepository = get())
     }
+
+    factory<ChangeMoneyUseCase> {
+        ChangeMoneyUseCase(goalRepository = get())
+    }
 }

@@ -22,4 +22,5 @@ interface GoalDAO {
     @Query("SELECT * FROM goal WHERE id = :id")
     fun getGoalById(id: Int): Goal
 
+
 }

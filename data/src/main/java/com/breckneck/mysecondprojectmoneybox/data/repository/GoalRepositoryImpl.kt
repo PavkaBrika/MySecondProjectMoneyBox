@@ -16,4 +16,8 @@ class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository 
         return GoalDomain(id = goal.id, cost = goal.cost, money = goal.cost, item = goal.item)
     }
 
+    override fun changeMoney(id: Int) {
+        goalStorage.changeMoney(id = id)
+    }
+
 }

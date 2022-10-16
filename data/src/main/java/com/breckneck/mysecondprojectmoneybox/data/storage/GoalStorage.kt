@@ -8,4 +8,6 @@ interface GoalStorage {
 
     fun getGoal(id: Int): Goal
 
+    fun changeMoney(id: Int)
+
 }
