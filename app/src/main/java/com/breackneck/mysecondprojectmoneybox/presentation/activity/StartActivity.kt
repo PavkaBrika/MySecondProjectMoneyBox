@@ -1,7 +1,9 @@
 package com.breackneck.mysecondprojectmoneybox.presentation.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -10,18 +12,6 @@ import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-
-//list activity shared prefs
-//private val GOALS_LIST_MEMORY = "goals list memory"
-//private val FIRST_ITEM = "firstitem"
-//private val FIRST_COST = "firstcost"
-//private val FIRST_MONEY = "firstmoney"
-//private val SECOND_ITEM = "seconditem"
-//private val SECOND_COST = "secondcost"
-//private val SECOND_MONEY = "secondmoney"
-//private val THIRD_ITEM = "thirditem"
-//private val THIRD_COST = "thirdcost"
-//private val THIRD_MONEY = "thirdmoney"
 
 class StartActivity: AppCompatActivity() {
 
@@ -46,6 +36,11 @@ class StartActivity: AppCompatActivity() {
                 val costText: TextView = findViewById(R.id.costEditText)
                 costText.text = goal.cost.toString()
             }
+        }
+
+        val addSubButton: ImageView = findViewById(R.id.buttonAddSubMoney)
+        addSubButton.setOnClickListener {
+            startActivity(Intent(this, AddMoney::class.java))
         }
 
 

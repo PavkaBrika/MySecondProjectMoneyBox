@@ -48,6 +48,9 @@
         <activity
             android:name=".presentation.activity.StartActivity"
             android:label="test" />
+        <activity
+            android:name=".presentation.activity.AddMoney"
+            android:label="add" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3967661567296020~5965954619" />
