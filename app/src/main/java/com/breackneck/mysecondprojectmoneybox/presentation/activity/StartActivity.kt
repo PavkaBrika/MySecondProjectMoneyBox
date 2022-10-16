@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.breackneck.mysecondprojectmoneybox.R
+import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,8 @@ import java.text.DecimalFormat
 
 class StartActivity: AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     val decimalFormat = DecimalFormat("#.##")
 
     private val vm by viewModel<MainActivityViewModel>()
@@ -34,7 +37,8 @@ class StartActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val checkMainActivity: CheckMainActivityUseCase by inject()
         val createGoal: CreateGoalUseCase by inject()
