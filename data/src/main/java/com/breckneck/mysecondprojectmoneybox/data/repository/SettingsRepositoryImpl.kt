@@ -12,4 +12,8 @@ class SettingsRepositoryImpl(private val settingsStorage: SettingsStorage): Sett
     override fun getLastGoalId(): Int {
         return settingsStorage.getLastGoalId()
     }
+
+    override fun getVibroSetting(): Boolean {
+        return settingsStorage.getVibroSetting()
+    }
 }

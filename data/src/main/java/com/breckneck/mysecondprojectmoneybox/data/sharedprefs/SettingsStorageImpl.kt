@@ -26,4 +26,10 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
     override fun getLastGoalId(): Int {
         return sp.getInt(APP_PREFERENCES_GOAL_ID, 1)
     }
+
+    override fun getVibroSetting(): Boolean {
+        return sp.getBoolean(APP_PREFERENCES_VIBRO, true)
+    }
+
+
 }

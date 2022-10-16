@@ -6,4 +6,5 @@ interface SettingsStorage {
 
     fun getLastGoalId(): Int
 
+    fun getVibroSetting(): Boolean
 }

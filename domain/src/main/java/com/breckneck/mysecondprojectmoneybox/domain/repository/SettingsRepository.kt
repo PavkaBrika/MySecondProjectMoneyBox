@@ -6,4 +6,5 @@ interface SettingsRepository {
 
     fun getLastGoalId() : Int
 
+    fun getVibroSetting(): Boolean
 }
