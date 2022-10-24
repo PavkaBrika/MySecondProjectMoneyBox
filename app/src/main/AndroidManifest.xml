@@ -51,6 +51,8 @@
         <activity
             android:name=".presentation.activity.AddMoney"
             android:label="add" />
+        <activity android:name=".presentation.activity.NewGoal"
+            android:label="new" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3967661567296020~5965954619" />

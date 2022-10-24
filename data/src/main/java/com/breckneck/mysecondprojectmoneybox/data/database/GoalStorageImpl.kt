@@ -21,5 +21,9 @@ class GoalStorageImpl(context: Context): GoalStorage {
 
     }
 
+    override fun checkGoal(id: Int): Boolean {
+        return db.appDao().checkGoal(id = id) == 1    
+    }
+
 
 }

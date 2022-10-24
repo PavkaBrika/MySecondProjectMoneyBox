@@ -10,4 +10,6 @@ interface GoalStorage {
 
     fun changeMoney(id: Int)
 
+    fun checkGoal(id: Int): Boolean
+
 }

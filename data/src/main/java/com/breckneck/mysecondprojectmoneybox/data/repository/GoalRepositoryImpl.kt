@@ -20,4 +20,8 @@ class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository 
         goalStorage.changeMoney(id = id)
     }
 
+    override fun checkGoal(id: Int): Boolean {
+        return goalStorage.checkGoal(id = id)
+    }
+
 }

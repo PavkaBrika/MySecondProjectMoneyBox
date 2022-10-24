@@ -9,4 +9,6 @@ interface GoalRepository {
     fun getGoal(id: Int): GoalDomain
 
     fun changeMoney(id: Int)
+
+    fun checkGoal(id: Int): Boolean
 }

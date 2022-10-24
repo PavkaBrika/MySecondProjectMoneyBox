@@ -115,15 +115,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         item = "";
-        goalid = 1;
+//        goalid = 1;
 
         MediaPlayer player; //initialize player for coin sound
         player = MediaPlayer.create(this, R.raw.coinssound); //added coin sound to MediaPlayer
 
         AppSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE); //set name to App Preferences
-        goalid = AppSettings.getInt(APP_PREFERENCES_GOAL_ID, 1);
-
-        saveIntInMemory(APP_PREFERENCES_GOAL_ID,goalid);
+//        goalid = AppSettings.getInt(APP_PREFERENCES_GOAL_ID, 1);
+//
+//        saveIntInMemory(APP_PREFERENCES_GOAL_ID,goalid);
 
 
 
