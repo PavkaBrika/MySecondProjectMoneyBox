@@ -1,16 +1,14 @@
 package com.breackneck.mysecondprojectmoneybox.presentation.activity
 
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.VibrationEffect
-import android.os.Vibrator
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -18,11 +16,10 @@ import com.breackneck.mysecondprojectmoneybox.R
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.activityScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
@@ -42,7 +39,7 @@ class StartActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         val checkMainActivity: CheckMainActivityUseCase by inject()
-        val createGoal: CreateGoalUseCase by inject()
+
 
         val getGoal: GetGoalUseCase by inject()
         val migration: MigrationUseCase by inject()
@@ -59,21 +56,24 @@ class StartActivity: AppCompatActivity() {
 //        lifecycleScope.launch(Dispatchers.IO) {
 //            createGoal.execute(id = id - 1, cost = 0.0, money = 0.0, item = "")
 //        }
-        vm.getGoal(id = id)
+//        vm.getGoal(id = id)
         Log.e("TAG", "Info wrote")
         vm.resultGoal.observe(this) { goal ->
             binding.item.text = goal.item
             binding.costEditText.text = goal.cost.toString()
+            calcLeftSum(cost = goal.cost, money = goal.money)
             if ((goal.cost != 0.0) && (goal.item != "")) {
                 binding.money.text = decimalFormat.format(goal.money)
                 binding.money.visibility = View.VISIBLE
                 binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
+            } else {
+                binding.HintToAddNewGoalTextView.visibility = View.VISIBLE
             }
         }
 
         binding.imageView.setOnClickListener {
             if ((vm.resultGoal.value?.item?.trim() == "") && (vm.resultGoal.value?.cost == 0.0)) {
-                startActivity( Intent(this, NewGoal::class.java))
+                    showNewGoalBottomSheetDialog();
             } else {
                 Toast.makeText(this, R.string.alertDialogMessageNewGoal, Toast.LENGTH_SHORT).show()
             }
@@ -116,7 +116,6 @@ class StartActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         vm.getGoal(id = id)
-
     }
 
 
@@ -142,6 +141,7 @@ class StartActivity: AppCompatActivity() {
         val left = cost - money
         if (left > 0) {
             binding.leftTextView.text = "${decimalFormat.format(left)} ${getString(R.string.left)}"
+            binding.buttonAddSubMoney.visibility = View.VISIBLE
             binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
             binding.leftTextView.textSize = 30F
         } else {
@@ -153,5 +153,37 @@ class StartActivity: AppCompatActivity() {
             binding.buttonAddSubMoney.visibility = View.INVISIBLE
             binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
         }
+    }
+
+    private fun showNewGoalBottomSheetDialog() {
+        val createGoal: CreateGoalUseCase by inject()
+
+        val bottomSheetDialogNewGoal = BottomSheetDialog(this)
+        bottomSheetDialogNewGoal.setContentView(R.layout.addnewgoal)
+        val buttonOk = bottomSheetDialogNewGoal.findViewById<Button>(R.id.buttonOk)
+        val buttonCancel = bottomSheetDialogNewGoal.findViewById<Button>(R.id.buttonCancel)
+        val itemEditText = bottomSheetDialogNewGoal.findViewById<EditText>(R.id.edittextItem)
+        val costEditText = bottomSheetDialogNewGoal.findViewById<EditText>(R.id.edittextCost)
+
+        buttonCancel!!.setOnClickListener {
+            bottomSheetDialogNewGoal.dismiss()
+        }
+
+        buttonOk!!.setOnClickListener {
+            if ((itemEditText!!.text.toString() != "") && (costEditText!!.text.toString() != "") && (costEditText.text.toString() != ".")) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    createGoal.execute(id = 1, cost = costEditText.text.toString().toDouble(), money = 0.0, item = itemEditText.text.toString())
+                }
+                vm.getGoal(id = id)
+                bottomSheetDialogNewGoal.cancel()
+            }
+            else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
+                Toast.makeText(this, R.string.toastNoInfoNewGoalActivity, Toast.LENGTH_SHORT).show()
+            else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() != ""))
+                Toast.makeText(this, R.string.toastNoTargetNewGoalActivity, Toast.LENGTH_SHORT).show();
+            else if ((itemEditText.text.toString() != "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
+                Toast.makeText(this, R.string.toastNoCostNewGoalActivity, Toast.LENGTH_SHORT).show()
+        }
+        bottomSheetDialogNewGoal.show()
     }
 }

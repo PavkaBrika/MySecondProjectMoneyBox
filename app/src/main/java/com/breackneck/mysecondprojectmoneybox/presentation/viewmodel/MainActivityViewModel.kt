@@ -8,7 +8,6 @@ import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.CheckGoalUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.GetGoalUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel(
@@ -16,7 +15,8 @@ class MainActivityViewModel(
     private val checkGoalUseCase: CheckGoalUseCase
 ): ViewModel() {
 
-    val resultGoal = MutableLiveData<GoalDomain>()
+    val
+            resultGoal = MutableLiveData<GoalDomain>()
 
     init {
         Log.e("TAG", "VM created")
@@ -28,10 +28,12 @@ class MainActivityViewModel(
     }
 
     fun getGoal(id: Int) {
-        var goal = GoalDomain(id = 1, cost = 0.0, money = 0.0, item = "")
+        var goal: GoalDomain
         viewModelScope.launch(Dispatchers.IO) {
             if (checkGoalUseCase.execute(id = id)) {
                 goal = getGoalUseCase.execute(id = id)
+            } else {
+                goal = GoalDomain(id = 1, cost = 0.0, money = 0.0, item = "")
             }
             launch(Dispatchers.Main) {
                 resultGoal.value = goal
