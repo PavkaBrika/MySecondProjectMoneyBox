@@ -38,4 +38,5 @@
     <string name="thirdbuttongoalslist">Трэцяя мэта</string>
     <string name="progressBarText">ужо назапашана</string>
     <string name="alreadyFinished">Скончана!</string>
+    <string name="ok">Ок</string>
 </resources>

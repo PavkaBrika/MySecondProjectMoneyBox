@@ -6,6 +6,9 @@
     <style name="ButtonsColor">
         <item name="android:tint">@color/mainActivityButtonsColor</item>
         <item name="android:backgroundTint">@color/buttonColor</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name="ChangeCharacterActivityTextAndRadioButtonColor">
         <item name="android:textColor">@color/black</item>
@@ -21,22 +24,9 @@
     <style name="ThoughtsImageViewSrc">
         <item name="android:src">@drawable/thoughts2</item>
     </style>
-    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
-        <item name="android:backgroundTint">@color/dialogActivitiesBackgroundColor</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="buttonTint">@color/black</item>
-    </style>
-    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
-    </style>
-    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+    <style name="CustomShapeAppearanceBottomSheetDialog">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">28dp</item>
         <item name="cornerSizeTopLeft">28dp</item>
-
     </style>
-
-
-
 </resources>

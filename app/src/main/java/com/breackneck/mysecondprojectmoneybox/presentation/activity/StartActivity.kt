@@ -16,6 +16,7 @@ import com.breackneck.mysecondprojectmoneybox.R
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -160,6 +161,7 @@ class StartActivity: AppCompatActivity() {
 
         val bottomSheetDialogNewGoal = BottomSheetDialog(this)
         bottomSheetDialogNewGoal.setContentView(R.layout.addnewgoal)
+
         val buttonOk = bottomSheetDialogNewGoal.findViewById<Button>(R.id.buttonOk)
         val buttonCancel = bottomSheetDialogNewGoal.findViewById<Button>(R.id.buttonCancel)
         val itemEditText = bottomSheetDialogNewGoal.findViewById<EditText>(R.id.edittextItem)
@@ -184,6 +186,7 @@ class StartActivity: AppCompatActivity() {
             else if ((itemEditText.text.toString() != "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
                 Toast.makeText(this, R.string.toastNoCostNewGoalActivity, Toast.LENGTH_SHORT).show()
         }
+
         bottomSheetDialogNewGoal.show()
     }
 }
