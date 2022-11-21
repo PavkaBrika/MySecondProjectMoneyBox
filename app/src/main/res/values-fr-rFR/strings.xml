@@ -39,4 +39,6 @@
     <string name="progressBarText">déjà accumulés</string>
     <string name="alreadyFinished">Terminé!</string>
     <string name="ok">Ok</string>
+    <string name="add">Ajouter</string>
+    <string name="remove">Soustraire</string>
 </resources>

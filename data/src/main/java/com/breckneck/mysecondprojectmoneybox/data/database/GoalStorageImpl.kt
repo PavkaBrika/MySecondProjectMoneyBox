@@ -17,12 +17,16 @@ class GoalStorageImpl(context: Context): GoalStorage {
         return db.appDao().getGoalById(id = id)
     }
 
-    override fun changeMoney(id: Int) {
-
+    override fun changeMoney(id: Int, money: Double) {
+        db.appDao().changeMoney(id = id, money = money)
     }
 
     override fun checkGoal(id: Int): Boolean {
         return db.appDao().checkGoal(id = id) == 1    
+    }
+
+    override fun resetGoal(id: Int) {
+        return db.appDao().resetGoal(id = id)
     }
 
 

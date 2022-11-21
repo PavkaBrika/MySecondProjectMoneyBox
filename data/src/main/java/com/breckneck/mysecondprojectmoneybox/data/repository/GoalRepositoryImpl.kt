@@ -16,12 +16,16 @@ class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository 
         return GoalDomain(id = goal.id, cost = goal.cost, money = goal.money, item = goal.item)
     }
 
-    override fun changeMoney(id: Int) {
-        goalStorage.changeMoney(id = id)
+    override fun changeMoney(id: Int, money: Double) {
+        goalStorage.changeMoney(id = id, money = money)
     }
 
     override fun checkGoal(id: Int): Boolean {
         return goalStorage.checkGoal(id = id)
+    }
+
+    override fun resetGoal(id: Int) {
+        goalStorage.resetGoal(id = id)
     }
 
 }

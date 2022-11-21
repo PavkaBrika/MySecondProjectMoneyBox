@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -63,12 +64,15 @@ class StartActivity: AppCompatActivity() {
             binding.item.text = goal.item
             binding.costEditText.text = goal.cost.toString()
             calcLeftSum(cost = goal.cost, money = goal.money)
-            if ((goal.cost != 0.0) && (goal.item != "")) {
+            if ((goal.cost != 0.0) && (goal.item != "")) { //if target is existed
                 binding.money.text = decimalFormat.format(goal.money)
                 binding.money.visibility = View.VISIBLE
                 binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
+                binding.buttonReset.visibility = View.VISIBLE
             } else {
                 binding.HintToAddNewGoalTextView.visibility = View.VISIBLE
+                binding.buttonReset.visibility = View.INVISIBLE
+                binding.money.visibility = View.INVISIBLE
             }
         }
 
@@ -109,7 +113,12 @@ class StartActivity: AppCompatActivity() {
         }
 
         binding.buttonAddSubMoney.setOnClickListener {
-            startActivity(Intent(this, AddMoney::class.java))
+//            startActivity(Intent(this, AddMoney::class.java))
+            showAddMoneyBottomSheetDialog()
+        }
+
+        binding.buttonReset.setOnClickListener {
+            showResetBottomSheetDialog()
         }
 
     }
@@ -175,8 +184,8 @@ class StartActivity: AppCompatActivity() {
             if ((itemEditText!!.text.toString() != "") && (costEditText!!.text.toString() != "") && (costEditText.text.toString() != ".")) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     createGoal.execute(id = 1, cost = costEditText.text.toString().toDouble(), money = 0.0, item = itemEditText.text.toString())
+                    vm.getGoal(id = id)
                 }
-                vm.getGoal(id = id)
                 bottomSheetDialogNewGoal.cancel()
             }
             else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
@@ -188,5 +197,66 @@ class StartActivity: AppCompatActivity() {
         }
 
         bottomSheetDialogNewGoal.show()
+    }
+
+    private fun showAddMoneyBottomSheetDialog() {
+        val changeMoney: ChangeMoneyUseCase by inject()
+
+        val bottomSheetDialogAddMoney = BottomSheetDialog(this)
+        bottomSheetDialogAddMoney.setContentView(R.layout.addmoneyactivity)
+
+        val moneyEditText = bottomSheetDialogAddMoney.findViewById<EditText>(R.id.editTextAddMoney)
+        val minusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonMinus)
+        val plusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonPlus)
+
+        plusButton!!.setOnClickListener {
+            if (moneyEditText!!.text.toString() != "") {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    changeMoney.execute(id = id, money = vm.resultGoal.value!!.money + moneyEditText.text.toString().toDouble())
+                    vm.getGoal(id = id)
+                }
+                bottomSheetDialogAddMoney.cancel()
+            } else {
+                Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
+            }
+        }
+        minusButton!!.setOnClickListener {
+            if (moneyEditText!!.text.toString() != "") {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    changeMoney.execute(id = id, money = vm.resultGoal.value!!.money - moneyEditText.text.toString().toDouble())
+                    vm.getGoal(id = id)
+                }
+                bottomSheetDialogAddMoney.cancel()
+            } else {
+                Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        bottomSheetDialogAddMoney.show()
+    }
+
+    private fun showResetBottomSheetDialog() {
+        val resetGoalUseCase: ResetGoalUseCase by inject()
+
+        val bottomSheetDialogReset = BottomSheetDialog(this)
+        bottomSheetDialogReset.setContentView(R.layout.reset_bottom_sheet_layout)
+
+        val resetButton = bottomSheetDialogReset.findViewById<Button>(R.id.reset_button)
+        val cancelButton = bottomSheetDialogReset.findViewById<Button>(R.id.cancel_button)
+
+        resetButton!!.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                resetGoalUseCase.execute(id = id)
+                id++
+                vm.getGoal(id = id)
+            }
+            bottomSheetDialogReset.cancel()
+        }
+
+        cancelButton!!.setOnClickListener {
+            bottomSheetDialogReset.cancel()
+        }
+
+        bottomSheetDialogReset.show()
     }
 }

@@ -8,8 +8,10 @@ interface GoalStorage {
 
     fun getGoal(id: Int): Goal
 
-    fun changeMoney(id: Int)
+    fun changeMoney(id: Int, money: Double)
 
     fun checkGoal(id: Int): Boolean
+
+    fun resetGoal(id: Int)
 
 }

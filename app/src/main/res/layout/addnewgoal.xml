@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".AddNewGoalActivity"
     android:orientation="vertical"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp">
+    android:padding="24dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text="@string/activityTitleNewGoal"/>
 
     <EditText
@@ -41,9 +39,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="24dp">
-
+        android:orientation="horizontal">
+<!--    TODO: change materialbutton to button-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
@@ -51,7 +48,7 @@
             android:layout_weight="1"
             android:layout_marginEnd="4dp"
             android:text="@string/cancel"
-            style="@style/ButtonsColor"/>
+            style="@style/ButtonsColorOutline"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonOk"

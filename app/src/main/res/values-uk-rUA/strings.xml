@@ -39,4 +39,6 @@
     <string name="progressBarText">вже накопичено</string>
     <string name="alreadyFinished">Закінчено!</string>
     <string name="ok">Ок</string>
+    <string name="add">Додати</string>
+    <string name="remove">Зменшити</string>
 </resources>

@@ -25,4 +25,10 @@ interface GoalDAO {
     @Query("SELECT EXISTS(SELECT * FROM goal WHERE id = :id)")
     fun checkGoal(id: Int): Int
 
+    @Query("UPDATE goal SET money = :money WHERE id = :id")
+    fun changeMoney(id: Int, money: Double)
+
+    @Query("DELETE FROM goal WHERE id = :id")
+    fun resetGoal(id: Int)
+
 }
