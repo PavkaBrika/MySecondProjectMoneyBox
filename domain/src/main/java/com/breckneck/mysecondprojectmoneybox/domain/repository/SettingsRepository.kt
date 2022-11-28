@@ -7,4 +7,10 @@ interface SettingsRepository {
     fun getLastGoalId() : Int
 
     fun getVibroSetting(): Boolean
+
+    fun setVibro(isEnabled: Boolean)
+
+    fun getCharacter(): Int
+
+    fun setCharacter(character: Int)
 }

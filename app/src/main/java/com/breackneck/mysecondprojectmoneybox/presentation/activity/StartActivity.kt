@@ -1,23 +1,24 @@
 package com.breackneck.mysecondprojectmoneybox.presentation.activity
 
-import android.content.Intent
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import com.breackneck.mysecondprojectmoneybox.R
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,8 +47,6 @@ class StartActivity: AppCompatActivity() {
         val getGoal: GetGoalUseCase by inject()
         val migration: MigrationUseCase by inject()
         val getVibro: GetVibroSettingUseCase by inject()
-
-        val player = MediaPlayer.create(this, R.raw.coinssound)
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (!checkMainActivity.execute())
@@ -78,10 +77,14 @@ class StartActivity: AppCompatActivity() {
 
         binding.imageView.setOnClickListener {
             if ((vm.resultGoal.value?.item?.trim() == "") && (vm.resultGoal.value?.cost == 0.0)) {
-                    showNewGoalBottomSheetDialog();
+                    showNewGoalBottomSheetDialog()
             } else {
                 Toast.makeText(this, R.string.alertDialogMessageNewGoal, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.buttonSettings.setOnClickListener {
+            showSettingsBottomSheetDialog()
         }
 
         binding.imageViewCharacter.setOnClickListener {
@@ -202,6 +205,8 @@ class StartActivity: AppCompatActivity() {
     private fun showAddMoneyBottomSheetDialog() {
         val changeMoney: ChangeMoneyUseCase by inject()
 
+        val player = MediaPlayer.create(this, R.raw.coinssound)
+
         val bottomSheetDialogAddMoney = BottomSheetDialog(this)
         bottomSheetDialogAddMoney.setContentView(R.layout.addmoneyactivity)
 
@@ -215,6 +220,7 @@ class StartActivity: AppCompatActivity() {
                     changeMoney.execute(id = id, money = vm.resultGoal.value!!.money + moneyEditText.text.toString().toDouble())
                     vm.getGoal(id = id)
                 }
+                player.start()
                 bottomSheetDialogAddMoney.cancel()
             } else {
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
@@ -226,6 +232,7 @@ class StartActivity: AppCompatActivity() {
                     changeMoney.execute(id = id, money = vm.resultGoal.value!!.money - moneyEditText.text.toString().toDouble())
                     vm.getGoal(id = id)
                 }
+                player.start()
                 bottomSheetDialogAddMoney.cancel()
             } else {
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
@@ -258,5 +265,28 @@ class StartActivity: AppCompatActivity() {
         }
 
         bottomSheetDialogReset.show()
+    }
+
+    private fun showSettingsBottomSheetDialog() {
+        val bottomSheetDialogSettings = BottomSheetDialog(this)
+        bottomSheetDialogSettings.setContentView(R.layout.change_character)
+
+        val griffButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.griffButton)
+        val mrkrabsButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mrkrabsButton)
+        val mcDuckButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mcduckButton)
+        val okButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonOk)
+        val cancelButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonCancel)
+
+
+
+        okButton!!.setOnClickListener {
+
+        }
+
+        cancelButton!!.setOnClickListener {
+            bottomSheetDialogSettings.cancel()
+        }
+
+        bottomSheetDialogSettings.show()
     }
 }

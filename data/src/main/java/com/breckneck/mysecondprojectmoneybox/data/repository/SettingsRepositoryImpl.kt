@@ -16,4 +16,16 @@ class SettingsRepositoryImpl(private val settingsStorage: SettingsStorage): Sett
     override fun getVibroSetting(): Boolean {
         return settingsStorage.getVibroSetting()
     }
+
+    override fun setVibro(isEnabled: Boolean) {
+        settingsStorage.setVibro(isEnabled = isEnabled)
+    }
+
+    override fun getCharacter(): Int {
+        return settingsStorage.getCharacter()
+    }
+
+    override fun setCharacter(character: Int) {
+        settingsStorage.setCharacter(character = character)
+    }
 }

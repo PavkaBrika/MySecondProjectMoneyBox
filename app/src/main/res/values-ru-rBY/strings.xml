@@ -24,7 +24,7 @@
     <string name="toastNoCostNewGoalActivity">Вы должны ввести стоимость!</string>
     <string name="toastOnCharacterClick">Сначала создайте цель!</string>
     <string name="activityTitleChangeCharacter">Настройки</string>
-    <string name="titleChangeCharacter">Сменить персонажа</string>
+    <string name="titleSettings">Настройки</string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Включить вибрацию</string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Включить звук</string>
     <string name="characterNameGriff">Грифф</string>

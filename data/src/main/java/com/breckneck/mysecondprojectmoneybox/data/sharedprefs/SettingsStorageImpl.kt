@@ -31,5 +31,19 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
         return sp.getBoolean(APP_PREFERENCES_VIBRO, true)
     }
 
+    override fun setVibro(isEnabled: Boolean) {
+        sp.edit().putBoolean(APP_PREFERENCES_VIBRO, isEnabled).apply()
+    }
+
+    override fun getCharacter(): Int {
+        return sp.getInt(APP_PREFERENCES_CHARACTER, 1)
+    }
+
+    override fun setCharacter(character: Int) {
+        sp.edit().putInt(APP_PREFERENCES_CHARACTER, character).apply()
+    }
+
+
+
 
 }

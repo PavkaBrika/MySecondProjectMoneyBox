@@ -24,7 +24,7 @@
     <string name="toastNoCostNewGoalActivity">Ви повинні запровадити вартість!</string>
     <string name="toastOnCharacterClick">Спочатку створіть ціль!</string>
     <string name="activityTitleChangeCharacter">Налаштування</string>
-    <string name="titleChangeCharacter">Змінити персонажа </string>
+    <string name="titleSettings">Змінити персонажа </string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Увімкнути вібрацію </string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Увімкнути звук</string>
     <string name="characterNameMrKrabs">Mr. Krabs</string>

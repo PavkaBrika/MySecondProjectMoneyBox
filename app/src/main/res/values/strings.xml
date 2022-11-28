@@ -25,7 +25,7 @@
     <string name="toastNoCostNewGoalActivity">You must enter the cost!</string>
     <string name="toastOnCharacterClick">Create a goal first!</string>
     <string name="activityTitleChangeCharacter">Settings</string>
-    <string name="titleChangeCharacter">Change character</string>
+    <string name="titleSettings">Settings</string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Enable vibration</string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Enable sound</string>
     <string name="characterNameGriff">Griff</string>

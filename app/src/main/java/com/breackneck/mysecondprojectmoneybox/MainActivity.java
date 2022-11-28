@@ -561,9 +561,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startVibration(int vibrationEffect, boolean enable) {
         if (enable == true) {
-            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            VibrationEffect effect = VibrationEffect.createOneShot(150, vibrationEffect);
-            vibrator.vibrate(effect);
+//            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//            VibrationEffect effect = VibrationEffect.createOneShot(150, vibrationEffect);
+//            vibrator.vibrate(effect);
         }
     };
 
