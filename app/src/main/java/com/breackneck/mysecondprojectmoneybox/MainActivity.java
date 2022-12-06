@@ -26,20 +26,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.initializing.ApdInitializationCallback;
+import com.appodeal.ads.initializing.ApdInitializationError;
 import com.appodeal.ads.utils.Log;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences AppSettings; //SharedPreferences for access to memory
-    private AdView mAdView;
-    private InterstitialAd mInterstitialAd;
-    private AdRequest adRequest;
 
     int AdsMoneyAddClick;
     int AdsCharacterClick;
@@ -141,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) { //on reset button click
                 AdsResetClick += 1; //add 1 to Ad variable
-                if ((AdsResetClick == 2) && (mInterstitialAd != null)) { // if reset button was clicked 2 times and ad is loaded
+                if ((AdsResetClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) { // if reset button was clicked 2 times and ad is loaded
                     Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                     AdsResetClick = 0; //and ad variable set 0
                 }
@@ -497,7 +494,11 @@ public class MainActivity extends AppCompatActivity {
         }
         //Ads
         Appodeal.setChildDirectedTreatment(false);
-        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL | Appodeal.BANNER);
+        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL | Appodeal.BANNER,new ApdInitializationCallback() {
+            @Override
+            public void onInitializationFinished(List<ApdInitializationError> list) {
+            }
+        });
         Appodeal.show(MainActivity.this, Appodeal.BANNER_BOTTOM);
         Appodeal.muteVideosIfCallsMuted(true);
     }
