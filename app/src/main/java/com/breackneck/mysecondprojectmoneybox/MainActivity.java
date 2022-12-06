@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) { //on reset button click
                 AdsResetClick += 1; //add 1 to Ad variable
-                if ((AdsResetClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) { // if reset button was clicked 2 times and ad is loaded
+                if ((AdsResetClick == 4) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) { // if reset button was clicked 2 times and ad is loaded
                     Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                     AdsResetClick = 0; //and ad variable set 0
                 }
@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AdsCharacterClick += 1;
-                if ((AdsCharacterClick == 10) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
+                if ((AdsCharacterClick == 15) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
                     Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                     AdsCharacterClick = 0;
                 }
@@ -392,12 +392,12 @@ public class MainActivity extends AppCompatActivity {
                 saveIntInMemory(APP_PREFERENCES_ADSRESETCLICK, AdsResetClick);
             }
 
-            if ((AdsChangeCharClick == 2) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
+            if ((AdsChangeCharClick == 4) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
                 Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 AdsChangeCharClick = 0;
             }
 
-            if ((AdsMoneyAddClick == 3) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
+            if ((AdsMoneyAddClick == 6) && Appodeal.isLoaded(Appodeal.INTERSTITIAL)) {
                 Appodeal.show(MainActivity.this, Appodeal.INTERSTITIAL);
                 AdsMoneyAddClick = 0;
             }
