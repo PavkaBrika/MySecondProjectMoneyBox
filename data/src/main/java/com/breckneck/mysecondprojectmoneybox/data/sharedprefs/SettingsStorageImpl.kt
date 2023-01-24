@@ -4,7 +4,7 @@ import android.content.Context
 import com.breckneck.mysecondprojectmoneybox.data.storage.SettingsStorage
 
 private val APP_PREFERENCES = "settings"
-private val MainActivityOpened = "MainActivityOpened"
+private val APP_PREFERENCES_APP_WAS_OPENED = "MainActivityOpened"
 private val APP_PREFERENCES_CHARACTER = "character"
 private val APP_PREFERENCES_AUDIO = "audio"
 private val APP_PREFERENCES_VIBRO = "vibro"
@@ -15,9 +15,9 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
     private val sp = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun mainActivityWasOpened(): Boolean {
-        val mainActivityWasOpened = sp.getBoolean(MainActivityOpened, false)
+        val mainActivityWasOpened = sp.getBoolean(APP_PREFERENCES_APP_WAS_OPENED, false)
         return if (!mainActivityWasOpened) {
-            sp.edit().putBoolean(MainActivityOpened, true).apply()
+            sp.edit().putBoolean(APP_PREFERENCES_APP_WAS_OPENED, true).apply()
             mainActivityWasOpened
         } else
             mainActivityWasOpened
@@ -43,7 +43,13 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
         sp.edit().putInt(APP_PREFERENCES_CHARACTER, character).apply()
     }
 
+    override fun setAudio(audio: Boolean) {
+        sp.edit().putBoolean(APP_PREFERENCES_AUDIO, audio).apply()
+    }
 
+    override fun getAudio(): Boolean {
+        return sp.getBoolean(APP_PREFERENCES_AUDIO, true)
+    }
 
 
 }

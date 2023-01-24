@@ -13,4 +13,8 @@ interface SettingsRepository {
     fun getCharacter(): Int
 
     fun setCharacter(character: Int)
+
+    fun setAudio(audio: Boolean)
+
+    fun getAudio(): Boolean
 }

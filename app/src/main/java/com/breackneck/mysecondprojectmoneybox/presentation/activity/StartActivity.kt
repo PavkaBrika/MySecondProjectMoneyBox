@@ -1,24 +1,25 @@
 package com.breackneck.mysecondprojectmoneybox.presentation.activity
 
-import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.VibrationEffect
-import android.os.Vibrator
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import com.breackneck.mysecondprojectmoneybox.R
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.GetAudioUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.GetCharacterUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.GetVibroSettingUseCase
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,6 +36,9 @@ class StartActivity: AppCompatActivity() {
 
     private val vm by viewModel<MainActivityViewModel>()
     private val getLastGoalId: GetLastGoalIdUseCase by inject()
+    val getVibro: GetVibroSettingUseCase by inject()
+    val getAudio: GetAudioUseCase by inject()
+    val getCharacter: GetCharacterUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +50,6 @@ class StartActivity: AppCompatActivity() {
 
         val getGoal: GetGoalUseCase by inject()
         val migration: MigrationUseCase by inject()
-        val getVibro: GetVibroSettingUseCase by inject()
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (!checkMainActivity.execute())
@@ -274,10 +277,12 @@ class StartActivity: AppCompatActivity() {
         val griffButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.griffButton)
         val mrkrabsButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mrkrabsButton)
         val mcDuckButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mcduckButton)
+
+        val vibrationCheckBox = bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableVibration)
+        val soundCheckBox = bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableSound)
+
         val okButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonOk)
         val cancelButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonCancel)
-
-
 
         okButton!!.setOnClickListener {
 

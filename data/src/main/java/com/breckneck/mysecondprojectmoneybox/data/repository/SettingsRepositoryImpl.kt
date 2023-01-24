@@ -28,4 +28,12 @@ class SettingsRepositoryImpl(private val settingsStorage: SettingsStorage): Sett
     override fun setCharacter(character: Int) {
         settingsStorage.setCharacter(character = character)
     }
+
+    override fun setAudio(audio: Boolean) {
+        settingsStorage.setAudio(audio = audio)
+    }
+
+    override fun getAudio(): Boolean {
+        return settingsStorage.getAudio()
+    }
 }

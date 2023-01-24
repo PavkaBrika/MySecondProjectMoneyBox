@@ -1,6 +1,7 @@
 package com.breackneck.mysecondprojectmoneybox.di
 
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -35,6 +36,26 @@ val domainModule = module {
 
     factory<GetVibroSettingUseCase> {
         GetVibroSettingUseCase(settingsRepository = get())
+    }
+
+    factory<SetVibroUseCase> {
+        SetVibroUseCase(settingsRepository = get())
+    }
+
+    factory<SetAudioUseCase> {
+        SetAudioUseCase(settingsRepository = get())
+    }
+
+    factory<GetAudioUseCase> {
+        GetAudioUseCase(settingsRepository = get())
+    }
+
+    factory<GetCharacterUseCase> {
+        GetCharacterUseCase(settingsRepository = get())
+    }
+
+    factory<SetCharacterUseCase> {
+        SetCharacterUseCase(settingsRepository = get())
     }
 
     //MIGRATION

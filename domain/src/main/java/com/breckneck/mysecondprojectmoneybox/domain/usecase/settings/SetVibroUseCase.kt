@@ -1,4 +1,4 @@
-package com.breckneck.mysecondprojectmoneybox.domain.usecase
+package com.breckneck.mysecondprojectmoneybox.domain.usecase.settings
 
 import com.breckneck.mysecondprojectmoneybox.domain.repository.SettingsRepository
 
