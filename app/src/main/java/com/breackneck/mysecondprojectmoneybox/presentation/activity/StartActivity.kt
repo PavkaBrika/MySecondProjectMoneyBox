@@ -17,9 +17,7 @@ import com.breackneck.mysecondprojectmoneybox.R
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.GetAudioUseCase
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.GetCharacterUseCase
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.GetVibroSettingUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,9 +69,11 @@ class StartActivity: AppCompatActivity() {
                 binding.money.visibility = View.VISIBLE
                 binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
                 binding.buttonReset.visibility = View.VISIBLE
+                binding.resetHintTextView.visibility = View.VISIBLE
             } else {
                 binding.HintToAddNewGoalTextView.visibility = View.VISIBLE
                 binding.buttonReset.visibility = View.INVISIBLE
+                binding.resetHintTextView.visibility = View.INVISIBLE
                 binding.money.visibility = View.INVISIBLE
             }
         }
@@ -158,6 +158,7 @@ class StartActivity: AppCompatActivity() {
         if (left > 0) {
             binding.leftTextView.text = "${decimalFormat.format(left)} ${getString(R.string.left)}"
             binding.buttonAddSubMoney.visibility = View.VISIBLE
+            binding.changeAmountHintTextView.visibility = View.VISIBLE
             binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
             binding.leftTextView.textSize = 30F
         } else {
@@ -167,6 +168,7 @@ class StartActivity: AppCompatActivity() {
                 setPadding(170, 0, 170, 0)
             }
             binding.buttonAddSubMoney.visibility = View.INVISIBLE
+            binding.changeAmountHintTextView.visibility = View.INVISIBLE
             binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
         }
     }
@@ -274,18 +276,39 @@ class StartActivity: AppCompatActivity() {
         val bottomSheetDialogSettings = BottomSheetDialog(this)
         bottomSheetDialogSettings.setContentView(R.layout.change_character)
 
+        val setAudio: SetAudioUseCase by inject()
+        val setCharacter: SetCharacterUseCase by inject()
+        val setVibro: SetVibroUseCase by inject()
+
         val griffButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.griffButton)
         val mrkrabsButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mrkrabsButton)
         val mcDuckButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mcduckButton)
 
         val vibrationCheckBox = bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableVibration)
-        val soundCheckBox = bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableSound)
+        val audioCheckBox = bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableSound)
 
         val okButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonOk)
         val cancelButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonCancel)
 
-        okButton!!.setOnClickListener {
+        when (getCharacter.execute()) {
+            1 -> griffButton!!.isChecked = true
+            2 -> mrkrabsButton!!.isChecked = true
+            3 -> mcDuckButton!!.isChecked = true
+        }
 
+        audioCheckBox!!.isChecked = getAudio.execute()
+        vibrationCheckBox!!.isChecked = getVibro.execute()
+
+        okButton!!.setOnClickListener {
+            setAudio.execute(audioCheckBox.isChecked)
+            setVibro.execute(vibrationCheckBox.isChecked)
+            if (griffButton!!.isChecked)
+                setCharacter.execute(1)
+            if (mrkrabsButton!!.isChecked)
+                setCharacter.execute(2)
+            if (mcDuckButton!!.isChecked)
+                setCharacter.execute(3)
+            bottomSheetDialogSettings.cancel()
         }
 
         cancelButton!!.setOnClickListener {

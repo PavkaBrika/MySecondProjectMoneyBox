@@ -29,12 +29,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/resetHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alertDialogTitle"
+        app:layout_constraintEnd_toEndOf="@+id/buttonReset"
+        app:layout_constraintStart_toStartOf="@+id/buttonReset"
+        app:layout_constraintTop_toBottomOf="@+id/buttonReset" />
+
     <Button
         android:id="@+id/testButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonReset" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/buttonSettings"
@@ -46,6 +55,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/settingsHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titleSettings"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSettings"
+        app:layout_constraintStart_toStartOf="@+id/buttonSettings"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSettings" />
+
     <ImageView
         android:id="@+id/buttonGoalsList"
         style="@style/ButtonsColor"
@@ -54,7 +72,16 @@
         android:layout_margin="8dp"
         android:src="@drawable/outline_menu_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsHintTextView" />
+
+    <TextView
+        android:id="@+id/goalsListHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activityTitleGoalsList"
+        app:layout_constraintEnd_toEndOf="@+id/buttonGoalsList"
+        app:layout_constraintStart_toStartOf="@+id/buttonGoalsList"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGoalsList" />
 
 
     <ImageView
@@ -70,6 +97,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.36" />
+
+    <TextView
+        android:id="@+id/changeAmountHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activityTitleAddMoney"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAddSubMoney"
+        app:layout_constraintStart_toStartOf="@+id/buttonAddSubMoney"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddSubMoney" />
 
     <TextView
         android:id="@+id/textView"

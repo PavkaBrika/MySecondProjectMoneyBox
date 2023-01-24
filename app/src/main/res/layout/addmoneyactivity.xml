@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:textSize="24sp"
-        android:text="@string/activityTitleNewGoal"/>
+        android:text="@string/activityTitleAddMoney"/>
 
 
     <EditText
