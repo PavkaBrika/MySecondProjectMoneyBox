@@ -7,16 +7,18 @@ import androidx.lifecycle.viewModelScope
 import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.CheckGoalUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.GetGoalUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.GetCharacterUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel(
     private val getGoalUseCase: GetGoalUseCase,
-    private val checkGoalUseCase: CheckGoalUseCase
+    private val checkGoalUseCase: CheckGoalUseCase,
+    private val getCharacterUseCase: GetCharacterUseCase
 ): ViewModel() {
 
-    val
-            resultGoal = MutableLiveData<GoalDomain>()
+    val resultGoal = MutableLiveData<GoalDomain>()
+    val resultCharacter = MutableLiveData<Int>()
 
     init {
         Log.e("TAG", "VM created")
@@ -40,6 +42,11 @@ class MainActivityViewModel(
                 Log.e("TAG", "goal loaded in VM")
             }
         }
+    }
+
+    fun getCharacter() {
+        resultCharacter.value = getCharacterUseCase.execute()
+        Log.e("TAG", "Character loaded in VM")
     }
 
 }

@@ -1,9 +1,12 @@
 package com.breackneck.mysecondprojectmoneybox.presentation.activity
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -25,7 +28,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
-class StartActivity: AppCompatActivity() {
+class StartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var id = 0
@@ -55,10 +58,7 @@ class StartActivity: AppCompatActivity() {
         }
 
         id = getLastGoalId.execute()
-//        lifecycleScope.launch(Dispatchers.IO) {
-//            createGoal.execute(id = id - 1, cost = 0.0, money = 0.0, item = "")
-//        }
-//        vm.getGoal(id = id)
+
         Log.e("TAG", "Info wrote")
         vm.resultGoal.observe(this) { goal ->
             binding.item.text = goal.item
@@ -78,9 +78,17 @@ class StartActivity: AppCompatActivity() {
             }
         }
 
+        vm.resultCharacter.observe(this) { character ->
+            when (character) {
+                1 -> changeCharacter(R.drawable.griff, 216, 203)
+                2 -> changeCharacter(R.drawable.krabs, 250, 250)
+                3 -> changeCharacter(R.drawable.mcduck, 216, 203)
+            }
+        }
+
         binding.imageView.setOnClickListener {
             if ((vm.resultGoal.value?.item?.trim() == "") && (vm.resultGoal.value?.cost == 0.0)) {
-                    showNewGoalBottomSheetDialog()
+                showNewGoalBottomSheetDialog()
             } else {
                 Toast.makeText(this, R.string.alertDialogMessageNewGoal, Toast.LENGTH_SHORT).show()
             }
@@ -102,7 +110,10 @@ class StartActivity: AppCompatActivity() {
                     binding.leftTextView.visibility = View.VISIBLE
                     binding.textView.visibility = View.VISIBLE
                     binding.textView2.visibility = View.VISIBLE
-                    calcLeftSum(cost = vm.resultGoal.value!!.cost, money = vm.resultGoal.value!!.money)
+                    calcLeftSum(
+                        cost = vm.resultGoal.value!!.cost,
+                        money = vm.resultGoal.value!!.money
+                    )
                 } else {
                     Toast.makeText(this, R.string.toastOnCharacterClick, Toast.LENGTH_SHORT).show()
                 }
@@ -119,7 +130,6 @@ class StartActivity: AppCompatActivity() {
         }
 
         binding.buttonAddSubMoney.setOnClickListener {
-//            startActivity(Intent(this, AddMoney::class.java))
             showAddMoneyBottomSheetDialog()
         }
 
@@ -137,9 +147,16 @@ class StartActivity: AppCompatActivity() {
 
     private fun startVibration(vibrationEffect: Int, enabled: Boolean) {
         if (enabled) {
-//            val vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as Vibrator
-//            val effect = VibrationEffect.createOneShot(150, vibrationEffect)
-//            vibrator.vibrate(effect)
+            val vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as Vibrator
+            val effect = VibrationEffect.createOneShot(150, vibrationEffect)
+            vibrator.vibrate(effect)
+        }
+    }
+
+    private fun startAudio(enabled: Boolean) {
+        if (enabled) {
+            val player = MediaPlayer.create(this, R.raw.coinssound)
+            player.start()
         }
     }
 
@@ -191,15 +208,20 @@ class StartActivity: AppCompatActivity() {
         buttonOk!!.setOnClickListener {
             if ((itemEditText!!.text.toString() != "") && (costEditText!!.text.toString() != "") && (costEditText.text.toString() != ".")) {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    createGoal.execute(id = 1, cost = costEditText.text.toString().toDouble(), money = 0.0, item = itemEditText.text.toString())
+                    createGoal.execute(
+                        id = 1,
+                        cost = costEditText.text.toString().toDouble(),
+                        money = 0.0,
+                        item = itemEditText.text.toString()
+                    )
                     vm.getGoal(id = id)
                 }
                 bottomSheetDialogNewGoal.cancel()
-            }
-            else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
+            } else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
                 Toast.makeText(this, R.string.toastNoInfoNewGoalActivity, Toast.LENGTH_SHORT).show()
             else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() != ""))
-                Toast.makeText(this, R.string.toastNoTargetNewGoalActivity, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toastNoTargetNewGoalActivity, Toast.LENGTH_SHORT)
+                    .show();
             else if ((itemEditText.text.toString() != "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
                 Toast.makeText(this, R.string.toastNoCostNewGoalActivity, Toast.LENGTH_SHORT).show()
         }
@@ -209,8 +231,6 @@ class StartActivity: AppCompatActivity() {
 
     private fun showAddMoneyBottomSheetDialog() {
         val changeMoney: ChangeMoneyUseCase by inject()
-
-        val player = MediaPlayer.create(this, R.raw.coinssound)
 
         val bottomSheetDialogAddMoney = BottomSheetDialog(this)
         bottomSheetDialogAddMoney.setContentView(R.layout.addmoneyactivity)
@@ -222,22 +242,31 @@ class StartActivity: AppCompatActivity() {
         plusButton!!.setOnClickListener {
             if (moneyEditText!!.text.toString() != "") {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    changeMoney.execute(id = id, money = vm.resultGoal.value!!.money + moneyEditText.text.toString().toDouble())
+                    changeMoney.execute(
+                        id = id,
+                        money = vm.resultGoal.value!!.money + moneyEditText.text.toString()
+                            .toDouble()
+                    )
                     vm.getGoal(id = id)
                 }
-                player.start()
+                startAudio(getAudio.execute())
                 bottomSheetDialogAddMoney.cancel()
             } else {
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
             }
         }
+
         minusButton!!.setOnClickListener {
             if (moneyEditText!!.text.toString() != "") {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    changeMoney.execute(id = id, money = vm.resultGoal.value!!.money - moneyEditText.text.toString().toDouble())
+                    changeMoney.execute(
+                        id = id,
+                        money = vm.resultGoal.value!!.money - moneyEditText.text.toString()
+                            .toDouble()
+                    )
                     vm.getGoal(id = id)
                 }
-                player.start()
+                startAudio(getAudio.execute())
                 bottomSheetDialogAddMoney.cancel()
             } else {
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
@@ -284,8 +313,10 @@ class StartActivity: AppCompatActivity() {
         val mrkrabsButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mrkrabsButton)
         val mcDuckButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mcduckButton)
 
-        val vibrationCheckBox = bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableVibration)
-        val audioCheckBox = bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableSound)
+        val vibrationCheckBox =
+            bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableVibration)
+        val audioCheckBox =
+            bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableSound)
 
         val okButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonOk)
         val cancelButton = bottomSheetDialogSettings.findViewById<Button>(R.id.buttonCancel)
@@ -308,6 +339,7 @@ class StartActivity: AppCompatActivity() {
                 setCharacter.execute(2)
             if (mcDuckButton!!.isChecked)
                 setCharacter.execute(3)
+            vm.getCharacter()
             bottomSheetDialogSettings.cancel()
         }
 
@@ -316,5 +348,19 @@ class StartActivity: AppCompatActivity() {
         }
 
         bottomSheetDialogSettings.show()
+    }
+
+    private fun changeCharacter(character: Int, height: Int, width: Int) {
+        binding.imageViewCharacter.setImageResource(character)
+        binding.imageViewCharacter.layoutParams.height = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            height.toFloat(),
+            resources.displayMetrics
+        ).toInt()
+        binding.imageViewCharacter.layoutParams.width = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            width.toFloat(),
+            resources.displayMetrics
+        ).toInt()
     }
 }
