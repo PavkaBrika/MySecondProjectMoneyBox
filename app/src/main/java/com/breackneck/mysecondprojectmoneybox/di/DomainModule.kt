@@ -24,6 +24,10 @@ val domainModule = module {
         ResetGoalUseCase(goalRepository = get())
     }
 
+    factory<GetAllGoalsUseCase> {
+        GetAllGoalsUseCase(goalRepository = get())
+    }
+
     //SETTINGS
 
     factory<GetLastGoalIdUseCase> {

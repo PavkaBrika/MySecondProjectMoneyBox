@@ -29,5 +29,9 @@ class GoalStorageImpl(context: Context): GoalStorage {
         return db.appDao().resetGoal(id = id)
     }
 
+    override fun getAllGoals(): List<Goal> {
+        return db.appDao().getAllGoals()
+    }
+
 
 }

@@ -13,4 +13,6 @@ interface GoalRepository {
     fun checkGoal(id: Int): Boolean
 
     fun resetGoal(id: Int)
+
+    fun getAllGoals(): List<GoalDomain>
 }

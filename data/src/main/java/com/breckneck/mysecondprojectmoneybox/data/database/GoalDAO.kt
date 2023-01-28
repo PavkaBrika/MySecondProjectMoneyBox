@@ -31,4 +31,7 @@ interface GoalDAO {
     @Query("DELETE FROM goal WHERE id = :id")
     fun resetGoal(id: Int)
 
+    @Query("SELECT * FROM goal")
+    fun getAllGoals(): List<Goal>
+
 }

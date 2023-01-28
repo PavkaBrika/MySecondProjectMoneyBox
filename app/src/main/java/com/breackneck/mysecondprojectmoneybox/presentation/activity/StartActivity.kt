@@ -16,9 +16,12 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.breackneck.mysecondprojectmoneybox.R
+import com.breackneck.mysecondprojectmoneybox.adapter.GoalAdapter
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
+import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -135,6 +138,10 @@ class StartActivity : AppCompatActivity() {
 
         binding.buttonReset.setOnClickListener {
             showResetBottomSheetDialog()
+        }
+
+        binding.buttonGoalsList.setOnClickListener {
+            showGoalsListBottomSheetDialog()
         }
 
     }
@@ -301,6 +308,31 @@ class StartActivity : AppCompatActivity() {
         bottomSheetDialogReset.show()
     }
 
+    private fun showGoalsListBottomSheetDialog() {
+        val bottomSheetDialogGoalsList = BottomSheetDialog(this)
+        bottomSheetDialogGoalsList.setContentView(R.layout.goalslist)
+
+        val getAllGoalsUseCase: GetAllGoalsUseCase by inject()
+
+        val goalsListRecyclerView = bottomSheetDialogGoalsList.findViewById<RecyclerView>(R.id.goalsListRecyclerView)
+
+        val onGoalClickListener = object: GoalAdapter.OnGoalClickListener {
+            override fun onGoalClick(goalDomain: GoalDomain, position: Int) {
+                Toast.makeText(applicationContext, "dsad", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val goals = getAllGoalsUseCase.execute()
+            this.launch(Dispatchers.Main) {
+                val adapter = GoalAdapter(goalList = goals, goalClickListener = onGoalClickListener)
+                goalsListRecyclerView!!.adapter = adapter
+            }
+        }
+
+        bottomSheetDialogGoalsList.show()
+    }
+
     private fun showSettingsBottomSheetDialog() {
         val bottomSheetDialogSettings = BottomSheetDialog(this)
         bottomSheetDialogSettings.setContentView(R.layout.change_character)
@@ -363,4 +395,5 @@ class StartActivity : AppCompatActivity() {
             resources.displayMetrics
         ).toInt()
     }
+
 }

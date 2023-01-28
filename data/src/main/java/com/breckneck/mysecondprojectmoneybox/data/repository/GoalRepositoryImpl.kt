@@ -5,10 +5,17 @@ import com.breckneck.mysecondprojectmoneybox.data.storage.GoalStorage
 import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.repository.GoalRepository
 
-class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository  {
+class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository {
 
     override fun createGoal(goalDomain: GoalDomain) {
-        goalStorage.createGoal(goal = Goal(id = 0, cost = goalDomain.cost, money = goalDomain.money, item = goalDomain.item))
+        goalStorage.createGoal(
+            goal = Goal(
+                id = 0,
+                cost = goalDomain.cost,
+                money = goalDomain.money,
+                item = goalDomain.item
+            )
+        )
     }
 
     override fun getGoal(id: Int): GoalDomain {
@@ -26,6 +33,11 @@ class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository 
 
     override fun resetGoal(id: Int) {
         goalStorage.resetGoal(id = id)
+    }
+
+    override fun getAllGoals(): List<GoalDomain> {
+        val goal = goalStorage.getAllGoals()
+        return goal.map { GoalDomain(id = it.id, cost = it.cost, money = it.money, item = it.item) }
     }
 
 }

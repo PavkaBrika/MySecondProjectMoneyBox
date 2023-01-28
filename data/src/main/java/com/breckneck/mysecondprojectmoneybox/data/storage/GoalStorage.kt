@@ -14,4 +14,5 @@ interface GoalStorage {
 
     fun resetGoal(id: Int)
 
+    fun getAllGoals(): List<Goal>
 }
