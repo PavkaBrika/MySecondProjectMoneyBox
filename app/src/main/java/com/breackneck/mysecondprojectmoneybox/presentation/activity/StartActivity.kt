@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -153,11 +154,11 @@ class StartActivity : AppCompatActivity() {
 
 
     private fun startVibration(vibrationEffect: Int, enabled: Boolean) {
-        if (enabled) {
-            val vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as Vibrator
-            val effect = VibrationEffect.createOneShot(150, vibrationEffect)
-            vibrator.vibrate(effect)
-        }
+//        if (enabled) {
+//            val vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as Vibrator
+//            val effect = VibrationEffect.createOneShot(150, vibrationEffect)
+//            vibrator.vibrate(effect)
+//        }
     }
 
     private fun startAudio(enabled: Boolean) {
@@ -295,7 +296,7 @@ class StartActivity : AppCompatActivity() {
         resetButton!!.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 resetGoalUseCase.execute(id = id)
-                id++
+                id = 0
                 vm.getGoal(id = id)
             }
             bottomSheetDialogReset.cancel()
@@ -315,10 +316,19 @@ class StartActivity : AppCompatActivity() {
         val getAllGoalsUseCase: GetAllGoalsUseCase by inject()
 
         val goalsListRecyclerView = bottomSheetDialogGoalsList.findViewById<RecyclerView>(R.id.goalsListRecyclerView)
+        val addGoalButton = bottomSheetDialogGoalsList.findViewById<ImageView>(R.id.addGoalButtonImageView)
+
+        addGoalButton!!.setOnClickListener {
+            id = 0
+            vm.getGoal(id = id)
+            bottomSheetDialogGoalsList.cancel()
+        }
 
         val onGoalClickListener = object: GoalAdapter.OnGoalClickListener {
             override fun onGoalClick(goalDomain: GoalDomain, position: Int) {
-                Toast.makeText(applicationContext, "dsad", Toast.LENGTH_SHORT).show()
+                id = goalDomain.id
+                vm.getGoal(id = id)
+                bottomSheetDialogGoalsList.cancel()
             }
         }
 
