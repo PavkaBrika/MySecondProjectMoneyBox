@@ -28,11 +28,11 @@ val domainModule = module {
         GetAllGoalsUseCase(goalRepository = get())
     }
 
-    //SETTINGS
-
     factory<GetLastGoalIdUseCase> {
-        GetLastGoalIdUseCase(settingsRepository = get())
+        GetLastGoalIdUseCase(goalRepository = get())
     }
+
+    //SETTINGS
 
     factory<CheckMainActivityUseCase> {
         CheckMainActivityUseCase(settingsRepository = get())

@@ -34,4 +34,6 @@ interface GoalDAO {
     @Query("SELECT * FROM goal")
     fun getAllGoals(): List<Goal>
 
+    @Query("SELECT id FROM goal ORDER BY id DESC LIMIT 1")
+    fun getLastGoalId(): Int
 }

@@ -52,16 +52,14 @@ class StartActivity : AppCompatActivity() {
 
         val checkMainActivity: CheckMainActivityUseCase by inject()
 
-
         val getGoal: GetGoalUseCase by inject()
         val migration: MigrationUseCase by inject()
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (!checkMainActivity.execute())
                 migration.execute()
+            id = getLastGoalId.execute()
         }
-
-        id = getLastGoalId.execute()
 
         Log.e("TAG", "Info wrote")
         vm.resultGoal.observe(this) { goal ->
@@ -222,6 +220,7 @@ class StartActivity : AppCompatActivity() {
                         money = 0.0,
                         item = itemEditText.text.toString()
                     )
+                    id = getLastGoalId.execute()
                     vm.getGoal(id = id)
                 }
                 bottomSheetDialogNewGoal.cancel()

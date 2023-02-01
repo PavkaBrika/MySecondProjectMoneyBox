@@ -8,7 +8,6 @@ private val APP_PREFERENCES_APP_WAS_OPENED = "MainActivityOpened"
 private val APP_PREFERENCES_CHARACTER = "character"
 private val APP_PREFERENCES_AUDIO = "audio"
 private val APP_PREFERENCES_VIBRO = "vibro"
-private val APP_PREFERENCES_GOAL_ID_NEW = "newgoalid"
 
 class SettingsStorageImpl(context: Context): SettingsStorage {
 
@@ -21,10 +20,6 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
             mainActivityWasOpened
         } else
             mainActivityWasOpened
-    }
-
-    override fun getLastGoalId(): Int {
-        return sp.getInt(APP_PREFERENCES_GOAL_ID_NEW, 1)
     }
 
     override fun getVibroSetting(): Boolean {

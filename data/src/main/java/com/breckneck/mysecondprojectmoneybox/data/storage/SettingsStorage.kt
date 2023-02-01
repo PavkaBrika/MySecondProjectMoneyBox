@@ -4,8 +4,6 @@ interface SettingsStorage {
 
     fun mainActivityWasOpened() : Boolean
 
-    fun getLastGoalId(): Int
-
     fun getVibroSetting(): Boolean
 
     fun setVibro(isEnabled: Boolean)

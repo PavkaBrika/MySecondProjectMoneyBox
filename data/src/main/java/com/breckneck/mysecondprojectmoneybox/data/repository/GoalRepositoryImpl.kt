@@ -40,4 +40,8 @@ class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository 
         return goal.map { GoalDomain(id = it.id, cost = it.cost, money = it.money, item = it.item) }
     }
 
+    override fun getLastGoalId(): Int {
+        return goalStorage.getLastGoalId()
+    }
+
 }

@@ -33,5 +33,8 @@ class GoalStorageImpl(context: Context): GoalStorage {
         return db.appDao().getAllGoals()
     }
 
+    override fun getLastGoalId(): Int {
+        return db.appDao().getLastGoalId()
+    }
 
 }
