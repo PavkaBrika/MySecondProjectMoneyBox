@@ -10,8 +10,8 @@ android {
         applicationId "com.breackneck.mysecondprojectmoneybox"
         minSdk 26
         targetSdk 31
-        versionCode 6
-        versionName "3.5"
+        versionCode 8
+        versionName "4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
