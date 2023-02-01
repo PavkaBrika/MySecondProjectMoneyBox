@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.breackneck.mysecondprojectmoneybox.R
@@ -245,6 +246,16 @@ class StartActivity : AppCompatActivity() {
         val moneyEditText = bottomSheetDialogAddMoney.findViewById<EditText>(R.id.editTextAddMoney)
         val minusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonMinus)
         val plusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonPlus)
+
+        moneyEditText!!.addTextChangedListener {
+            val str = it!!.toString()
+            val p = str.indexOf(".")
+            if (p != - 1) {
+                val tmpStr = str.substring(p)
+                if (tmpStr.length == 4)
+                    it.delete(it.length - 1, it.length)
+            }
+        }
 
         plusButton!!.setOnClickListener {
             if (moneyEditText!!.text.toString() != "") {
