@@ -15,4 +15,8 @@ interface SettingsStorage {
     fun setAudio(audio: Boolean)
 
     fun getAudio(): Boolean
+
+    fun setLastShowGoalId(id: Int)
+
+    fun getLastShowGoalId(): Int
 }

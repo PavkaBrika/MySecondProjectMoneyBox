@@ -45,6 +45,8 @@ class StartActivity : AppCompatActivity() {
     val getVibro: GetVibroSettingUseCase by inject()
     val getAudio: GetAudioUseCase by inject()
     val getCharacter: GetCharacterUseCase by inject()
+    private val getLastShowGoalUseCase: GetLastShowGoalUseCase by inject()
+    private val setLastShowGoalIdUseCase: SetLastShowGoalIdUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,11 +61,14 @@ class StartActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (!checkMainActivity.execute())
                 migration.execute()
+//            id = getLastShowGoalUseCase.execute()
             id = getLastGoalId.execute()
+            vm.getGoal(id = id)
         }
 
         Log.e("TAG", "Info wrote")
         vm.resultGoal.observe(this) { goal ->
+            Log.e("TAG", "id = ${goal.id}")
             binding.item.text = goal.item
             binding.costEditText.text = goal.cost.toString()
             calcLeftSum(cost = goal.cost, money = goal.money)
@@ -102,7 +107,7 @@ class StartActivity : AppCompatActivity() {
         }
 
         binding.imageViewCharacter.setOnClickListener {
-            startVibration(VibrationEffect.EFFECT_TICK, getVibro.execute())
+//            startVibration(VibrationEffect.EFFECT_TICK, getVibro.execute())
             if (binding.imageViewThoughts.visibility == View.INVISIBLE) {
                 if (vm.resultGoal.value?.item?.trim() != "" && vm.resultGoal.value?.cost != 0.0) {
                     startAnim(R.anim.startthoughtsanim)
@@ -150,7 +155,6 @@ class StartActivity : AppCompatActivity() {
         super.onResume()
         vm.getGoal(id = id)
     }
-
 
     private fun startVibration(vibrationEffect: Int, enabled: Boolean) {
 //        if (enabled) {

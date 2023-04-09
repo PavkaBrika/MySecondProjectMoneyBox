@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
 //                AdsMoneyAddClick = 0;
 //            }
 
-            vibro = AppSettings.getBoolean(APP_PREFERENCES_VIBRO, true);
+//            vibro = AppSettings.getBoolean(APP_PREFERENCES_VIBRO, true);
             audio = AppSettings.getBoolean(APP_PREFERENCES_AUDIO, true);
 
             money = AppSettings.getFloat(APP_PREFERENCES_MONEY, 0);

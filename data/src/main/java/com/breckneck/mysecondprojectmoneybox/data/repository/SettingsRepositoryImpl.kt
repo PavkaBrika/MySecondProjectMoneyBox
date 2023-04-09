@@ -32,4 +32,12 @@ class SettingsRepositoryImpl(private val settingsStorage: SettingsStorage): Sett
     override fun getAudio(): Boolean {
         return settingsStorage.getAudio()
     }
+
+    override fun setLastShowGoalId(id: Int) {
+        settingsStorage.setLastShowGoalId(id = id)
+    }
+
+    override fun getLastShowGoalId(): Int {
+        return settingsStorage.getLastShowGoalId()
+    }
 }

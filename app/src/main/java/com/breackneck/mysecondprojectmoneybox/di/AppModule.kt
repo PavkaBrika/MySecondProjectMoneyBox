@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val appModule = module {
     viewModel<MainActivityViewModel> {
-        MainActivityViewModel(getGoalUseCase = get(), checkGoalUseCase = get(), getCharacterUseCase = get())
+        MainActivityViewModel(getGoalUseCase = get(), checkGoalUseCase = get(), getCharacterUseCase = get(), setLastShowGoalIdUseCase = get())
     }
 }

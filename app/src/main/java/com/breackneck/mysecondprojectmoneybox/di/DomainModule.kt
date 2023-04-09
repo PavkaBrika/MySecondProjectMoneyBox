@@ -34,6 +34,14 @@ val domainModule = module {
 
     //SETTINGS
 
+    factory<SetLastShowGoalIdUseCase> {
+        SetLastShowGoalIdUseCase(settingsRepository = get())
+    }
+
+    factory<GetLastShowGoalUseCase> {
+        GetLastShowGoalUseCase(settingsRepository = get())
+    }
+
     factory<CheckMainActivityUseCase> {
         CheckMainActivityUseCase(settingsRepository = get())
     }

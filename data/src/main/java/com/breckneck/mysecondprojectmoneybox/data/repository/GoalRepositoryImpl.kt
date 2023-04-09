@@ -43,5 +43,4 @@ class GoalRepositoryImpl(private val goalStorage: GoalStorage) : GoalRepository 
     override fun getLastGoalId(): Int {
         return goalStorage.getLastGoalId()
     }
-
 }

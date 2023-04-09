@@ -8,6 +8,7 @@ private val APP_PREFERENCES_APP_WAS_OPENED = "MainActivityOpened"
 private val APP_PREFERENCES_CHARACTER = "character"
 private val APP_PREFERENCES_AUDIO = "audio"
 private val APP_PREFERENCES_VIBRO = "vibro"
+private val APP_PREFERENCES_LAST_SHOW_GOAL_ID = "vibro"
 
 class SettingsStorageImpl(context: Context): SettingsStorage {
 
@@ -46,5 +47,11 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
         return sp.getBoolean(APP_PREFERENCES_AUDIO, true)
     }
 
+    override fun setLastShowGoalId(id: Int) {
+        sp.edit().putInt(APP_PREFERENCES_LAST_SHOW_GOAL_ID, id).apply()
+    }
 
+    override fun getLastShowGoalId(): Int {
+        return sp.getInt(APP_PREFERENCES_LAST_SHOW_GOAL_ID, 0)
+    }
 }
