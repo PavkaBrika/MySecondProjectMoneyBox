@@ -33,6 +33,8 @@ class StartActivity : AppCompatActivity() {
 
     private val decimalFormat = DecimalFormat("#.##")
 
+    private lateinit var countDownTimer: CountDownTimer
+
     private val vm by viewModel<MainActivityViewModel>()
     private val getLastGoalId: GetLastGoalIdUseCase by inject()
     val getVibro: GetVibroSettingUseCase by inject()
@@ -108,31 +110,22 @@ class StartActivity : AppCompatActivity() {
                 startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
             if (binding.imageViewThoughts.visibility == View.INVISIBLE) {
                 if (vm.resultGoal.value?.item?.trim() != "" && vm.resultGoal.value?.cost != 0.0) {
-                    startAnim(R.anim.startthoughtsanim)
-                    binding.imageViewThoughts.visibility = View.VISIBLE
-                    binding.item.visibility = View.VISIBLE
-                    binding.costEditText.visibility = View.VISIBLE
-                    binding.mainActivityHintTextView.visibility = View.INVISIBLE
-                    binding.leftTextView.visibility = View.VISIBLE
-                    binding.textView.visibility = View.VISIBLE
-                    binding.textView2.visibility = View.VISIBLE
-                    calcLeftSum(
-                        cost = vm.resultGoal.value!!.cost,
-                        money = vm.resultGoal.value!!.money
-                    )
+                    showThoughts()
                 } else {
                     Toast.makeText(this, R.string.toastOnCharacterClick, Toast.LENGTH_SHORT).show()
                 }
             } else {
-                startAnim(R.anim.finishthoughtsanim)
-                binding.mainActivityHintTextView.visibility = View.VISIBLE
-                binding.imageViewThoughts.visibility = View.INVISIBLE
-                binding.item.visibility = View.INVISIBLE
-                binding.costEditText.visibility = View.INVISIBLE
-                binding.leftTextView.visibility = View.INVISIBLE
-                binding.textView.visibility = View.INVISIBLE
-                binding.textView2.visibility = View.INVISIBLE
+                hideThoughts()
             }
+        }
+
+        binding.imageViewThoughts.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= 29)
+                startVibration(VibrationEffect.EFFECT_TICK, getVibro.execute())
+            else
+                startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
+            if (binding.imageViewThoughts.visibility != View.INVISIBLE)
+                hideThoughts()
         }
 
         binding.buttonAddSubMoney.setOnClickListener {
@@ -147,6 +140,16 @@ class StartActivity : AppCompatActivity() {
             showGoalsListBottomSheetDialog()
         }
 
+        countDownTimer = object: CountDownTimer(6000, 1000) {
+
+            override fun onTick(p0: Long) {
+            }
+
+            override fun onFinish() {
+                if (binding.imageViewThoughts.visibility == View.VISIBLE)
+                    hideThoughts()
+            }
+        }
     }
 
     override fun onResume() {
@@ -233,6 +236,7 @@ class StartActivity : AppCompatActivity() {
                     setLastShowGoalIdUseCase.execute(id = id)
                     vm.getGoal(id = id)
                 }
+                showThoughts()
                 bottomSheetDialogNewGoal.cancel()
             } else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
                 Toast.makeText(this, R.string.toastNoInfoNewGoalActivity, Toast.LENGTH_SHORT).show()
@@ -276,6 +280,7 @@ class StartActivity : AppCompatActivity() {
                     )
                     vm.getGoal(id = id)
                 }
+                showThoughts()
                 startAudio(getAudio.execute())
                 if (Build.VERSION.SDK_INT >= 29)
                     startVibration(VibrationEffect.EFFECT_HEAVY_CLICK, getVibro.execute())
@@ -353,6 +358,7 @@ class StartActivity : AppCompatActivity() {
                 id = goalDomain.id
                 vm.getGoal(id = id)
                 setLastShowGoalIdUseCase.execute(id = id)
+                showThoughts()
                 bottomSheetDialogGoalsList.cancel()
             }
         }
@@ -429,6 +435,34 @@ class StartActivity : AppCompatActivity() {
             width.toFloat(),
             resources.displayMetrics
         ).toInt()
+    }
+
+    private fun showThoughts() {
+        countDownTimer.start()
+        startAnim(R.anim.startthoughtsanim)
+        binding.imageViewThoughts.visibility = View.VISIBLE
+        binding.item.visibility = View.VISIBLE
+        binding.costEditText.visibility = View.VISIBLE
+        binding.mainActivityHintTextView.visibility = View.INVISIBLE
+        binding.leftTextView.visibility = View.VISIBLE
+        binding.textView.visibility = View.VISIBLE
+        binding.textView2.visibility = View.VISIBLE
+        calcLeftSum(
+            cost = vm.resultGoal.value!!.cost,
+            money = vm.resultGoal.value!!.money
+        )
+    }
+
+    private fun hideThoughts() {
+        startAnim(R.anim.finishthoughtsanim)
+        binding.mainActivityHintTextView.visibility = View.VISIBLE
+        binding.imageViewThoughts.visibility = View.INVISIBLE
+        binding.item.visibility = View.INVISIBLE
+        binding.costEditText.visibility = View.INVISIBLE
+        binding.leftTextView.visibility = View.INVISIBLE
+        binding.textView.visibility = View.INVISIBLE
+        binding.textView2.visibility = View.INVISIBLE
+        countDownTimer.cancel()
     }
 
 }
