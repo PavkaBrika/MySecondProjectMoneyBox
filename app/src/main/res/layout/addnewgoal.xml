@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/itemHint"
-        android:maxLength="15"
+        android:maxLength="25"
         android:minHeight="48dp"
         android:textColorHint="#616161" />
 

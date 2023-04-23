@@ -1,8 +1,12 @@
 package com.breackneck.mysecondprojectmoneybox.presentation.activity
 
 import android.content.Context
+import android.graphics.Typeface.BOLD
 import android.media.MediaPlayer
 import android.os.*
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -58,7 +62,6 @@ class StartActivity : AppCompatActivity() {
                 migration.execute()
             launch(Dispatchers.Main) {
                 id = getLastShowGoalUseCase.execute()
-//            id = getLastGoalId.execute()
                 vm.getGoal(id = id)
             }
         }
@@ -66,8 +69,12 @@ class StartActivity : AppCompatActivity() {
         Log.e("TAG", "Info wrote")
         vm.resultGoal.observe(this) { goal ->
             Log.e("TAG", "id = ${goal.id}")
-            binding.item.text = goal.item
-            binding.costEditText.text = goal.cost.toString()
+            var spannable = SpannableString("${resources.getString(R.string.saving)}\n${goal.item}")
+            spannable.setSpan(StyleSpan(BOLD), resources.getString(R.string.saving).length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.item.text = spannable
+            spannable = SpannableString("${resources.getString(R.string.cost)} ${goal.cost}")
+            spannable.setSpan(StyleSpan(BOLD), resources.getString(R.string.cost).length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.costEditText.text = spannable
             calcLeftSum(cost = goal.cost, money = goal.money)
             if ((goal.cost != 0.0) && (goal.item != "")) { //if target is existed
                 binding.money.text = decimalFormat.format(goal.money)
@@ -183,15 +190,15 @@ class StartActivity : AppCompatActivity() {
         binding.costEditText.startAnimation(anim)
         binding.item.startAnimation(anim)
         binding.leftTextView.startAnimation(anim)
-        binding.textView.startAnimation(anim)
-        binding.textView2.startAnimation(anim)
         binding.imageViewThoughts.startAnimation(anim)
     }
 
     private fun calcLeftSum(cost: Double, money: Double) {
         val left = cost - money
         if (left > 0) {
-            binding.leftTextView.text = "${decimalFormat.format(left)} ${getString(R.string.left)}"
+            val spannable = SpannableString("${decimalFormat.format(left)} ${getString(R.string.left)}")
+            spannable.setSpan(StyleSpan(BOLD), 0, decimalFormat.format(left).length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.leftTextView.text = spannable
             binding.buttonAddSubMoney.visibility = View.VISIBLE
             binding.changeAmountHintTextView.visibility = View.VISIBLE
             binding.HintToAddNewGoalTextView.visibility = View.INVISIBLE
@@ -199,7 +206,6 @@ class StartActivity : AppCompatActivity() {
         } else {
             binding.leftTextView.apply {
                 text = getString(R.string.congratulations)
-                textSize = 25F
                 setPadding(170, 0, 170, 0)
             }
             binding.buttonAddSubMoney.visibility = View.INVISIBLE
@@ -327,6 +333,8 @@ class StartActivity : AppCompatActivity() {
                 id = 0
                 vm.getGoal(id = id)
             }
+            if (binding.imageViewThoughts.visibility == View.VISIBLE)
+                hideThoughts()
             startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
             bottomSheetDialogReset.cancel()
         }
@@ -445,8 +453,6 @@ class StartActivity : AppCompatActivity() {
         binding.costEditText.visibility = View.VISIBLE
         binding.mainActivityHintTextView.visibility = View.INVISIBLE
         binding.leftTextView.visibility = View.VISIBLE
-        binding.textView.visibility = View.VISIBLE
-        binding.textView2.visibility = View.VISIBLE
         calcLeftSum(
             cost = vm.resultGoal.value!!.cost,
             money = vm.resultGoal.value!!.money
@@ -460,8 +466,6 @@ class StartActivity : AppCompatActivity() {
         binding.item.visibility = View.INVISIBLE
         binding.costEditText.visibility = View.INVISIBLE
         binding.leftTextView.visibility = View.INVISIBLE
-        binding.textView.visibility = View.INVISIBLE
-        binding.textView2.visibility = View.INVISIBLE
         countDownTimer.cancel()
     }
 
