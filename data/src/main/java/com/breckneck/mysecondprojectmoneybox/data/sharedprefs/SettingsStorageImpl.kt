@@ -3,13 +3,12 @@ package com.breckneck.mysecondprojectmoneybox.data.sharedprefs
 import android.content.Context
 import com.breckneck.mysecondprojectmoneybox.data.storage.SettingsStorage
 
-private val APP_PREFERENCES = "settings"
-private val APP_PREFERENCES_APP_WAS_OPENED = "MainActivityOpened"
-private val APP_PREFERENCES_CHARACTER = "character"
-private val APP_PREFERENCES_AUDIO = "audio"
-private val APP_PREFERENCES_VIBRO = "vibro"
-private val APP_PREFERENCES_LAST_SHOW_GOAL_ID = "lastShowGoalId"
-
+private const val APP_PREFERENCES = "settings"
+private const val APP_PREFERENCES_APP_WAS_OPENED = "MainActivityOpened"
+private const val APP_PREFERENCES_CHARACTER = "character"
+private const val APP_PREFERENCES_AUDIO = "audio"
+private const val APP_PREFERENCES_VIBRO = "vibro"
+private const val APP_PREFERENCES_GOAL_ID = "goalid"
 class SettingsStorageImpl(context: Context): SettingsStorage {
 
     private val sp = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
@@ -48,10 +47,10 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
     }
 
     override fun setLastShowGoalId(id: Int) {
-        sp.edit().putInt(APP_PREFERENCES_LAST_SHOW_GOAL_ID, id).apply()
+        sp.edit().putInt(APP_PREFERENCES_GOAL_ID, id).apply()
     }
 
     override fun getLastShowGoalId(): Int {
-        return sp.getInt(APP_PREFERENCES_LAST_SHOW_GOAL_ID, 0)
+        return sp.getInt(APP_PREFERENCES_GOAL_ID, 0)
     }
 }

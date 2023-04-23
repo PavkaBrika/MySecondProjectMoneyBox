@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
+      <module name="badek.StudioProjects.MySecondProjectMoneyBox.data" target="11" />
       <module name="MySecondProjectMoneyBox.app" target="11" />
       <module name="MySecondProjectMoneyBox.data" target="11" />
       <module name="StudioProjects.MySecondProjectMoneyBox.data" target="11" />

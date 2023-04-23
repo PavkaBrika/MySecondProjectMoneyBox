@@ -32,5 +32,7 @@
     <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
-
+    <style name="AccentColorForProgressBar">
+        <item name="colorAccent">@color/mainActivityButtonsColor</item>
+    </style>
 </resources>
