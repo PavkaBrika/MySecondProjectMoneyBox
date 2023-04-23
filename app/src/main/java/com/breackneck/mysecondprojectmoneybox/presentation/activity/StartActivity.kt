@@ -2,20 +2,12 @@ package com.breackneck.mysecondprojectmoneybox.presentation.activity
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
+import android.os.*
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +19,6 @@ import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivit
 import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -111,7 +102,10 @@ class StartActivity : AppCompatActivity() {
         }
 
         binding.imageViewCharacter.setOnClickListener {
-//            startVibration(VibrationEffect.EFFECT_TICK, getVibro.execute())
+            if (Build.VERSION.SDK_INT >= 29)
+                startVibration(VibrationEffect.EFFECT_TICK, getVibro.execute())
+            else
+                startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
             if (binding.imageViewThoughts.visibility == View.INVISIBLE) {
                 if (vm.resultGoal.value?.item?.trim() != "" && vm.resultGoal.value?.cost != 0.0) {
                     startAnim(R.anim.startthoughtsanim)
@@ -161,11 +155,17 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun startVibration(vibrationEffect: Int, enabled: Boolean) {
-//        if (enabled) {
-//            val vibrator = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as Vibrator
-//            val effect = VibrationEffect.createOneShot(150, vibrationEffect)
-//            vibrator.vibrate(effect)
-//        }
+        if (enabled) {
+            val effect = VibrationEffect.createOneShot(150, vibrationEffect)
+            if (Build.VERSION.SDK_INT >= 31) {
+                val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                val vibrator = vibratorManager.defaultVibrator
+                vibrator.vibrate(effect)
+            } else {
+                val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                vibrator.vibrate(effect)
+            }
+        }
     }
 
     private fun startAudio(enabled: Boolean) {
@@ -251,10 +251,6 @@ class StartActivity : AppCompatActivity() {
 
         val bottomSheetDialogAddMoney = BottomSheetDialog(this)
         bottomSheetDialogAddMoney.setContentView(R.layout.addmoneyactivity)
-//        val bottomSheetDialogAddMoney = BottomSheetDialog(this, R.style.CustomBottomSheetDialog)
-//        val view = layoutInflater.inflate(R.layout.addmoneyactivity, null)
-//        bottomSheetDialogAddMoney.setContentView(view)
-//        bottomSheetDialogAddMoney.behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
         val moneyEditText = bottomSheetDialogAddMoney.findViewById<EditText>(R.id.editTextAddMoney)
         val minusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonMinus)
@@ -281,6 +277,10 @@ class StartActivity : AppCompatActivity() {
                     vm.getGoal(id = id)
                 }
                 startAudio(getAudio.execute())
+                if (Build.VERSION.SDK_INT >= 29)
+                    startVibration(VibrationEffect.EFFECT_HEAVY_CLICK, getVibro.execute())
+                else
+                    startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
                 bottomSheetDialogAddMoney.cancel()
             } else {
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
@@ -322,6 +322,7 @@ class StartActivity : AppCompatActivity() {
                 id = 0
                 vm.getGoal(id = id)
             }
+            startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
             bottomSheetDialogReset.cancel()
         }
 
