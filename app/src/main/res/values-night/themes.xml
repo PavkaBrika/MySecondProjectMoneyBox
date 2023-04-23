@@ -10,18 +10,6 @@
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>
 
-    <style name="OtherActivities" parent="@style/Theme.AppCompat.Dialog">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:tint">@color/mainActivityButtonsColorNight</item>
-        <item name="colorButtonNormal">@color/buttonColor</item>
-        <item name="android:background">@drawable/dialog_bg</item>
-        <item name="android:backgroundTint">@color/dialogActivitiesBackgroundColorNight</item>
-    </style>
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-        <item name="android:backgroundTint">@color/dialogActivitiesBackgroundColorNight</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="buttonTint">@color/white</item>
-    </style>
     <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
         <item name="android:backgroundTint">@color/dialogActivitiesBackgroundColorNight</item>

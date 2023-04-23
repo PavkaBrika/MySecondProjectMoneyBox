@@ -18,9 +18,7 @@
         <item name="strokeColor">@color/buttonColorNight</item>
         <item name="strokeWidth">2dp</item>
     </style>
-    <style name="ChangeCharacterActivityTextColor">
-        <item name="android:textColor">@color/white</item>
-    </style>
+
     <style name="ChangeCharacterActivityTextAndRadioButtonColor">
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:buttonTint">@color/buttonColorNight</item>
