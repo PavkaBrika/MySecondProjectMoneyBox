@@ -20,41 +20,14 @@
         android:theme="@style/Theme.MySecondProjectMoneyBox"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
-            android:name="com.breackneck.mysecondprojectmoneybox.MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="com.breackneck.mysecondprojectmoneybox.AddNewGoalActivity"
-            android:label="@string/activityTitleNewGoal"
-            android:theme="@style/OtherActivities"/>
-        <activity
-            android:name="com.breackneck.mysecondprojectmoneybox.AddMoneyActivity"
-            android:label="@string/activityTitleAddMoney"
-            android:theme="@style/OtherActivities"/>
-        <activity
-            android:name="com.breackneck.mysecondprojectmoneybox.ChangeCharacterActivity"
-            android:label="@string/activityTitleChangeCharacter"
-            android:theme="@style/OtherActivities" />
-        <activity
-            android:name="com.breackneck.mysecondprojectmoneybox.GoalsListActivity"
-            android:label="@string/activityTitleGoalsList"
-            android:theme="@style/OtherActivities" />
-        <activity
             android:name=".presentation.activity.StartActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.activity.AddMoney"
-            android:label="add" />
-        <activity android:name=".presentation.activity.NewGoal"
-            android:label="new" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3967661567296020~5965954619" />
