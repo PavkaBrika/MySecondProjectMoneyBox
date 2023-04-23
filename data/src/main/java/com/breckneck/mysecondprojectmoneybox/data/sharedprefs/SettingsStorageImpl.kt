@@ -8,7 +8,7 @@ private val APP_PREFERENCES_APP_WAS_OPENED = "MainActivityOpened"
 private val APP_PREFERENCES_CHARACTER = "character"
 private val APP_PREFERENCES_AUDIO = "audio"
 private val APP_PREFERENCES_VIBRO = "vibro"
-private val APP_PREFERENCES_LAST_SHOW_GOAL_ID = "vibro"
+private val APP_PREFERENCES_LAST_SHOW_GOAL_ID = "lastShowGoalId"
 
 class SettingsStorageImpl(context: Context): SettingsStorage {
 

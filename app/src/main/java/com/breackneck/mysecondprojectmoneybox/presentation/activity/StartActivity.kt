@@ -8,6 +8,7 @@ import android.os.Vibrator
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.CheckBox
@@ -26,6 +27,7 @@ import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivit
 import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,9 +63,11 @@ class StartActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (!checkMainActivity.execute())
                 migration.execute()
-//            id = getLastShowGoalUseCase.execute()
-            id = getLastGoalId.execute()
-            vm.getGoal(id = id)
+            launch(Dispatchers.Main) {
+                id = getLastShowGoalUseCase.execute()
+//            id = getLastGoalId.execute()
+                vm.getGoal(id = id)
+            }
         }
 
         Log.e("TAG", "Info wrote")
@@ -226,6 +230,7 @@ class StartActivity : AppCompatActivity() {
                         item = itemEditText.text.toString()
                     )
                     id = getLastGoalId.execute()
+                    setLastShowGoalIdUseCase.execute(id = id)
                     vm.getGoal(id = id)
                 }
                 bottomSheetDialogNewGoal.cancel()
@@ -246,6 +251,10 @@ class StartActivity : AppCompatActivity() {
 
         val bottomSheetDialogAddMoney = BottomSheetDialog(this)
         bottomSheetDialogAddMoney.setContentView(R.layout.addmoneyactivity)
+//        val bottomSheetDialogAddMoney = BottomSheetDialog(this, R.style.CustomBottomSheetDialog)
+//        val view = layoutInflater.inflate(R.layout.addmoneyactivity, null)
+//        bottomSheetDialogAddMoney.setContentView(view)
+//        bottomSheetDialogAddMoney.behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
         val moneyEditText = bottomSheetDialogAddMoney.findViewById<EditText>(R.id.editTextAddMoney)
         val minusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonMinus)
@@ -342,6 +351,7 @@ class StartActivity : AppCompatActivity() {
             override fun onGoalClick(goalDomain: GoalDomain, position: Int) {
                 id = goalDomain.id
                 vm.getGoal(id = id)
+                setLastShowGoalIdUseCase.execute(id = id)
                 bottomSheetDialogGoalsList.cancel()
             }
         }

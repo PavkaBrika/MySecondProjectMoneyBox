@@ -23,11 +23,6 @@
             android:name="com.breackneck.mysecondprojectmoneybox.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.breackneck.mysecondprojectmoneybox.AddNewGoalActivity"
@@ -47,7 +42,14 @@
             android:theme="@style/OtherActivities" />
         <activity
             android:name=".presentation.activity.StartActivity"
-            android:label="test" />
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.activity.AddMoney"
             android:label="add" />

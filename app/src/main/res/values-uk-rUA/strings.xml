@@ -41,4 +41,5 @@
     <string name="ok">Ок</string>
     <string name="add">Додати</string>
     <string name="remove">Зменшити</string>
+    <string name="activityHintGoals">Цілі</string>
 </resources>

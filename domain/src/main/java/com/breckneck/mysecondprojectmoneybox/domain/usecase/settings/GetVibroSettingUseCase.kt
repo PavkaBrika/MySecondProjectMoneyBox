@@ -7,5 +7,4 @@ class GetVibroSettingUseCase(private val settingsRepository: SettingsRepository)
     fun execute(): Boolean {
         return settingsRepository.getVibroSetting()
     }
-
 }

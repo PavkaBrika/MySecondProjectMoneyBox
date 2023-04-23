@@ -32,6 +32,10 @@
     <style name="ThoughtsImageViewSrc">
         <item name="android:src">@drawable/thoughts2night</item>
     </style>
-
+    <style name="CustomShapeAppearanceBottomSheetDialog">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">28dp</item>
+        <item name="cornerSizeTopLeft">28dp</item>
+    </style>
 
 </resources>
