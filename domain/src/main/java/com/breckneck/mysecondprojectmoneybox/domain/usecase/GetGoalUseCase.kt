@@ -5,7 +5,7 @@ import com.breckneck.mysecondprojectmoneybox.domain.repository.GoalRepository
 
 class GetGoalUseCase(val goalRepository: GoalRepository) {
 
-    fun execute(id: Int) : GoalDomain {
+    fun execute(id: Int): GoalDomain {
         return goalRepository.getGoal(id = id)
     }
 

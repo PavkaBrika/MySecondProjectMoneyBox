@@ -2,7 +2,7 @@ package com.breckneck.mysecondprojectmoneybox.domain.repository
 
 interface SettingsRepository {
 
-    fun mainActivityWasOpened() : Boolean
+    fun mainActivityWasOpened(): Boolean
 
     fun getVibroSetting(): Boolean
 

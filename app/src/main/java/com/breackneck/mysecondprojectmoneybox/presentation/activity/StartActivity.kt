@@ -64,11 +64,15 @@ class StartActivity : AppCompatActivity() {
         Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug)
         Appodeal.setChildDirectedTreatment(false)
         Appodeal.muteVideosIfCallsMuted(true)
-        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL or Appodeal.BANNER_BOTTOM or Appodeal.SKIPPABLE_VIDEO, object : ApdInitializationCallback {
-            override fun onInitializationFinished(errors: List<ApdInitializationError>?) {
-                Log.e("TAG", "Appodeal initialized")
-            }
-        })
+        Appodeal.initialize(
+            this,
+            "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1",
+            Appodeal.INTERSTITIAL or Appodeal.BANNER_BOTTOM or Appodeal.SKIPPABLE_VIDEO,
+            object : ApdInitializationCallback {
+                override fun onInitializationFinished(errors: List<ApdInitializationError>?) {
+                    Log.e("TAG", "Appodeal initialized")
+                }
+            })
 
         val checkMainActivity: CheckMainActivityUseCase by inject()
         val migration: MigrationUseCase by inject()
@@ -86,10 +90,20 @@ class StartActivity : AppCompatActivity() {
         vm.resultGoal.observe(this) { goal ->
             Log.e("TAG", "id = ${goal.id}")
             var spannable = SpannableString("${resources.getString(R.string.saving)}\n${goal.item}")
-            spannable.setSpan(StyleSpan(BOLD), resources.getString(R.string.saving).length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(
+                StyleSpan(BOLD),
+                resources.getString(R.string.saving).length,
+                spannable.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             binding.item.text = spannable
             spannable = SpannableString("${resources.getString(R.string.cost)} ${goal.cost}")
-            spannable.setSpan(StyleSpan(BOLD), resources.getString(R.string.cost).length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(
+                StyleSpan(BOLD),
+                resources.getString(R.string.cost).length,
+                spannable.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             binding.costEditText.text = spannable
             calcLeftSum(cost = goal.cost, money = goal.money)
             setCoinsInJar(cost = goal.cost, money = goal.money)
@@ -171,7 +185,7 @@ class StartActivity : AppCompatActivity() {
             addButtonClickQuantityUseCase.execute()
         }
 
-        countDownTimer = object: CountDownTimer(6000, 1000) {
+        countDownTimer = object : CountDownTimer(6000, 1000) {
 
             override fun onTick(p0: Long) {
             }
@@ -193,7 +207,8 @@ class StartActivity : AppCompatActivity() {
         if (enabled) {
             val effect = VibrationEffect.createOneShot(150, vibrationEffect)
             if (Build.VERSION.SDK_INT >= 31) {
-                val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                val vibratorManager =
+                    getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
                 val vibrator = vibratorManager.defaultVibrator
                 vibrator.vibrate(effect)
             } else {
@@ -221,8 +236,14 @@ class StartActivity : AppCompatActivity() {
     private fun calcLeftSum(cost: Double, money: Double) {
         val left = cost - money
         if (left > 0) {
-            val spannable = SpannableString("${decimalFormat.format(left)} ${getString(R.string.left)}")
-            spannable.setSpan(StyleSpan(BOLD), 0, decimalFormat.format(left).length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val spannable =
+                SpannableString("${decimalFormat.format(left)} ${getString(R.string.left)}")
+            spannable.setSpan(
+                StyleSpan(BOLD),
+                0,
+                decimalFormat.format(left).length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
             binding.leftTextView.text = spannable
             binding.buttonAddSubMoney.visibility = View.VISIBLE
             binding.changeAmountHintTextView.visibility = View.VISIBLE
@@ -295,7 +316,7 @@ class StartActivity : AppCompatActivity() {
         moneyEditText!!.addTextChangedListener {
             val str = it!!.toString()
             val p = str.indexOf(".")
-            if (p != - 1) {
+            if (p != -1) {
                 val tmpStr = str.substring(p)
                 if (tmpStr.length == 4)
                     it.delete(it.length - 1, it.length)
@@ -381,8 +402,10 @@ class StartActivity : AppCompatActivity() {
 
         val getAllGoalsUseCase: GetAllGoalsUseCase by inject()
 
-        val goalsListRecyclerView = bottomSheetDialogGoalsList.findViewById<RecyclerView>(R.id.goalsListRecyclerView)
-        val addGoalButton = bottomSheetDialogGoalsList.findViewById<ImageView>(R.id.addGoalButtonImageView)
+        val goalsListRecyclerView =
+            bottomSheetDialogGoalsList.findViewById<RecyclerView>(R.id.goalsListRecyclerView)
+        val addGoalButton =
+            bottomSheetDialogGoalsList.findViewById<ImageView>(R.id.addGoalButtonImageView)
 
         addGoalButton!!.setOnClickListener {
             id = 0
@@ -391,7 +414,7 @@ class StartActivity : AppCompatActivity() {
             showInterstitialAd()
         }
 
-        val onGoalClickListener = object: GoalAdapter.OnGoalClickListener {
+        val onGoalClickListener = object : GoalAdapter.OnGoalClickListener {
             override fun onGoalClick(goalDomain: GoalDomain, position: Int) {
                 id = goalDomain.id
                 vm.getGoal(id = id)
