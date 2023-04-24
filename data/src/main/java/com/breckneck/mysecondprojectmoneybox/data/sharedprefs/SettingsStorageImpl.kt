@@ -63,4 +63,8 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
     override fun getButtonClickQuantity(): Int {
         return sp.getInt(APP_PREFERENCES_AD, 0)
     }
+
+    override fun setButtonClickQuantity(quantity: Int) {
+        sp.edit().putInt(APP_PREFERENCES_AD, quantity).apply()
+    }
 }

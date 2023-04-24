@@ -23,4 +23,6 @@ interface SettingsRepository {
     fun addButtonClickQuantity()
 
     fun getButtonClickQuantity(): Int
+
+    fun setButtonClickQuantity(quantity: Int)
 }

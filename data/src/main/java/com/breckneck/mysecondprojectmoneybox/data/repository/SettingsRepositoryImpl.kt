@@ -48,4 +48,8 @@ class SettingsRepositoryImpl(private val settingsStorage: SettingsStorage): Sett
     override fun getButtonClickQuantity(): Int {
         return settingsStorage.getButtonClickQuantity()
     }
+
+    override fun setButtonClickQuantity(quantity: Int) {
+        settingsStorage.setButtonClickQuantity(quantity = quantity)
+    }
 }

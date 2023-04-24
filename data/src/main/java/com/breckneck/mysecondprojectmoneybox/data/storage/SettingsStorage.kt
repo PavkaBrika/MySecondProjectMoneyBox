@@ -23,4 +23,7 @@ interface SettingsStorage {
     fun addButtonClickQuantity()
 
     fun getButtonClickQuantity(): Int
+
+    fun setButtonClickQuantity(quantity: Int)
+
 }

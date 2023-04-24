@@ -27,6 +27,7 @@ import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.AddButtonClickQuantityUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.GetButtonClicksQuantityUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.SetButtonClickQuantityUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
@@ -53,13 +54,14 @@ class StartActivity : AppCompatActivity() {
     private val setLastShowGoalIdUseCase: SetLastShowGoalIdUseCase by inject()
     private val addButtonClickQuantityUseCase: AddButtonClickQuantityUseCase by inject()
     private val getButtonClickQuantityUseCase: GetButtonClicksQuantityUseCase by inject()
+    private val setButtonClicksQuantityUseCase: SetButtonClickQuantityUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Appodeal.setTesting(true)
+//        Appodeal.setTesting(true)
         Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug)
         Appodeal.setChildDirectedTreatment(false)
         Appodeal.muteVideosIfCallsMuted(true)
@@ -499,8 +501,10 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun showInterstitialAd() {
-        if ((getButtonClickQuantityUseCase.execute() == 15) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
+        val hello = getButtonClickQuantityUseCase.execute()
+        if ((hello >= 15) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
             Appodeal.show(this, Appodeal.INTERSTITIAL)
+            setButtonClicksQuantityUseCase.execute(0)
         }
     }
 }
