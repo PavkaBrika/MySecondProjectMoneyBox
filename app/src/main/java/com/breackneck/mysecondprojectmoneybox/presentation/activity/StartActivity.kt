@@ -61,7 +61,6 @@ class StartActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        Appodeal.setTesting(true)
         Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug)
         Appodeal.setChildDirectedTreatment(false)
         Appodeal.muteVideosIfCallsMuted(true)
@@ -93,6 +92,7 @@ class StartActivity : AppCompatActivity() {
             spannable.setSpan(StyleSpan(BOLD), resources.getString(R.string.cost).length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             binding.costEditText.text = spannable
             calcLeftSum(cost = goal.cost, money = goal.money)
+            setCoinsInJar(cost = goal.cost, money = goal.money)
             if ((goal.cost != 0.0) && (goal.item != "")) { //if target is existed
                 binding.money.text = decimalFormat.format(goal.money)
                 binding.money.visibility = View.VISIBLE
@@ -112,6 +112,7 @@ class StartActivity : AppCompatActivity() {
                 1 -> changeCharacter(R.drawable.griff, 216, 203)
                 2 -> changeCharacter(R.drawable.krabs, 250, 250)
                 3 -> changeCharacter(R.drawable.mcduck, 216, 203)
+                4 -> changeCharacter(R.drawable.booba, 216, 203)
             }
         }
 
@@ -423,6 +424,7 @@ class StartActivity : AppCompatActivity() {
         val griffButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.griffButton)
         val mrKrabsButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mrkrabsButton)
         val mcDuckButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mcduckButton)
+        val boobaButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.boobaButton)
 
         val vibrationCheckBox =
             bottomSheetDialogSettings.findViewById<CheckBox>(R.id.checkBoxEnableVibration)
@@ -436,6 +438,7 @@ class StartActivity : AppCompatActivity() {
             1 -> griffButton!!.isChecked = true
             2 -> mrKrabsButton!!.isChecked = true
             3 -> mcDuckButton!!.isChecked = true
+            4 -> boobaButton!!.isChecked = true
         }
 
         audioCheckBox!!.isChecked = getAudio.execute()
@@ -450,6 +453,8 @@ class StartActivity : AppCompatActivity() {
                 setCharacter.execute(2)
             if (mcDuckButton!!.isChecked)
                 setCharacter.execute(3)
+            if (boobaButton!!.isChecked)
+                setCharacter.execute(4)
             vm.getCharacter()
             bottomSheetDialogSettings.cancel()
             showInterstitialAd()
@@ -506,5 +511,45 @@ class StartActivity : AppCompatActivity() {
             Appodeal.show(this, Appodeal.INTERSTITIAL)
             setButtonClicksQuantityUseCase.execute(0)
         }
+    }
+
+    private fun setCoinsInJar(cost: Double, money: Double) {
+        val percent = (money / cost) * 100
+        if (percent > 10)
+            binding.coins1ImageView.visibility = View.VISIBLE
+        else
+            binding.coins1ImageView.visibility = View.GONE
+        if (percent > 20)
+            binding.coins2ImageView.visibility = View.VISIBLE
+        else
+            binding.coins2ImageView.visibility = View.GONE
+        if (percent > 30)
+            binding.coins3ImageView.visibility = View.VISIBLE
+        else
+            binding.coins3ImageView.visibility = View.GONE
+        if (percent > 40)
+            binding.coins4ImageView.visibility = View.VISIBLE
+        else
+            binding.coins4ImageView.visibility = View.GONE
+        if (percent > 50)
+            binding.coins5ImageView.visibility = View.VISIBLE
+        else
+            binding.coins5ImageView.visibility = View.GONE
+        if (percent > 60)
+            binding.coins6ImageView.visibility = View.VISIBLE
+        else
+            binding.coins6ImageView.visibility = View.GONE
+        if (percent > 70)
+            binding.coins7ImageView.visibility = View.VISIBLE
+        else
+            binding.coins7ImageView.visibility = View.GONE
+        if (percent > 80)
+            binding.coins8ImageView.visibility = View.VISIBLE
+        else
+            binding.coins8ImageView.visibility = View.GONE
+        if (percent > 90)
+            binding.coins9ImageView.visibility = View.VISIBLE
+        else
+            binding.coins9ImageView.visibility = View.GONE
     }
 }

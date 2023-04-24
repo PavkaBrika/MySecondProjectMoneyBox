@@ -39,6 +39,13 @@
             android:text="@string/characterNameScroogeMcDuck"
             style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
 
+        <RadioButton
+            android:id="@+id/boobaButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/characterNameBooba"
+            style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
+
     </RadioGroup>
 
     <TextView

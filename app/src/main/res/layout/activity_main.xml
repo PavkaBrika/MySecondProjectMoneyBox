@@ -144,6 +144,7 @@
         app:layout_constraintVertical_bias="0.34" />
 
     <ImageView
+        android:id="@+id/coins1ImageView"
         android:layout_width="167dp"
         android:layout_height="59dp"
         android:layout_marginBottom="4dp"
@@ -157,6 +158,7 @@
 
 
     <ImageView
+        android:id="@+id/coins2ImageView"
         android:layout_width="201dp"
         android:layout_height="71dp"
         android:layout_marginBottom="20dp"
@@ -168,6 +170,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
+        android:id="@+id/coins3ImageView"
         android:layout_width="203dp"
         android:layout_height="81dp"
         android:layout_marginBottom="36dp"
@@ -180,6 +183,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
+        android:id="@+id/coins4ImageView"
         android:layout_width="223dp"
         android:layout_height="91dp"
         android:layout_marginBottom="52dp"
@@ -192,6 +196,7 @@
 
 
     <ImageView
+        android:id="@+id/coins5ImageView"
         android:layout_width="202dp"
         android:layout_height="80dp"
         android:layout_marginBottom="80dp"
@@ -204,6 +209,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
+        android:id="@+id/coins6ImageView"
         android:layout_width="221dp"
         android:layout_height="92dp"
         android:layout_marginBottom="104dp"
@@ -215,6 +221,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
+        android:id="@+id/coins7ImageView"
         android:layout_width="203dp"
         android:layout_height="76dp"
         android:layout_marginBottom="126dp"
@@ -227,6 +234,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
+        android:id="@+id/coins8ImageView"
         android:layout_width="203dp"
         android:layout_height="76dp"
         android:layout_marginBottom="156dp"
@@ -238,6 +246,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
+        android:id="@+id/coins9ImageView"
         android:layout_width="177dp"
         android:layout_height="57dp"
         android:layout_marginBottom="265dp"
