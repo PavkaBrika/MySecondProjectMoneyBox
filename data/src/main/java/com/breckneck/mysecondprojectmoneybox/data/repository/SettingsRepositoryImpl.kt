@@ -40,4 +40,12 @@ class SettingsRepositoryImpl(private val settingsStorage: SettingsStorage): Sett
     override fun getLastShowGoalId(): Int {
         return settingsStorage.getLastShowGoalId()
     }
+
+    override fun addButtonClickQuantity() {
+        settingsStorage.addButtonClickQuantity()
+    }
+
+    override fun getButtonClickQuantity(): Int {
+        return settingsStorage.getButtonClickQuantity()
+    }
 }

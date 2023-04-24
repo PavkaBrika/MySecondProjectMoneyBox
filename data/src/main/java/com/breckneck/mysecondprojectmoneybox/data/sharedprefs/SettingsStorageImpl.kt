@@ -9,6 +9,8 @@ private const val APP_PREFERENCES_CHARACTER = "character"
 private const val APP_PREFERENCES_AUDIO = "audio"
 private const val APP_PREFERENCES_VIBRO = "vibro"
 private const val APP_PREFERENCES_GOAL_ID = "goalid"
+private const val APP_PREFERENCES_AD = "ad";
+
 class SettingsStorageImpl(context: Context): SettingsStorage {
 
     private val sp = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
@@ -52,5 +54,13 @@ class SettingsStorageImpl(context: Context): SettingsStorage {
 
     override fun getLastShowGoalId(): Int {
         return sp.getInt(APP_PREFERENCES_GOAL_ID, 0)
+    }
+
+    override fun addButtonClickQuantity() {
+        sp.edit().putInt(APP_PREFERENCES_AD, sp.getInt(APP_PREFERENCES_AD, 0) + 1).apply()
+     }
+
+    override fun getButtonClickQuantity(): Int {
+        return sp.getInt(APP_PREFERENCES_AD, 0)
     }
 }

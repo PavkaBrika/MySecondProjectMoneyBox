@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.breackneck.mysecondprojectmoneybox.R
 import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
-import com.vungle.warren.downloader.AssetDownloadListener.Progress
 import java.text.DecimalFormat
 
 class GoalAdapter(

@@ -1,6 +1,8 @@
 package com.breackneck.mysecondprojectmoneybox.di
 
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.AddButtonClickQuantityUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.GetButtonClicksQuantityUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
 import org.koin.dsl.module
 
@@ -68,6 +70,14 @@ val domainModule = module {
 
     factory<SetCharacterUseCase> {
         SetCharacterUseCase(settingsRepository = get())
+    }
+
+    factory<GetButtonClicksQuantityUseCase> {
+        GetButtonClicksQuantityUseCase(settingsRepository = get())
+    }
+
+    factory<AddButtonClickQuantityUseCase> {
+        AddButtonClickQuantityUseCase(settingsRepository = get())
     }
 
     //MIGRATION

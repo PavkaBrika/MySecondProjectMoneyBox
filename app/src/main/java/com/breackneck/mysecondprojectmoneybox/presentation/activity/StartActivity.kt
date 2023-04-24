@@ -16,12 +16,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.appodeal.ads.Appodeal
+import com.appodeal.ads.initializing.ApdInitializationCallback
+import com.appodeal.ads.initializing.ApdInitializationError
 import com.breackneck.mysecondprojectmoneybox.R
 import com.breackneck.mysecondprojectmoneybox.adapter.GoalAdapter
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
 import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivityViewModel
 import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.AddButtonClickQuantityUseCase
+import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.GetButtonClicksQuantityUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.Dispatchers
@@ -46,15 +51,25 @@ class StartActivity : AppCompatActivity() {
     val getCharacter: GetCharacterUseCase by inject()
     private val getLastShowGoalUseCase: GetLastShowGoalUseCase by inject()
     private val setLastShowGoalIdUseCase: SetLastShowGoalIdUseCase by inject()
+    private val addButtonClickQuantityUseCase: AddButtonClickQuantityUseCase by inject()
+    private val getButtonClickQuantityUseCase: GetButtonClicksQuantityUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val checkMainActivity: CheckMainActivityUseCase by inject()
+        Appodeal.setTesting(true)
+        Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug)
+        Appodeal.setChildDirectedTreatment(false)
+        Appodeal.muteVideosIfCallsMuted(true)
+        Appodeal.initialize(this, "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1", Appodeal.INTERSTITIAL or Appodeal.BANNER_BOTTOM or Appodeal.SKIPPABLE_VIDEO, object : ApdInitializationCallback {
+            override fun onInitializationFinished(errors: List<ApdInitializationError>?) {
+                Log.e("TAG", "Appodeal initialized")
+            }
+        })
 
-        val getGoal: GetGoalUseCase by inject()
+        val checkMainActivity: CheckMainActivityUseCase by inject()
         val migration: MigrationUseCase by inject()
 
         lifecycleScope.launch(Dispatchers.IO) {
@@ -101,6 +116,7 @@ class StartActivity : AppCompatActivity() {
         binding.imageView.setOnClickListener {
             if ((vm.resultGoal.value?.item?.trim() == "") && (vm.resultGoal.value?.cost == 0.0)) {
                 showNewGoalBottomSheetDialog()
+                addButtonClickQuantityUseCase.execute()
             } else {
                 Toast.makeText(this, R.string.alertDialogMessageNewGoal, Toast.LENGTH_SHORT).show()
             }
@@ -108,6 +124,7 @@ class StartActivity : AppCompatActivity() {
 
         binding.buttonSettings.setOnClickListener {
             showSettingsBottomSheetDialog()
+            addButtonClickQuantityUseCase.execute()
         }
 
         binding.imageViewCharacter.setOnClickListener {
@@ -118,6 +135,7 @@ class StartActivity : AppCompatActivity() {
             if (binding.imageViewThoughts.visibility == View.INVISIBLE) {
                 if (vm.resultGoal.value?.item?.trim() != "" && vm.resultGoal.value?.cost != 0.0) {
                     showThoughts()
+                    addButtonClickQuantityUseCase.execute()
                 } else {
                     Toast.makeText(this, R.string.toastOnCharacterClick, Toast.LENGTH_SHORT).show()
                 }
@@ -137,14 +155,17 @@ class StartActivity : AppCompatActivity() {
 
         binding.buttonAddSubMoney.setOnClickListener {
             showAddMoneyBottomSheetDialog()
+            addButtonClickQuantityUseCase.execute()
         }
 
         binding.buttonReset.setOnClickListener {
             showResetBottomSheetDialog()
+            addButtonClickQuantityUseCase.execute()
         }
 
         binding.buttonGoalsList.setOnClickListener {
             showGoalsListBottomSheetDialog()
+            addButtonClickQuantityUseCase.execute()
         }
 
         countDownTimer = object: CountDownTimer(6000, 1000) {
@@ -162,6 +183,7 @@ class StartActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         vm.getGoal(id = id)
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM)
     }
 
     private fun startVibration(vibrationEffect: Int, enabled: Boolean) {
@@ -244,6 +266,7 @@ class StartActivity : AppCompatActivity() {
                 }
                 showThoughts()
                 bottomSheetDialogNewGoal.cancel()
+                showInterstitialAd()
             } else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
                 Toast.makeText(this, R.string.toastNoInfoNewGoalActivity, Toast.LENGTH_SHORT).show()
             else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() != ""))
@@ -277,7 +300,7 @@ class StartActivity : AppCompatActivity() {
         }
 
         plusButton!!.setOnClickListener {
-            if (moneyEditText!!.text.toString() != "") {
+            if (moneyEditText.text.toString() != "") {
                 lifecycleScope.launch(Dispatchers.IO) {
                     changeMoney.execute(
                         id = id,
@@ -293,13 +316,14 @@ class StartActivity : AppCompatActivity() {
                 else
                     startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
                 bottomSheetDialogAddMoney.cancel()
+                showInterstitialAd()
             } else {
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
             }
         }
 
         minusButton!!.setOnClickListener {
-            if (moneyEditText!!.text.toString() != "") {
+            if (moneyEditText.text.toString() != "") {
                 lifecycleScope.launch(Dispatchers.IO) {
                     changeMoney.execute(
                         id = id,
@@ -310,6 +334,7 @@ class StartActivity : AppCompatActivity() {
                 }
                 startAudio(getAudio.execute())
                 bottomSheetDialogAddMoney.cancel()
+                showInterstitialAd()
             } else {
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
             }
@@ -337,6 +362,7 @@ class StartActivity : AppCompatActivity() {
                 hideThoughts()
             startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
             bottomSheetDialogReset.cancel()
+            showInterstitialAd()
         }
 
         cancelButton!!.setOnClickListener {
@@ -359,6 +385,7 @@ class StartActivity : AppCompatActivity() {
             id = 0
             vm.getGoal(id = id)
             bottomSheetDialogGoalsList.cancel()
+            showInterstitialAd()
         }
 
         val onGoalClickListener = object: GoalAdapter.OnGoalClickListener {
@@ -368,6 +395,7 @@ class StartActivity : AppCompatActivity() {
                 setLastShowGoalIdUseCase.execute(id = id)
                 showThoughts()
                 bottomSheetDialogGoalsList.cancel()
+                showInterstitialAd()
             }
         }
 
@@ -388,10 +416,10 @@ class StartActivity : AppCompatActivity() {
 
         val setAudio: SetAudioUseCase by inject()
         val setCharacter: SetCharacterUseCase by inject()
-        val setVibro: SetVibroUseCase by inject()
+        val setVibration: SetVibroUseCase by inject()
 
         val griffButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.griffButton)
-        val mrkrabsButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mrkrabsButton)
+        val mrKrabsButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mrkrabsButton)
         val mcDuckButton = bottomSheetDialogSettings.findViewById<RadioButton>(R.id.mcduckButton)
 
         val vibrationCheckBox =
@@ -404,7 +432,7 @@ class StartActivity : AppCompatActivity() {
 
         when (getCharacter.execute()) {
             1 -> griffButton!!.isChecked = true
-            2 -> mrkrabsButton!!.isChecked = true
+            2 -> mrKrabsButton!!.isChecked = true
             3 -> mcDuckButton!!.isChecked = true
         }
 
@@ -413,15 +441,16 @@ class StartActivity : AppCompatActivity() {
 
         okButton!!.setOnClickListener {
             setAudio.execute(audioCheckBox.isChecked)
-            setVibro.execute(vibrationCheckBox.isChecked)
+            setVibration.execute(vibrationCheckBox.isChecked)
             if (griffButton!!.isChecked)
                 setCharacter.execute(1)
-            if (mrkrabsButton!!.isChecked)
+            if (mrKrabsButton!!.isChecked)
                 setCharacter.execute(2)
             if (mcDuckButton!!.isChecked)
                 setCharacter.execute(3)
             vm.getCharacter()
             bottomSheetDialogSettings.cancel()
+            showInterstitialAd()
         }
 
         cancelButton!!.setOnClickListener {
@@ -469,4 +498,9 @@ class StartActivity : AppCompatActivity() {
         countDownTimer.cancel()
     }
 
+    private fun showInterstitialAd() {
+        if ((getButtonClickQuantityUseCase.execute() == 15) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
+            Appodeal.show(this, Appodeal.INTERSTITIAL)
+        }
+    }
 }

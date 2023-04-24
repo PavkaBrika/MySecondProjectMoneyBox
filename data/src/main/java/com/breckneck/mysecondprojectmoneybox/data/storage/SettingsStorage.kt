@@ -19,4 +19,8 @@ interface SettingsStorage {
     fun setLastShowGoalId(id: Int)
 
     fun getLastShowGoalId(): Int
+
+    fun addButtonClickQuantity()
+
+    fun getButtonClickQuantity(): Int
 }
