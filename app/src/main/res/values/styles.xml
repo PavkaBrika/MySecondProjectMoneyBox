@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="MainActivityBackground">
         <item name="android:background">@drawable/backgroundcolor</item>
     </style>
+
     <style name="ButtonsColor">
         <item name="android:tint">@color/mainActivityButtonsColor</item>
         <item name="android:backgroundTint">@color/buttonColor</item>
@@ -10,6 +12,7 @@
         <item name="textAllCaps">false</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="ButtonsColorOutline">
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="cornerRadius">24dp</item>
@@ -18,21 +21,67 @@
         <item name="strokeColor">@color/buttonColor</item>
         <item name="strokeWidth">2dp</item>
     </style>
+
+    <style name="FilledButton" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:backgroundTint">@color/buttonColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="rippleColor">@color/white</item>
+    </style>
+
+    <style name="OutlineButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/buttonColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="FilledIconButton" parent="Widget.Material3.Button.ElevatedButton.Icon">
+        <item name="android:backgroundTint">@color/buttonColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="rippleColor">@color/white</item>
+        <item name="iconTint">@color/black</item>
+    </style>
+
+    <style name="OutlineIconButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
+        <item name="strokeColor">@color/buttonColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="rippleColor">@color/white</item>
+        <item name="iconTint">@color/black</item>
+    </style>
+
     <style name="ChangeCharacterActivityTextAndRadioButtonColor">
         <item name="android:textColor">@color/black</item>
         <item name="android:buttonTint">@color/buttonColor</item>
     </style>
+
     <style name="ChangeCharacterActivityBackgroundTextViewColor">
         <item name="android:backgroundTint">@color/black</item>
         <item name="android:background">@color/black</item>
     </style>
+
     <style name="MyEditTextTheme">
         <item name="android:textColor">@color/black</item>
         <item name="android:backgroundTint">@color/statusBarColor</item>
     </style>
+
+    <style name="TextInputLayoutTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/statusBarColor</item>
+        <item name="hintTextColor">@color/black</item>
+        <item name="endIconMode">clear_text</item>
+    </style>
+
     <style name="ThoughtsImageViewSrc">
         <item name="android:src">@drawable/thoughts2</item>
     </style>
+
     <style name="CustomShapeAppearanceBottomSheetDialog">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">28dp</item>

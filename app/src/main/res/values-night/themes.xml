@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MySecondProjectMoneyBox" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/statusBarColorNight</item>
         <item name="colorPrimaryVariant">@color/statusBarColorNight</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorAccent">#c8a00b</item>
@@ -18,9 +19,11 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
+
     <style name="AccentColorForProgressBar">
         <item name="colorAccent">@color/mainActivityButtonsColorNight</item>
     </style>
