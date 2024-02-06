@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">SimpleSave</string>
     <string name="saving">I`m saving money for:</string>
     <string name="itemHint">Enter your goal</string>
@@ -14,28 +13,25 @@
     <string name="alertDialogMessage">Reset your Piggy Bank?</string>
     <string name="alertDialogPositiveButton">Yes</string>
     <string name="alertDialogNegativeButton">No</string>
-    <string name="alertDialogTitleNewGoal">Create new goal</string>
     <string name="alertDialogMessageNewGoal">Finish or reset the previous goal first</string>
     <string name="activityTitleNewGoal">Create new goal</string>
-    <string name="activityTitleAddMoney">Add/Subtract amount</string>
+    <string name="activityTitleAddMoney">Change amount</string>
     <string name="activityTitleGoalsList">Goals List</string>
+    <string name="activityHintGoals">Goals</string>
     <string name="textHintToAddNewGoalTextView">Click here to create a goal</string>
     <string name="toastNoInfoNewGoalActivity">You must enter the goal and its price!</string>
     <string name="toastNoTargetNewGoalActivity">You must enter the goal!</string>
     <string name="toastNoCostNewGoalActivity">You must enter the cost!</string>
     <string name="toastOnCharacterClick">Create a goal first!</string>
-    <string name="activityTitleChangeCharacter">Settings</string>
-    <string name="titleChangeCharacter">Change character</string>
+    <string name="titleSettings">Settings</string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Enable vibration</string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Enable sound</string>
     <string name="characterNameGriff">Griff</string>
     <string name="characterNameMrKrabs">Mr. Krabs</string>
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
-    <string name="toastNoCharacterChangeCharacterActivity">You must choose a character</string>
+    <string name="characterNameBooba">Booba</string>
     <string name="cancel">Cancel</string>
-    <string name="firstbuttongoalslist">First goal</string>
-    <string name="secondbuttongoalslist">Second goal</string>
-    <string name="thirdbuttongoalslist">Third goal</string>
-    <string name="progressBarText">already saved</string>
-    <string name="alreadyFinished">Finished!</string>
+    <string name="ok">Ok</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
 </resources>

@@ -14,7 +14,6 @@
     <string name="alertDialogMessage">Скинути вашу скарбничку?</string>
     <string name="alertDialogPositiveButton">Так</string>
     <string name="alertDialogNegativeButton">Ні</string>
-    <string name="alertDialogTitleNewGoal">Створити нову мету</string>
     <string name="alertDialogMessageNewGoal">Закінчіть або скиньте минулу мету</string>
     <string name="activityTitleNewGoal">Створити нову мету</string>
     <string name="activityTitleAddMoney">Додати/Відняти</string>
@@ -23,19 +22,17 @@
     <string name="toastNoTargetNewGoalActivity">Ви повинні ввести ціль!</string>
     <string name="toastNoCostNewGoalActivity">Ви повинні запровадити вартість!</string>
     <string name="toastOnCharacterClick">Спочатку створіть ціль!</string>
-    <string name="activityTitleChangeCharacter">Налаштування</string>
-    <string name="titleChangeCharacter">Змінити персонажа </string>
+    <string name="titleSettings">Змінити персонажа </string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Увімкнути вібрацію </string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Увімкнути звук</string>
     <string name="characterNameMrKrabs">Mr. Krabs</string>
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
-    <string name="toastNoCharacterChangeCharacterActivity">Ви повинні вибрати персонажа </string>
     <string name="cancel">Cкасування </string>
     <string name="characterNameGriff">Griff</string>
     <string name="activityTitleGoalsList">Список цілей</string>
-    <string name="firstbuttongoalslist">Перша мета</string>
-    <string name="secondbuttongoalslist">Друга мета</string>
-    <string name="thirdbuttongoalslist">Третя мета</string>
-    <string name="progressBarText">вже накопичено</string>
-    <string name="alreadyFinished">Закінчено!</string>
+    <string name="ok">Ок</string>
+    <string name="add">Додати</string>
+    <string name="remove">Зменшити</string>
+    <string name="activityHintGoals">Цілі</string>
+    <string name="characterNameBooba">Буба</string>
 </resources>

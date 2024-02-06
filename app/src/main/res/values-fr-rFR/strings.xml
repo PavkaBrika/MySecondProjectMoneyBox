@@ -14,7 +14,6 @@
     <string name="alertDialogMessage">Réinitialisez votre tirelire?</string>
     <string name="alertDialogPositiveButton">Oui</string>
     <string name="alertDialogNegativeButton">Non</string>
-    <string name="alertDialogTitleNewGoal">Créer un nouvel objectif</string>
     <string name="alertDialogMessageNewGoal">Terminez ou réinitialisez l\'objectif précédent en premier</string>
     <string name="activityTitleNewGoal">Créer un objectif</string>
     <string name="activityTitleAddMoney">Ajouter/Soustraire le montant</string>
@@ -23,19 +22,17 @@
     <string name="toastNoTargetNewGoalActivity">Vous devez saisir l\'objectif!</string>
     <string name="toastNoCostNewGoalActivity">Vous devez entrer le coût!</string>
     <string name="toastOnCharacterClick">Créez d\'abord un objectif!</string>
-    <string name="activityTitleChangeCharacter">Réglages</string>
-    <string name="titleChangeCharacter">Changement de caractère</string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Activer les vibrations</string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Activer le son</string>
     <string name="characterNameGriff">Griff</string>
     <string name="characterNameMrKrabs">Mr. Krabs</string>
     <string name="characterNameScroogeMcDuck">Scrooge McDuck</string>
-    <string name="toastNoCharacterChangeCharacterActivity">Vous devez choisir un personnage</string>
     <string name="cancel">Annuler</string>
     <string name="activityTitleGoalsList">Liste des objectifs</string>
-    <string name="firstbuttongoalslist">Premier objectif</string>
-    <string name="secondbuttongoalslist">Deuxième objectif</string>
-    <string name="thirdbuttongoalslist">Troisième objectif</string>
-    <string name="progressBarText">déjà accumulés</string>
-    <string name="alreadyFinished">Terminé!</string>
+    <string name="ok">Ok</string>
+    <string name="add">Ajouter</string>
+    <string name="remove">Soustraire</string>
+    <string name="titleSettings">Réglages</string>
+    <string name="activityHintGoals">Buts</string>
+    <string name="characterNameBooba">Booba</string>
 </resources>

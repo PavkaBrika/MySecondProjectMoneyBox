@@ -1,16 +1,17 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdk 31
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.breackneck.mysecondprojectmoneybox"
         minSdk 26
-        targetSdk 31
-        versionCode 7
-        versionName "3.6"
+        targetSdk 34
+        versionCode 9
+        versionName "4.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,19 +27,47 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    namespace 'com.breackneck.mysecondprojectmoneybox'
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation ('com.appodeal.ads:sdk:3.0.1.+') {
-        exclude group: 'com.appodeal.ads.sdk.networks', module: 'appodeal'
-        exclude group: 'com.appodeal.ads.sdk.networks', module: 'nast'
-    }
     implementation 'com.explorestack:consent:1.0.4'
+
+    //Clean Architecture
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+
+    //Koin
+    def koin_version = "3.2.0"
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    //Appodeal
+    implementation 'com.appodeal.ads.sdk:core:3.2.0'
+    implementation 'com.appodeal.ads.sdk.networks:adcolony:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.networks:applovin:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.networks:bidmachine:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.networks:ironsource:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.networks:mraid:3.0.2.0'
+    implementation 'com.appodeal.ads.sdk.networks:my_target:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.services:sentry_analytics:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.services:stack_analytics:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.networks:vast:3.0.2.0'
+    implementation 'com.appodeal.ads.sdk.networks:vungle:3.2.0.0'
+    implementation 'com.appodeal.ads.sdk.networks:yandex:3.2.0.0'
 }

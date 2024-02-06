@@ -2,17 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainActivityBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/MainActivityBackground"
-    tools:context=".MainActivity">
+    tools:context=".presentation.activity.StartActivity">
 
     <ImageView
         android:id="@+id/imageViewThoughts"
+        style="@style/ThoughtsImageViewSrc"
         android:layout_width="393dp"
         android:layout_height="319dp"
         android:elevation="4dp"
-        style="@style/ThoughtsImageViewSrc"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/imageViewCharacter"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,23 +21,41 @@
 
     <ImageView
         android:id="@+id/buttonReset"
+        style="@style/ButtonsColor"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="8dp"
         android:src="@drawable/ic_baseline_refresh_24"
-        style="@style/ButtonsColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/resetHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alertDialogTitle"
+        app:layout_constraintEnd_toEndOf="@+id/buttonReset"
+        app:layout_constraintStart_toStartOf="@+id/buttonReset"
+        app:layout_constraintTop_toBottomOf="@+id/buttonReset" />
+
     <ImageView
         android:id="@+id/buttonSettings"
+        style="@style/ButtonsColor"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="8dp"
         android:src="@drawable/ic_baseline_settings_24"
-        style="@style/ButtonsColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/settingsHintTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titleSettings"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSettings"
+        app:layout_constraintStart_toStartOf="@+id/buttonSettings"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSettings" />
 
     <ImageView
         android:id="@+id/buttonGoalsList"
@@ -47,7 +65,15 @@
         android:layout_margin="8dp"
         android:src="@drawable/outline_menu_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSettings" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsHintTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activityHintGoals"
+        app:layout_constraintEnd_toEndOf="@+id/buttonGoalsList"
+        app:layout_constraintStart_toStartOf="@+id/buttonGoalsList"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGoalsList" />
 
 
     <ImageView
@@ -62,44 +88,53 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/changeAmountHintTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:text="@string/activityTitleAddMoney"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAddSubMoney"
+        app:layout_constraintStart_toStartOf="@+id/buttonAddSubMoney"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddSubMoney" />
+
+    <TextView
+        android:id="@+id/item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="16dp"
+        android:autoSizeMaxTextSize="36sp"
+        android:autoSizeMinTextSize="28sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
         android:elevation="4dp"
-        android:text="@string/saving"
-        android:textSize="25dp"
+        android:maxLines="2"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="28sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/imageViewThoughts"
-        app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="@+id/imageViewThoughts"
         app:layout_constraintTop_toTopOf="@+id/imageViewThoughts" />
 
     <TextView
-        android:id="@+id/item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:elevation="4dp"
-        android:text=""
-        android:textSize="30dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewThoughts"
-        app:layout_constraintStart_toStartOf="@+id/imageViewThoughts"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
         android:id="@+id/money"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autoSizeMaxTextSize="36sp"
+        android:autoSizeMinTextSize="16sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
         android:elevation="2dp"
+        android:maxLines="1"
         android:text="0"
         android:textAlignment="center"
         android:textColor="#a5804a"
-        android:textSize="30sp"
+        android:layout_marginHorizontal="32dp"
+        android:textSize="28sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -109,13 +144,13 @@
         app:layout_constraintVertical_bias="0.34" />
 
     <ImageView
-        android:id="@+id/coins1"
+        android:id="@+id/coins1ImageView"
         android:layout_width="167dp"
         android:layout_height="59dp"
         android:layout_marginBottom="4dp"
         android:elevation="2dp"
-        android:visibility="invisible"
         android:src="@drawable/coinsfirst"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.544"
@@ -123,101 +158,101 @@
 
 
     <ImageView
-        android:id="@+id/coins2"
+        android:id="@+id/coins2ImageView"
         android:layout_width="201dp"
         android:layout_height="71dp"
         android:layout_marginBottom="20dp"
         android:elevation="2dp"
-        android:visibility="invisible"
         android:src="@drawable/coinssecond"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/coins3"
+        android:id="@+id/coins3ImageView"
         android:layout_width="203dp"
         android:layout_height="81dp"
         android:layout_marginBottom="36dp"
         android:elevation="3dp"
-        android:visibility="invisible"
         android:src="@drawable/coinsthird"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/coins4"
+        android:id="@+id/coins4ImageView"
         android:layout_width="223dp"
         android:layout_height="91dp"
         android:layout_marginBottom="52dp"
         android:elevation="3dp"
-        android:visibility="invisible"
         android:src="@drawable/coinsforth"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
 
     <ImageView
-        android:id="@+id/coins5"
+        android:id="@+id/coins5ImageView"
         android:layout_width="202dp"
         android:layout_height="80dp"
         android:layout_marginBottom="80dp"
         android:elevation="3dp"
-        android:visibility="invisible"
         android:src="@drawable/coinsfifth"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/coins6"
+        android:id="@+id/coins6ImageView"
         android:layout_width="221dp"
         android:layout_height="92dp"
         android:layout_marginBottom="104dp"
         android:elevation="3dp"
-        android:visibility="invisible"
         android:src="@drawable/coinssixth"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/coins7"
+        android:id="@+id/coins7ImageView"
         android:layout_width="203dp"
         android:layout_height="76dp"
         android:layout_marginBottom="126dp"
         android:elevation="3dp"
-        android:visibility="invisible"
         android:src="@drawable/coinsseventh"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/coins8"
+        android:id="@+id/coins8ImageView"
         android:layout_width="203dp"
         android:layout_height="76dp"
         android:layout_marginBottom="156dp"
         android:elevation="3dp"
-        android:visibility="invisible"
         android:src="@drawable/coinseighth"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/coins9"
+        android:id="@+id/coins9ImageView"
         android:layout_width="177dp"
         android:layout_height="57dp"
         android:layout_marginBottom="265dp"
         android:elevation="3dp"
-        android:visibility="invisible"
         android:src="@drawable/coinsnineth"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.487"
@@ -232,7 +267,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.451" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <ImageView
         android:id="@+id/imageViewCharacter"
@@ -247,31 +282,24 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:elevation="4dp"
-        android:text="@string/cost"
-        android:textSize="25dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/leftTextView"
-        app:layout_constraintStart_toStartOf="@+id/imageViewThoughts"
-        app:layout_constraintTop_toBottomOf="@+id/item"
-        app:layout_constraintVertical_bias="0.40" />
-
-    <TextView
         android:id="@+id/costEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:autoSizeMaxTextSize="36sp"
+        android:autoSizeMinTextSize="9sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
         android:elevation="4dp"
-        android:inputType="numberDecimal"
+        android:maxLines="2"
+        android:layout_marginHorizontal="40dp"
         android:text="costEditText"
-        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/imageViewThoughts"
         app:layout_constraintHorizontal_bias="0.157"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/imageViewThoughts"
         app:layout_constraintTop_toBottomOf="@+id/item" />
 
 
@@ -280,10 +308,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:autoSizeMaxTextSize="36sp"
+        android:autoSizeMinTextSize="9sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
         android:elevation="4dp"
+        android:maxLines="2"
         android:text="Left"
         android:textAlignment="center"
-        android:textSize="30dp"
+        android:textSize="28sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/imageViewThoughts"
         app:layout_constraintHorizontal_bias="0.491"

@@ -14,7 +14,6 @@
     <string name="alertDialogMessage">Сбросить вашу копилку?</string>
     <string name="alertDialogPositiveButton">Да</string>
     <string name="alertDialogNegativeButton">Нет</string>
-    <string name="alertDialogTitleNewGoal">Создать новую цель</string>
     <string name="alertDialogMessageNewGoal">Закончите или сбросьте прошлую цель</string>
     <string name="activityTitleNewGoal">Создать новую цель</string>
     <string name="activityTitleAddMoney">Добавить/Вычесть</string>
@@ -23,19 +22,17 @@
     <string name="toastNoTargetNewGoalActivity">Вы должны ввести цель!</string>
     <string name="toastNoCostNewGoalActivity">Вы должны ввести стоимость!</string>
     <string name="toastOnCharacterClick">Сначала создайте цель!</string>
-    <string name="activityTitleChangeCharacter">Настройки</string>
-    <string name="titleChangeCharacter">Сменить персонажа</string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Включить вибрацию</string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Включить звук</string>
     <string name="characterNameGriff">Грифф</string>
     <string name="characterNameMrKrabs">Мистер Краббс</string>
     <string name="characterNameScroogeMcDuck">Скурдж Макдак</string>
-    <string name="toastNoCharacterChangeCharacterActivity">Вы должны выбрать персонажа</string>
     <string name="cancel">Отмена</string>
     <string name="activityTitleGoalsList">Список целей</string>
-    <string name="firstbuttongoalslist">Первая цель</string>
-    <string name="secondbuttongoalslist">Вторая цель</string>
-    <string name="thirdbuttongoalslist">Третья цель</string>
-    <string name="progressBarText">накоплено</string>
-    <string name="alreadyFinished">Закончено!</string>
+    <string name="ok">Ок</string>
+    <string name="add">Добавить</string>
+    <string name="remove">Убавить</string>
+    <string name="titleSettings">Настройки</string>
+    <string name="activityHintGoals">Цели</string>
+    <string name="characterNameBooba">Буба</string>
 </resources>

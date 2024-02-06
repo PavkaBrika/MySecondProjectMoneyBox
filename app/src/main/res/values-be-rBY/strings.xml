@@ -14,7 +14,6 @@
     <string name="alertDialogMessage">Скінуць вашу скарбонку?</string>
     <string name="alertDialogPositiveButton">Так</string>
     <string name="alertDialogNegativeButton">Не</string>
-    <string name="alertDialogTitleNewGoal">Стварыць новую мэту</string>
     <string name="alertDialogMessageNewGoal">Скончыце або Скіньце мінулую мэту</string>
     <string name="activityTitleNewGoal">Стварыць новую мэту</string>
     <string name="activityTitleAddMoney">Дадаць/Адняць</string>
@@ -23,19 +22,17 @@
     <string name="toastNoTargetNewGoalActivity">Вы павінны ўвесці мэта!</string>
     <string name="toastNoCostNewGoalActivity">Вы павінны ўвесці кошт!</string>
     <string name="toastOnCharacterClick">Спачатку стварыце мэта!</string>
-    <string name="activityTitleChangeCharacter">Наладжваньне</string>
-    <string name="titleChangeCharacter">Змяніць персанажа</string>
+    <string name="titleSettings">Налады</string>
     <string name="checkBoxTextEnableVibrationChangeCharacter">Ўключыць вібрацыю</string>
     <string name="checkBoxTextEnableSoundChangeCharacter">Уключыць гук</string>
     <string name="characterNameGriff">Грифф</string>
     <string name="characterNameMrKrabs">Мистер Краббс</string>
     <string name="characterNameScroogeMcDuck">Скурдж Макдак</string>
-    <string name="toastNoCharacterChangeCharacterActivity">Вы павінны выбраць персанажа</string>
     <string name="cancel">Адмена</string>
     <string name="activityTitleGoalsList">Спіс мэтаў</string>
-    <string name="firstbuttongoalslist">Першая мэта</string>
-    <string name="secondbuttongoalslist">Другая мэта</string>
-    <string name="thirdbuttongoalslist">Трэцяя мэта</string>
-    <string name="progressBarText">ужо назапашана</string>
-    <string name="alreadyFinished">Скончана!</string>
+    <string name="ok">Ок</string>
+    <string name="add">Дадаць</string>
+    <string name="remove">Зменшыць</string>
+    <string name="activityHintGoals">Мэты</string>
+    <string name="characterNameBooba">Буба</string>
 </resources>

@@ -1,42 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dp">
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="4dp"
-        android:text="@string/titleChangeCharacter"
-        style="@style/ChangeCharacterActivityTextColor"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="20dp"
-        style="@style/ChangeCharacterActivityBackgroundTextViewColor" />
+        android:layout_marginBottom="16dp"
+        android:text="@string/titleSettings"
+        android:textSize="24sp" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
 
         <RadioButton
             android:id="@+id/griffButton"
             android:checked="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             android:text="@string/characterNameGriff"
             style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
 
@@ -44,8 +30,6 @@
             android:id="@+id/mrkrabsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:text="@string/characterNameMrKrabs"
             style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
 
@@ -53,19 +37,25 @@
             android:id="@+id/mcduckButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             android:text="@string/characterNameScroogeMcDuck"
+            style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
+
+        <RadioButton
+            android:id="@+id/boobaButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/characterNameBooba"
             style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
 
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        style="@style/ChangeCharacterActivityBackgroundTextViewColor" />
+        style="@style/ChangeCharacterActivityBackgroundTextViewColor"
+        />
 
     <CheckBox
         android:id="@+id/checkBoxEnableVibration"
@@ -73,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="@string/checkBoxTextEnableVibrationChangeCharacter"
         android:checked="true"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
 
     <CheckBox
@@ -82,45 +72,34 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:text="@string/checkBoxTextEnableSoundChangeCharacter"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
         style="@style/ChangeCharacterActivityTextAndRadioButtonColor"/>
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="20dp"
-        style="@style/ChangeCharacterActivityBackgroundTextViewColor" />
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_marginTop="24dp">
 
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:text="@string/cancel"
-            style="@style/ButtonsColor"/>
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonOk"
+            style="@style/FilledButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="2dp"
-            android:text="OK"
-            style="@style/ButtonsColor"/>
+            android:text="@string/ok"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCancel"
+            style="@style/OutlineButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonOk"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
