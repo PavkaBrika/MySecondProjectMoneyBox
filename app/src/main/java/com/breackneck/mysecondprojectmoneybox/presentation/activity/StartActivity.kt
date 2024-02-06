@@ -67,7 +67,7 @@ class StartActivity : AppCompatActivity() {
         Appodeal.initialize(
             this,
             "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1",
-            Appodeal.INTERSTITIAL or Appodeal.BANNER_BOTTOM or Appodeal.SKIPPABLE_VIDEO,
+            Appodeal.INTERSTITIAL or Appodeal.BANNER_BOTTOM,
             object : ApdInitializationCallback {
                 override fun onInitializationFinished(errors: List<ApdInitializationError>?) {
                     Log.e("TAG", "Appodeal initialized")
