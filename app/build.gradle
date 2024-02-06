@@ -12,14 +12,13 @@ android {
         targetSdk 34
         versionCode 9
         versionName "4.1"
-
+        setProperty("archivesBaseName", "SimpleSave-v$versionName($versionCode)")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
