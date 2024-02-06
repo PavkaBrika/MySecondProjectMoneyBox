@@ -30,6 +30,8 @@ import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.GetButtonClicksQ
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.SetButtonClickQuantityUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -268,8 +270,10 @@ class StartActivity : AppCompatActivity() {
 
         val buttonOk = bottomSheetDialogNewGoal.findViewById<Button>(R.id.buttonOk)
         val buttonCancel = bottomSheetDialogNewGoal.findViewById<Button>(R.id.buttonCancel)
-        val itemEditText = bottomSheetDialogNewGoal.findViewById<EditText>(R.id.edittextItem)
-        val costEditText = bottomSheetDialogNewGoal.findViewById<EditText>(R.id.edittextCost)
+        val itemEditText = bottomSheetDialogNewGoal.findViewById<TextInputEditText>(R.id.edittextItem)
+        val costEditText = bottomSheetDialogNewGoal.findViewById<TextInputEditText>(R.id.edittextCost)
+        val itemInputLayout = bottomSheetDialogNewGoal.findViewById<TextInputLayout>(R.id.itemInputLayout)
+        val costInputLayout = bottomSheetDialogNewGoal.findViewById<TextInputLayout>(R.id.costInputLayout)
 
         buttonCancel!!.setOnClickListener {
             bottomSheetDialogNewGoal.dismiss()
@@ -291,13 +295,15 @@ class StartActivity : AppCompatActivity() {
                 showThoughts()
                 bottomSheetDialogNewGoal.cancel()
                 showInterstitialAd()
-            } else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
-                Toast.makeText(this, R.string.toastNoInfoNewGoalActivity, Toast.LENGTH_SHORT).show()
-            else if ((itemEditText.text.toString() == "") && (costEditText!!.text.toString() != ""))
-                Toast.makeText(this, R.string.toastNoTargetNewGoalActivity, Toast.LENGTH_SHORT)
-                    .show();
-            else if ((itemEditText.text.toString() != "") && (costEditText!!.text.toString() == "") && (costEditText.text.toString() == "."))
-                Toast.makeText(this, R.string.toastNoCostNewGoalActivity, Toast.LENGTH_SHORT).show()
+            }
+            if (itemEditText.text.toString() == "")
+                itemInputLayout!!.error = getString(R.string.toastNoTargetNewGoalActivity)
+            else
+                itemInputLayout!!.error = ""
+            if ((costEditText!!.text.toString() == "") || (costEditText.text.toString() == "."))
+                costInputLayout!!.error = getString(R.string.toastNoCostNewGoalActivity)
+            else
+                costInputLayout!!.error = ""
         }
 
         bottomSheetDialogNewGoal.show()
@@ -310,6 +316,7 @@ class StartActivity : AppCompatActivity() {
         bottomSheetDialogAddMoney.setContentView(R.layout.addmoneyactivity)
 
         val moneyEditText = bottomSheetDialogAddMoney.findViewById<EditText>(R.id.editTextAddMoney)
+        val addMoneyInputLayout = bottomSheetDialogAddMoney.findViewById<TextInputLayout>(R.id.addMoneyInputLayout)
         val minusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonMinus)
         val plusButton = bottomSheetDialogAddMoney.findViewById<Button>(R.id.buttonPlus)
 
@@ -325,6 +332,7 @@ class StartActivity : AppCompatActivity() {
 
         plusButton!!.setOnClickListener {
             if (moneyEditText.text.toString() != "") {
+                addMoneyInputLayout!!.error = ""
                 lifecycleScope.launch(Dispatchers.IO) {
                     changeMoney.execute(
                         id = id,
@@ -342,12 +350,13 @@ class StartActivity : AppCompatActivity() {
                 bottomSheetDialogAddMoney.cancel()
                 showInterstitialAd()
             } else {
-                Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
+                addMoneyInputLayout!!.error = getString(R.string.toastAdd)
             }
         }
 
         minusButton!!.setOnClickListener {
             if (moneyEditText.text.toString() != "") {
+                addMoneyInputLayout!!.error = ""
                 lifecycleScope.launch(Dispatchers.IO) {
                     changeMoney.execute(
                         id = id,
@@ -360,7 +369,7 @@ class StartActivity : AppCompatActivity() {
                 bottomSheetDialogAddMoney.cancel()
                 showInterstitialAd()
             } else {
-                Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show()
+                addMoneyInputLayout!!.error = getString(R.string.toastAdd)
             }
         }
 
