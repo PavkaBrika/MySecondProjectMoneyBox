@@ -10,8 +10,8 @@ android {
         applicationId "com.breackneck.mysecondprojectmoneybox"
         minSdk 26
         targetSdk 34
-        versionCode 9
-        versionName "4.1"
+        versionCode 10
+        versionName "4.2"
         setProperty("archivesBaseName", "SimpleSave-v$versionName($versionCode)")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
