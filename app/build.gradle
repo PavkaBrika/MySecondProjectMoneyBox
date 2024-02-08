@@ -69,4 +69,7 @@ dependencies {
     implementation 'com.appodeal.ads.sdk.networks:vast:3.0.2.0'
     implementation 'com.appodeal.ads.sdk.networks:vungle:3.2.0.0'
     implementation 'com.appodeal.ads.sdk.networks:yandex:3.2.0.0'
+
+    //Yandex Mobile Ads
+    implementation 'com.yandex.android:mobileads:6.3.0'
 }
