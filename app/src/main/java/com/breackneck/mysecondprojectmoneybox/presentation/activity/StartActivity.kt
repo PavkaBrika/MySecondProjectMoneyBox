@@ -16,9 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.appodeal.ads.Appodeal
-import com.appodeal.ads.initializing.ApdInitializationCallback
-import com.appodeal.ads.initializing.ApdInitializationError
 import com.breackneck.mysecondprojectmoneybox.R
 import com.breackneck.mysecondprojectmoneybox.adapter.GoalAdapter
 import com.breackneck.mysecondprojectmoneybox.databinding.ActivityMainBinding
@@ -26,17 +23,29 @@ import com.breackneck.mysecondprojectmoneybox.presentation.viewmodel.MainActivit
 import com.breckneck.mysecondprojectmoneybox.domain.model.GoalDomain
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.*
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.AddButtonClickQuantityUseCase
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.GetButtonClicksQuantityUseCase
-import com.breckneck.mysecondprojectmoneybox.domain.usecase.ads.SetButtonClickQuantityUseCase
 import com.breckneck.mysecondprojectmoneybox.domain.usecase.settings.*
+import com.breckneck.mysecondprojectmoneybox.domain.util.CLICKS_QUANTITY_FOR_AD_SHOW
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.yandex.mobile.ads.banner.BannerAdEventListener
+import com.yandex.mobile.ads.banner.BannerAdSize
+import com.yandex.mobile.ads.common.AdError
+import com.yandex.mobile.ads.common.AdRequest
+import com.yandex.mobile.ads.common.AdRequestConfiguration
+import com.yandex.mobile.ads.common.AdRequestError
+import com.yandex.mobile.ads.common.ImpressionData
+import com.yandex.mobile.ads.common.MobileAds
+import com.yandex.mobile.ads.interstitial.InterstitialAd
+import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener
+import com.yandex.mobile.ads.interstitial.InterstitialAdLoadListener
+import com.yandex.mobile.ads.interstitial.InterstitialAdLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 class StartActivity : AppCompatActivity() {
 
@@ -44,6 +53,11 @@ class StartActivity : AppCompatActivity() {
     private var id = 0
 
     private val decimalFormat = DecimalFormat("#.##")
+
+    private val bannerTAG = "BANNER AD"
+    private val interstitialTAG = "INTERSTITIAL AD"
+    private var interstitialAd: InterstitialAd? = null
+    private var interstitialAdLoader: InterstitialAdLoader? = null
 
     private lateinit var countDownTimer: CountDownTimer
 
@@ -55,26 +69,109 @@ class StartActivity : AppCompatActivity() {
     private val getLastShowGoalUseCase: GetLastShowGoalUseCase by inject()
     private val setLastShowGoalIdUseCase: SetLastShowGoalIdUseCase by inject()
     private val addButtonClickQuantityUseCase: AddButtonClickQuantityUseCase by inject()
-    private val getButtonClickQuantityUseCase: GetButtonClicksQuantityUseCase by inject()
-    private val setButtonClicksQuantityUseCase: SetButtonClickQuantityUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        /**
+         * YANDEX MOBILE ADVERTISEMENT
+         */
+        MobileAds.setUserConsent(false)
+        val adRequestBuild = AdRequest.Builder().build()
+        val adWidthPixels =
+            if (binding.root.width == 0)
+                resources.displayMetrics.widthPixels
+            else
+                findViewById<RelativeLayout>(R.id.rootLayout).width
+        val adWidth = (adWidthPixels / resources.displayMetrics.density).roundToInt()
+        binding.bannerAdView.apply {
+            setAdUnitId("R-M-1611210-2")
+//            setAdUnitId("R-M-DEMO-320x50")
+            setAdSize(BannerAdSize.stickySize(applicationContext, adWidth))
+            setBannerAdEventListener(object : BannerAdEventListener {
+                override fun onAdLoaded() {
+                    Log.e(bannerTAG, "BANNER LOADED")
+                    if (isDestroyed) {
+                        binding.bannerAdView.destroy()
+                        return
+                    }
+                }
 
-        Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug)
-        Appodeal.setChildDirectedTreatment(false)
-        Appodeal.muteVideosIfCallsMuted(true)
-        Appodeal.initialize(
-            this,
-            "ef7385950c135b27e91511adc3bbb22b25cf7edc8b5c70a1",
-            Appodeal.INTERSTITIAL or Appodeal.BANNER_BOTTOM,
-            object : ApdInitializationCallback {
-                override fun onInitializationFinished(errors: List<ApdInitializationError>?) {
-                    Log.e("TAG", "Appodeal initialized")
+                override fun onAdFailedToLoad(p0: AdRequestError) {
+                    Log.e(bannerTAG, "BANNER LOAD FAILED")
+                }
+
+                override fun onAdClicked() {
+                    Log.e(bannerTAG, "BANNER CLICKED")
+                }
+
+                override fun onLeftApplication() {
+                    Log.e(bannerTAG, "BANNER LEFT")
+                }
+
+                override fun onReturnedToApplication() {
+                    Log.e(bannerTAG, "BANNER RETURN")
+                }
+
+                override fun onImpression(p0: ImpressionData?) {
+                    Log.e(bannerTAG, "BANNER IMPRESSION")
                 }
             })
+            loadAd(adRequestBuild)
+        }
+
+        interstitialAdLoader = InterstitialAdLoader(applicationContext).apply {
+            setAdLoadListener(object: InterstitialAdLoadListener {
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Log.e(interstitialTAG, "Interstitial ad load success")
+                    this@StartActivity.interstitialAd = interstitialAd
+                }
+
+                override fun onAdFailedToLoad(p0: AdRequestError) {
+                    Log.e(interstitialTAG, "Interstitial ad load failed")
+                }
+            })
+        }
+        loadInterstitialAd()
+
+        vm.actionClickQuantity.observe(this) { quantity ->
+            if (interstitialAd != null) {
+                if (quantity >= CLICKS_QUANTITY_FOR_AD_SHOW) {
+                    interstitialAd?.apply {
+                        setAdEventListener(object: InterstitialAdEventListener {
+                            override fun onAdShown() {
+                                Log.e(interstitialTAG, "Interstitial ad shown")
+                                vm.refreshActionClickQuantity()
+                            }
+
+                            override fun onAdFailedToShow(p0: AdError) {
+                                Log.e(interstitialTAG, "Interstitial ad failed to show")
+                            }
+
+                            override fun onAdDismissed() {
+                                Log.e(interstitialTAG, "Interstitial ad dismissed")
+                                interstitialAd?.setAdEventListener(null)
+                                interstitialAd = null
+                                loadInterstitialAd()
+                            }
+
+                            override fun onAdClicked() {
+                                Log.e(interstitialTAG, "Interstitial ad clicked")
+                            }
+
+                            override fun onAdImpression(p0: ImpressionData?) {
+                                Log.e(interstitialTAG, "Interstitial ad impression")
+                            }
+                        })
+                        show(this@StartActivity)
+                    }
+                }
+            }
+        }
+        /**
+         * YANDEX MOBILE ADVERTISEMENT
+         */
 
         val checkMainActivity: CheckMainActivityUseCase by inject()
         val migration: MigrationUseCase by inject()
@@ -144,6 +241,7 @@ class StartActivity : AppCompatActivity() {
         binding.buttonSettings.setOnClickListener {
             showSettingsBottomSheetDialog()
             addButtonClickQuantityUseCase.execute()
+            vm.incrementActionClickQuantity()
         }
 
         binding.imageViewCharacter.setOnClickListener {
@@ -175,16 +273,19 @@ class StartActivity : AppCompatActivity() {
         binding.buttonAddSubMoney.setOnClickListener {
             showAddMoneyBottomSheetDialog()
             addButtonClickQuantityUseCase.execute()
+            vm.incrementActionClickQuantity()
         }
 
         binding.buttonReset.setOnClickListener {
             showResetBottomSheetDialog()
             addButtonClickQuantityUseCase.execute()
+            vm.incrementActionClickQuantity()
         }
 
         binding.buttonGoalsList.setOnClickListener {
             showGoalsListBottomSheetDialog()
             addButtonClickQuantityUseCase.execute()
+            vm.incrementActionClickQuantity()
         }
 
         countDownTimer = object : CountDownTimer(6000, 1000) {
@@ -202,7 +303,11 @@ class StartActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         vm.getGoal(id = id)
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM)
+    }
+
+    private fun loadInterstitialAd() {
+        val adRequestConfiguration = AdRequestConfiguration.Builder("R-M-1611210-3").build()
+        interstitialAdLoader?.loadAd(adRequestConfiguration)
     }
 
     private fun startVibration(vibrationEffect: Int, enabled: Boolean) {
@@ -294,7 +399,6 @@ class StartActivity : AppCompatActivity() {
                 }
                 showThoughts()
                 bottomSheetDialogNewGoal.cancel()
-                showInterstitialAd()
             }
             if (itemEditText.text.toString() == "")
                 itemInputLayout!!.error = getString(R.string.toastNoTargetNewGoalActivity)
@@ -348,7 +452,6 @@ class StartActivity : AppCompatActivity() {
                 else
                     startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
                 bottomSheetDialogAddMoney.cancel()
-                showInterstitialAd()
             } else {
                 addMoneyInputLayout!!.error = getString(R.string.toastAdd)
             }
@@ -367,7 +470,6 @@ class StartActivity : AppCompatActivity() {
                 }
                 startAudio(getAudio.execute())
                 bottomSheetDialogAddMoney.cancel()
-                showInterstitialAd()
             } else {
                 addMoneyInputLayout!!.error = getString(R.string.toastAdd)
             }
@@ -395,7 +497,6 @@ class StartActivity : AppCompatActivity() {
                 hideThoughts()
             startVibration(VibrationEffect.DEFAULT_AMPLITUDE, getVibro.execute())
             bottomSheetDialogReset.cancel()
-            showInterstitialAd()
         }
 
         cancelButton!!.setOnClickListener {
@@ -420,7 +521,6 @@ class StartActivity : AppCompatActivity() {
             id = 0
             vm.getGoal(id = id)
             bottomSheetDialogGoalsList.cancel()
-            showInterstitialAd()
         }
 
         val onGoalClickListener = object : GoalAdapter.OnGoalClickListener {
@@ -430,7 +530,6 @@ class StartActivity : AppCompatActivity() {
                 setLastShowGoalIdUseCase.execute(id = id)
                 showThoughts()
                 bottomSheetDialogGoalsList.cancel()
-                showInterstitialAd()
             }
         }
 
@@ -489,7 +588,6 @@ class StartActivity : AppCompatActivity() {
                 setCharacter.execute(4)
             vm.getCharacter()
             bottomSheetDialogSettings.cancel()
-            showInterstitialAd()
         }
 
         cancelButton!!.setOnClickListener {
@@ -535,14 +633,6 @@ class StartActivity : AppCompatActivity() {
         binding.costEditText.visibility = View.INVISIBLE
         binding.leftTextView.visibility = View.INVISIBLE
         countDownTimer.cancel()
-    }
-
-    private fun showInterstitialAd() {
-        val hello = getButtonClickQuantityUseCase.execute()
-        if ((hello >= 15) && (Appodeal.isLoaded(Appodeal.INTERSTITIAL))) {
-            Appodeal.show(this, Appodeal.INTERSTITIAL)
-            setButtonClicksQuantityUseCase.execute(0)
-        }
     }
 
     private fun setCoinsInJar(cost: Double, money: Double) {
